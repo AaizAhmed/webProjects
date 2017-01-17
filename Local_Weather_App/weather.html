@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title> Local Weather </title>
+	<link rel="stylesheet" type="text/css" href="CSS_and_JS/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script
+  		src="https://code.jquery.com/jquery-3.1.1.js"
+  		integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  		crossorigin="anonymous">
+  	</script>
+  	<script type="text/javascript" src="CSS_and_JS/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="weatherjs"></script>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+<!-- <a href="http://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal">
+
+By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) 
+which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy 
+Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+
+</a>
+<div id="awcc1484674722777" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" 
+data-useip="true" data-uid="awcc1484674722777"> </div>
+<script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script> -->
+
+<div id="location">
+
+  <h1> Location </h1>
+
+  <script> getLocation(); </script>
+
+</div>
+
+<div class="row" id="temp">
+  
+  <div class="col-xs-4" id="tempVal">
+    <h2>  Temperature  </h2>
+  </div>
+
+  <div class="col-xs-2">
+
+  <button type="button"  class="btn btn-primary" id="convert" onclick="convertTemp()"> 
+     F/C      
+  </button>
+  
+  </div>
+
+</div> 	
+
+<!-- Div with 3 coloumns. -->
+
+<div class="row" id="details">
+  
+<div class="col-xs-4 design"> Sunny </div>
+
+<div class="col-xs-3 design"> Wind </div>
+
+<div class="col-xs-4 design"> Humidity </div>
+
+</div>
+	
+
+
+</div>
+
+</body>
+</html>
