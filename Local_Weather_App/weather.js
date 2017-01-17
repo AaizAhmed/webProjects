@@ -18,7 +18,7 @@ function getLocation()
 	}
 }
 
-function getValues()
+function getValues(position)
 {
 	var lati  = position.coords.latitude;
     var longi = position.coords.longitude;
@@ -26,8 +26,9 @@ function getValues()
     var str = 'api.openweathermap.org/data/2.5/weather?';
     str += 'lat=' + lati + '&lon=' + longi;
     
-    output.innerHTML = str;
-    ('#location').write(str);
+    //Get location and add it here
+    $("#location").text("str Aaiz");
+
     return str;
 }
 
