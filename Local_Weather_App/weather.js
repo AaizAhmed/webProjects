@@ -39,7 +39,6 @@ function getDefaultWeather(data)
 	$("#humi").append( data.main.humidity + " %");
 } 
 
-
 function getLocation()
 {
 	if(navigator.geolocation)
@@ -68,7 +67,7 @@ function getValues(position)
 
 function getWeather(data)
 {
-	console.log(data);
+	//console.log(data);
 	
 	//Adding Location
     $("#location").text(data["name"] + ', ' + data["sys"]["country"]);
@@ -81,12 +80,9 @@ function getWeather(data)
 	var iconUrl = 'http://openweathermap.org/img/w/' + data["weather"][0]["icon"] + '.png';
 	var addIcon = '<img id="img1" src="' + iconUrl + '">';
 	
-	document.getElementById("weatherIcon").innerHTML = "";
-	$("#weatherIcon").append(addIcon);
+	$("#weatherIcon").html(addIcon);
 
-	//Adding weather details
-	//$("#desc").text( data["weather"][0]["description"] );
-
+	//Capatalizing 1st letter of words in description.
 	var arr =  data["weather"][0]["description"].split(' ');
 	var finalDesc = '';
 	for (var i = 0; i < arr.length; i++)
@@ -94,14 +90,10 @@ function getWeather(data)
 		finalDesc += arr[i][0].toUpperCase() + arr[i].substring(1, arr[i].length) + ' ';  
 	}
 
+	//Adding weather details
 	$("#desc").text( finalDesc );
-
-	// innerHTML over writes whereas append adds to the element.
-	document.getElementById("wind").innerHTML = "Wind " + data["wind"]["speed"] + " mph";
-	//$("#wind").append( data["wind"]["speed"] + " mph");
-	
-	document.getElementById("humi").innerHTML = "Humidity " + data.main.humidity + " %";
-	//$("#humi").append( data.main.humidity + " %"); 
+	$("#wind").text( "Wind " + data["wind"]["speed"] + " mph" );
+	$("#humi").text( "Humidity " + data.main.humidity + " %");
 }
 
 function convertTemp()
