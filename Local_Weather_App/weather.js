@@ -22,17 +22,28 @@ function getValues(position)
 {
 	var lati  = position.coords.latitude;
     var longi = position.coords.longitude;
-    
-    var str = 'api.openweathermap.org/data/2.5/weather?';
-    str += 'lat=' + lati + '&lon=' + longi;
-    
-    //Get location and add it here
-    $("#location").text("str Aaiz");
 
-    return str;
+	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    
+    var url = 'http://api.openweathermap.org/data/2.5/weather?';
+    
+    url += 'lat=' + lati + '&lon=' + longi + key;
+   
+    $.getJSON(url, getWeather);   
+
+    return url;
+}
+
+function getWeather(data)
+{
+	console.log(data["main"]["temp"]);
+	//Get location and add it here
+    $("#location").text(data["name"] + ', ' + data["sys"]["country"]);
+	$("#tempVal").text(data["main"]["temp"]);
 }
 
 function error() 
 {
     output.innerHTML = "Unable to retrieve your location";
 }
+
+// $('.allow').on('click', getLocation() );

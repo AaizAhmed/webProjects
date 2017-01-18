@@ -1,3 +1,24 @@
+.allow 
+{
+    margin-bottom: 15px;
+    padding: 15px;
+    display: inline-block;
+    background-color: #1ed643;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    &:hover {
+      background-color: darken(#1ed643, 5%);
+    }
+    &:active {
+      background-color: darken(#1ed643, 10%);
+      box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+    }
+  }
+
 body
 {
 	//background-image: url(https://report.az/storage/news/082b3c3b7cf1b41dd386f6724042ae7d/b03398df-155f-4075-846b-0e393f599f92.jpg);
@@ -6,22 +27,25 @@ body
 
 #location
 {
-	margin-top: 5%;
+  margin-top: 10%;
+  font-family: "Time New Roman";
+  font-size: 40px;
 }
 
 #temp
 {
 	margin-top: 5%;
+	margin-left: 20%;	
 }
 
 #tempVal
 {	
-	margin-left: 25%;
+  //padding-bottom: 15%;
 }
 
 #convert
 {
-	margin-top: 15%;
+	margin-top: 5%;
 }
 
 #details
