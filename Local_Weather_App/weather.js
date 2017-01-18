@@ -1,8 +1,6 @@
 /*
 	Author: Aaiz Ahmed
 	Date: January 17, 2017
-	https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation
-	http://www.w3schools.com/html/html5_geolocation.asp
 */
 
 function getLocation()
@@ -13,7 +11,7 @@ function getLocation()
 	}
 	else
 	{
-		output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+		alert("Geolocation is not supported by your browser");
     	return;
 	}
 }
@@ -42,12 +40,26 @@ function getWeather(data)
 	
 	//Adding Temperature
 	var temp = Math.round( data["main"]["temp"] );
-	
 	$("#tempVal").text(temp);
 
-	$("#desc").text( data["weather"][0]["description"] );
-	$("#wind").append( data["wind"]["speed"] );
-	$("#humi").text( data.main.humidity); //["weather"][0]["description"] );
+	//Adding Icon
+	var iconUrl = 'http://openweathermap.org/img/w/' + data["weather"][0]["icon"] + '.png';
+	var addIcon = '<img id="img1" src="' + iconUrl + '">';
+	$("#weatherIcon").append(addIcon);
+
+	//Adding weather details
+	//$("#desc").text( data["weather"][0]["description"] );
+
+	var arr =  data["weather"][0]["description"].split(' ');
+	var finalDesc = '';
+	for (var i = 0; i < arr.length; i++)
+	{
+		finalDesc += arr[i][0].toUpperCase() + arr[i].substring(1, arr[i].length) + ' ';  
+	}
+
+	$("#desc").text( finalDesc );
+	$("#wind").append( data["wind"]["speed"] + " mph");
+	$("#humi").append( data.main.humidity); 
 }
 
 function convertTemp()
@@ -68,7 +80,5 @@ function convertTemp()
 
 function error() 
 {
-    output.innerHTML = "Unable to retrieve your location";
+    alert("Unable to retrieve your location");
 }
-
-// $('.allow').on('click', getLocation() );

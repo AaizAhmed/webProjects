@@ -21,7 +21,7 @@
 
 body
 {
-	//background-image: url(https://report.az/storage/news/082b3c3b7cf1b41dd386f6724042ae7d/b03398df-155f-4075-846b-0e393f599f92.jpg);
+	background-image: url(https://report.az/storage/news/082b3c3b7cf1b41dd386f6724042ae7d/b03398df-155f-4075-846b-0e393f599f92.jpg);
 	text-align: center;
 }
 
@@ -39,8 +39,8 @@ body
 }
 
 #tempVal
-{	
-  //padding-bottom: 15%;
+{
+	font-size: 30px;	
 }
 
 #convert
@@ -57,6 +57,7 @@ body
 
 .design
 {
+	font-size: 20px;
 	margin-right: 2%;
 	border-radius: 8%;
 	border-color: black;
