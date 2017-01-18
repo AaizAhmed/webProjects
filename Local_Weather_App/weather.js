@@ -3,6 +3,43 @@
 	Date: January 17, 2017
 */
 
+function defaultWeather ()
+{
+	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    
+    var url = 'http://api.openweathermap.org/data/2.5/weather?id=4140963&units=imperial';
+    url += key;
+    
+    $.getJSON(url, getDefaultWeather); 
+}
+    
+function getDefaultWeather(data)
+{
+    //Adding Location
+    $("#location").text(data["name"] + ', ' + data["sys"]["country"]);
+	
+	//Adding Temperature
+	var temp = Math.round( data["main"]["temp"] );
+	$("#tempVal").text(temp);
+
+	//Adding Icon
+	var iconUrl = 'http://openweathermap.org/img/w/' + data["weather"][0]["icon"] + '.png';
+	var addIcon = '<img id="img1" src="' + iconUrl + '">';
+	$("#weatherIcon").append(addIcon);
+
+	//Adding details
+	var arr =  data["weather"][0]["description"].split(' ');
+	var finalDesc = '';
+	for (var i = 0; i < arr.length; i++)
+	{
+		finalDesc += arr[i][0].toUpperCase() + arr[i].substring(1, arr[i].length) + ' ';  
+	}
+
+	$("#desc").text( finalDesc );
+	$("#wind").append( data["wind"]["speed"] + " mph");
+	$("#humi").append( data.main.humidity + " %");
+} 
+
+
 function getLocation()
 {
 	if(navigator.geolocation)
@@ -27,8 +64,6 @@ function getValues(position)
     url += 'lat=' + lati + '&lon=' + longi + '&units=imperial' + key;
    
     $.getJSON(url, getWeather);   
-
-    return url;
 }
 
 function getWeather(data)
@@ -45,6 +80,8 @@ function getWeather(data)
 	//Adding Icon
 	var iconUrl = 'http://openweathermap.org/img/w/' + data["weather"][0]["icon"] + '.png';
 	var addIcon = '<img id="img1" src="' + iconUrl + '">';
+	
+	document.getElementById("weatherIcon").innerHTML = "";
 	$("#weatherIcon").append(addIcon);
 
 	//Adding weather details
@@ -58,8 +95,13 @@ function getWeather(data)
 	}
 
 	$("#desc").text( finalDesc );
-	$("#wind").append( data["wind"]["speed"] + " mph");
-	$("#humi").append( data.main.humidity); 
+
+	// innerHTML over writes whereas append adds to the element.
+	document.getElementById("wind").innerHTML = "Wind " + data["wind"]["speed"] + " mph";
+	//$("#wind").append( data["wind"]["speed"] + " mph");
+	
+	document.getElementById("humi").innerHTML = "Humidity " + data.main.humidity + " %";
+	//$("#humi").append( data.main.humidity + " %"); 
 }
 
 function convertTemp()
@@ -75,7 +117,8 @@ function convertTemp()
 		temp = Math.round( (temp * 9/5) + 32 );
 	}
 
-	$("#tempVal").text(temp);
+	if (!isNaN(temp)) 	
+	{	$("#tempVal").text(temp);	}
 }
 
 function error() 
