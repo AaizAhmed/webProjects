@@ -25,7 +25,7 @@
  <script> getLocation(); </script>
 
   <p> <strong> Location  </strong> </p>
-  <a href="#" class="btn allow">Get my location!</a>
+  <!-- <a href="#" class="btn allow">Get my location!</a> -->
 
 </div>
 
@@ -35,11 +35,14 @@
     <h4> <strong>  Temperature </strong>  </h4>
   </div>
 
-  <div class="col-xs-2">
+  <div class="col-xs-3">
 
-  <button type="button"  class="btn btn-primary" id="convert" onclick="convertTemp()"> 
+  <!-- <button type="button"  class="btn btn-primary" id="convert" onclick="convertTemp()"> 
      F/C      
-  </button>
+  </button> -->
+
+  <label><input type="radio" name="F/C" onclick="convertTemp()" checked value="F"> F </label>
+  <label><input type="radio" name="F/C" onclick="convertTemp()" value="C"> C </label>
   
   </div>
 
@@ -47,13 +50,13 @@
 
 <!-- Div with 3 coloumns. -->
 
-<div class="row" id="details">
+<div class="row">
   
-<div class="col-xs-4 design"> Sunny </div>
+<div class="col-xs-4 design" id="desc"> Sunny </div>
 
-<div class="col-xs-3 design"> Wind </div>
+<div class="col-xs-3 design" id="wind"> Wind </div>
 
-<div class="col-xs-4 design"> Humidity </div>
+<div class="col-xs-4 design" id="humi"> Humidity </div>
 
 </div>
 

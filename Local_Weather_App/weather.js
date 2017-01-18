@@ -26,7 +26,7 @@ function getValues(position)
 	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    
     var url = 'http://api.openweathermap.org/data/2.5/weather?';
     
-    url += 'lat=' + lati + '&lon=' + longi + key;
+    url += 'lat=' + lati + '&lon=' + longi + '&units=imperial' + key;
    
     $.getJSON(url, getWeather);   
 
@@ -35,10 +35,35 @@ function getValues(position)
 
 function getWeather(data)
 {
-	console.log(data["main"]["temp"]);
-	//Get location and add it here
+	console.log(data);
+	
+	//Adding Location
     $("#location").text(data["name"] + ', ' + data["sys"]["country"]);
-	$("#tempVal").text(data["main"]["temp"]);
+	
+	//Adding Temperature
+	var temp = Math.round( data["main"]["temp"] );
+	
+	$("#tempVal").text(temp);
+
+	$("#desc").text( data["weather"][0]["description"] );
+	$("#wind").append( data["wind"]["speed"] );
+	$("#humi").text( data.main.humidity); //["weather"][0]["description"] );
+}
+
+function convertTemp()
+{
+	var temp = document.getElementById("tempVal").innerHTML;
+
+	if ($( "input[name='F/C']:checked" ).val() == 'C')
+	{
+		temp = Math.round( (temp - 32) * 5/9 );
+	}
+	else
+	{
+		temp = Math.round( (temp * 9/5) + 32 );
+	}
+
+	$("#tempVal").text(temp);
 }
 
 function error() 
