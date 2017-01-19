@@ -1,6 +1,5 @@
 .allow 
-{
-    margin-bottom: 15px;
+{   margin-bottom: 15px;
     padding: 15px;
     display: inline-block;
     background-color: #1ed643;
@@ -20,8 +19,7 @@
   }
 
 #httpError
-{
-  //padding-top: 5%;
+{  
   font-size: 30px;
   color: red;
 }
@@ -36,39 +34,31 @@ body
 
 #geoInfo
 {
-  margin-top: 10%;
+  margin-top: 5%;
   font-family: "Time New Roman";
   font-size: 40px;
 }
 
 #temp
 {
-  margin-top: 5%;
-  margin-left: 30%; 
+  width: 300px;
+  margin: auto;
+  margin-top: 2%;
+  border-color: black;
+  border-style: solid;
 }
 
 #tempVal
-{
+{ 
   font-size: 30px;  
-}
-
-#convert
-{
-  margin-top: 5%;
 }
 
 #details
 {
-  margin: 5% 2% 0px 2%;
-  padding: 0px 5% 0px 5%;
-
-}
-
-.design
-{
-  font-size: 20px;
-  margin-right: 2%;
-  border-radius: 8%;
+  margin: auto;
+  margin-top: 2%;
+  width: 375px;
   border-color: black;
   border-style: solid;
+  font-size: 20px;
 }
