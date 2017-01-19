@@ -5,15 +5,19 @@
 
 function defaultWeather ()
 {
-	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    
+	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    //D.C. ID: 4140963
     var url = 'http://api.openweathermap.org/data/2.5/weather?id=4140963&units=imperial';
     url += key;
     
     $.getJSON(url, getDefaultWeather); 
 }
     
-function getDefaultWeather(data)
+function getDefaultWeather(data)	
 {
+	//Adding background image.
+	var catogary = data["weather"][0]["main"];
+	setBackground (catogary);
+
     //Adding Location
     $("#location").text(data["name"] + ', ' + data["sys"]["country"]);
 	
@@ -78,6 +82,7 @@ function getValues(position)
 
 function getWeather(data)
 {
+	//Adding background image.
 	var catogary = data["weather"][0]["main"];
 	setBackground (catogary);
     
@@ -116,7 +121,7 @@ function setBackground(pick)
     	3. Rain
     	4. Snow
     	5. Atmosphare
-    	6. CLear
+    	6. Clear
     	7. Clouds
     	8. Extreme
     */
@@ -124,7 +129,32 @@ function setBackground(pick)
     {
     	case 'Clouds': 
     	{
-    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/clouds_heavy_storm_lightning_bad_weather_road_asphalt_lamps_55492_1920x1200.jpg')";
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/OverCast.jpg')";
+    		break;
+    	}
+    	case 'Thunderstorm': 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/ThunderstormSkyTrees.jpg')";
+    		break;
+    	}
+    	case 'Rain': 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/RainDropsSplashes.jpg')";
+    		break;
+    	}
+    	case 'Clear': 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/RainbowArch.jpg')";
+    		break;
+    	}
+    	case 'Snow': 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/SnowSnowflak.jpg')";
+    		break;
+    	}
+    	case 'Extreme': 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/Tornadoes.jpg')";
     		break;
     	}
     }

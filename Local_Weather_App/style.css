@@ -21,8 +21,10 @@
 
 body
 {
-	background-image: url(https://github.com/AaizAhmed/Images/blob/master/trees_field_meadow_grass_open_spaces_5607_1920x1200.jpg?raw=true);
-	text-align: center;
+	background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: block;
 }
 
 #location
@@ -35,7 +37,7 @@ body
 #temp
 {
 	margin-top: 5%;
-	margin-left: 10%;	
+	margin-left: 30%;	
 }
 
 #tempVal
