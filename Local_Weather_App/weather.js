@@ -3,13 +3,17 @@
 	Date: January 17, 2017
 */
 
+
+
 function defaultWeather ()
 {
 	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    //D.C. ID: 4140963
-    var url = 'http://api.openweathermap.org/data/2.5/weather?id=4140963&units=imperial';
+    var url = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?id=4140963&units=imperial';
     url += key;
     
     $.getJSON(url, getDefaultWeather); 
+  
+  return true;
 }
     
 function getDefaultWeather(data)	
@@ -41,18 +45,19 @@ function getDefaultWeather(data)
 	$("#desc").text( finalDesc );
 	$("#wind").append( data["wind"]["speed"] + " mph");
 	$("#humi").append( data.main.humidity + " %");
+  
+  return true;
 } 
 
 function getLocation()
 {
-	if(navigator.geolocation)
+  if(navigator.geolocation)
 	{
 		navigator.geolocation.getCurrentPosition(getValues, error);
 	}
 	else
 	{
 		alert("Geolocation is not supported by your browser");
-    	return;
 	}
 }
 
@@ -69,12 +74,12 @@ function getValues(position)
 	    {
 	    	//Adding Location
 	      $('#location').text(data.results[1].formatted_address); 
-			console.log(data.results[1].formatted_address);
+			  //console.log(data.results[1].formatted_address);
 	    }
-	);
+	); 
 
 	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    
-    var url = 'http://api.openweathermap.org/data/2.5/weather?';    
+    var url = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?';    
     url += 'lat=' + lati + '&lon=' + longi + '&units=imperial' + key;
    
     $.getJSON(url, getWeather);   
@@ -181,3 +186,20 @@ function error()
 {
     alert("Unable to retrieve your location");
 }
+
+// $("document").ready (function ()
+// {   
+//   if (window.location.protocol != "https:")
+//    {
+//             var msg = "For Current Location you need to use HTTPS.<br> Click here: ";
+//                 msg += "<a target='_blank' href='https://codepen.io/AaizAhmed/full/PWbKNY/'>Local Weather</a>";
+
+//           $("#httpError").html(msg);
+//             defaultWeather();
+//         } 
+//       else 
+//       { 
+//             getLocation(); 
+//       }
+
+// } );

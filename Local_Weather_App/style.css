@@ -19,15 +19,22 @@
     }
   }
 
+#httpError
+{
+  //padding-top: 5%;
+  font-size: 30px;
+  color: red;
+}
+
 body
 {
-	background-position: center;
+  background-position: center;
   background-repeat: no-repeat;
   text-align: center;
   display: block;
 }
 
-#location
+#geoInfo
 {
   margin-top: 10%;
   font-family: "Time New Roman";
@@ -36,32 +43,32 @@ body
 
 #temp
 {
-	margin-top: 5%;
-	margin-left: 30%;	
+  margin-top: 5%;
+  margin-left: 30%; 
 }
 
 #tempVal
 {
-	font-size: 30px;	
+  font-size: 30px;  
 }
 
 #convert
 {
-	margin-top: 5%;
+  margin-top: 5%;
 }
 
 #details
 {
-	margin: 5% 2% 0px 2%;
-	padding: 0px 5% 0px 5%;
+  margin: 5% 2% 0px 2%;
+  padding: 0px 5% 0px 5%;
 
 }
 
 .design
 {
-	font-size: 20px;
-	margin-right: 2%;
-	border-radius: 8%;
-	border-color: black;
-	border-style: solid;
+  font-size: 20px;
+  margin-right: 2%;
+  border-radius: 8%;
+  border-color: black;
+  border-style: solid;
 }
