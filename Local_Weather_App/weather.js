@@ -57,9 +57,21 @@ function getValues(position)
 	var lati  = position.coords.latitude;
     var longi = position.coords.longitude;
 
+	//Getting location from Google maps to include information like State and Zip code.
+    var urlLocation = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lati + ',' + longi + '&sensor=true';
+
+    $.getJSON 
+    ( urlLocation, function(data) 
+	    {
+	    	//Adding Location
+	      $('#location').text(data.results[1].formatted_address); 
+	console.log(data.results[1].formatted_address);
+
+	    }
+	);
+
 	var key = '&APPID=e579c8ec4536594e206ab2b517e975af';    
-    var url = 'http://api.openweathermap.org/data/2.5/weather?';
-    
+    var url = 'http://api.openweathermap.org/data/2.5/weather?';    
     url += 'lat=' + lati + '&lon=' + longi + '&units=imperial' + key;
    
     $.getJSON(url, getWeather);   
@@ -68,9 +80,6 @@ function getValues(position)
 function getWeather(data)
 {
 	//console.log(data);
-	
-	//Adding Location
-    $("#location").text(data["name"] + ', ' + data["sys"]["country"]);
 	
 	//Adding Temperature
 	var temp = Math.round( data["main"]["temp"] );
