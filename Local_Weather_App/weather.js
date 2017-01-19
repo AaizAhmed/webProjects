@@ -65,8 +65,7 @@ function getValues(position)
 	    {
 	    	//Adding Location
 	      $('#location').text(data.results[1].formatted_address); 
-	console.log(data.results[1].formatted_address);
-
+			console.log(data.results[1].formatted_address);
 	    }
 	);
 
@@ -79,7 +78,9 @@ function getValues(position)
 
 function getWeather(data)
 {
-	//console.log(data);
+	var catogary = data["weather"][0]["main"];
+	setBackground (catogary);
+    
 	
 	//Adding Temperature
 	var temp = Math.round( data["main"]["temp"] );
@@ -103,6 +104,30 @@ function getWeather(data)
 	$("#desc").text( finalDesc );
 	$("#wind").text( "Wind " + data["wind"]["speed"] + " mph" );
 	$("#humi").text( "Humidity " + data.main.humidity + " %");
+}
+
+function setBackground(pick)
+{
+	console.log(pick);
+	/*
+    	Backgrounds
+    	1. Thunderstorm
+    	2. Drizzle
+    	3. Rain
+    	4. Snow
+    	5. Atmosphare
+    	6. CLear
+    	7. Clouds
+    	8. Extreme
+    */
+    switch (pick)
+    {
+    	case 'Clouds': 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/clouds_heavy_storm_lightning_bad_weather_road_asphalt_lamps_55492_1920x1200.jpg')";
+    		break;
+    	}
+    }
 }
 
 function convertTemp()
