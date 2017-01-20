@@ -140,7 +140,7 @@ function setBackground(pick)
     	}
     	case 'Rain': 
     	{
-    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/RainDropsSplashes.jpg')";
+    	document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/RainDropsSplashes.jpg')";
     		
         //Changing weather display properties FF7F00 = orange
        $("#geoInfo").css('color', '	#FF7F00');
@@ -175,6 +175,12 @@ function setBackground(pick)
        $("#details").css('color', 'red');    
         
         break;
+    	}
+    	default: 
+    	{
+    		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/weather-wallpaper-19.jpg')";
+       		$("#details").css('font-weight', 'bold');   
+        	$("#geoInfo").css('color', 'white');
     	}
     }
 }
