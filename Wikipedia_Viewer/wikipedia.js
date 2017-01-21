@@ -1,4 +1,3 @@
-
 /*
 	Author: Aaiz N Ahmed
 	Data: January 20, 2017
@@ -9,7 +8,7 @@ function getInput ()
 	var word = document.getElementById('inputBox').value; 
 
 	var wikiUrl = 'http://www.wikipedia.org/w/api.php?action=opensearch&search=';
-	wikiUrl += word + '&limit=15&namespace=0&callback=getArticles';
+	wikiUrl += word + '&limit=12&namespace=0&callback=getArticles';
 
 	var tag = document.createElement("script");
 	tag.src = wikiUrl;
@@ -38,10 +37,41 @@ function getArticles(data)
 	}
 }
 
+function AddInputBox()
+{
+	//Removing Search icon.
+	$("#searchDiv").empty();
+
+	 //Creating input box
+	 var input = document.createElement("input");
+     input.type = "text";
+     input.name = "search";
+     input.class= "centerIt";
+     input.id = "inputBox";
+     input.placeholder="Type Here!"
+
+     var img = document.createElement("img");
+     img.src = "https://images.onlinelabels.com/images/clip-art/molumen/molumen_red_round_error_warning_icon_thumb.png";
+	 img.id = "closeIcon";
+
+	//Adding input box.
+	$("#inputWrapper").append(input);
+	$("#closeIconWrapper").append(img);
+}
+
+document.addEventListener('DOMContentLoaded', function()
+{
+
 $(document).keyup(function (event) 
 {
     if( $(".inputBox:focus") && (event.keyCode === 13)) 
     {
+       $("#displayWiki").empty();
        getInput();
     }
  });
+
+
+document.getElementById("searchIcon").addEventListener('click',function() { AddInputBox(); });
+
+});

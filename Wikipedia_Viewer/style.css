@@ -5,13 +5,13 @@ body
 
 #randomArticle
 {
-	margin-top: 8%;
+	margin-top: 15%;
 	text-align: center;  
 }
 
 #goDown
 {
-    margin-top: 8%;
+    margin-top: 15%;
     text-align: center;
 }
 
@@ -26,65 +26,128 @@ body
   color: black;
 }
 
+a:link
+{
+  text-decoration: none;
+}
+
 .makeBox
 {
   width: 80%;
   margin: auto;
   margin-top: 2%;
-  border-color: black;
-  border-style: solid;
   padding: 10px 10px 10px 15px;
-  //margin-bottom: 5px;
   background-color: white;
   color: black;
-  font-size: 16px;
+  font-size: 16px;  
 }
-h4 
+
+.makeBox:Hover 
+{
+  width: 82%;
+  font-size: 18px;
+  border-left-style: solid;
+  border-left-color: orange;
+  border-left-width: 5px;  
+}
+
+.makeBox h4 
 { 
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold; 
 }
 
-/*#articleText {
-    width: 800px;
-    height: 520px;
-    border: none;
-    -moz-transform: scale(0.2);
-    -moz-transform-origin: 0 0;
-    -o-transform: scale(0.2);
-    -o-transform-origin: 0 0;
-    -webkit-transform: scale(0.2);
-    -webkit-transform-origin: 0 0;
-}*/
+.makeBox:Hover h4 
+{ 
+  font-size: 22px;
+}
 
-#box
-{	
-	margin: auto;
-	margin-top: 1%;
-	text-align: center;
+img:Hover
+{
+  width: 125px;
+}
+
+.centerIt
+{ 
+  margin: auto;
+  margin-top: 1%;
+  text-align: center;
 }
 
 input[name=search] 
 {
-	text-align: left;
-	width: 300px;
-    box-sizing: border-box;
-    border: 4px solid blue;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: gray;
-    color: white;
+  text-align: left;
+  width: 300px;
+  box-sizing: border-box;
+  border: 4px solid blue;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: gray;
+  color: white;
    
-    background-position: 10px 10px; 
-    background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
 }
 
-/* When the input field gets focus, change its width to 100% */
 input[name=search]:focus 
 {
-    width: 60%;
-    border-color: green;
+  width: 70%;
+  border-color: green;
+}
+
+/*.tests {
+  position: relative;
+  padding: 10px;
+}*/
+
+#closeIcon
+{
+  display: block;
+  width: 20px;
+  height: 20px;
+  //position: absolute;
+  z-index:1;
+  //right: 100px;
+  /*top: 0;
+  bottom: 0;*/
+  margin: auto;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.closeIcon {
+
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  margin: auto;
+  padding: 2px;  
+
+}
+
+.close-icon:after {
+  content: "X";
+  display: block;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  background-color: #FA9595;
+  z-index:1;
+  right: 35px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 2px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+  font-size: 12px;
+  box-shadow: 0 0 2px #E50F0F;
+  cursor: pointer;
 }
