@@ -1,6 +1,6 @@
 body
 {
-	background-color: purple;
+	background-color: gray;
 }
 
 #randomArticle
@@ -9,10 +9,40 @@ body
 	text-align: center;  
 }
 
+#goDown
+{
+    margin-top: 8%;
+    text-align: center;
+}
+
+#goUp
+{
+    margin-top: 1%;
+}
+
 .btn
 {
   font-size: 20px;
   color: black;
+}
+
+.makeBox
+{
+  width: 80%;
+  margin: auto;
+  margin-top: 2%;
+  border-color: black;
+  border-style: solid;
+  padding: 10px 10px 10px 15px;
+  //margin-bottom: 5px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+}
+h4 
+{ 
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /*#articleText {
