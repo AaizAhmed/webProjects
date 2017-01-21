@@ -10,8 +10,6 @@ function defaultWeather ()
     url += key;
     
     $.getJSON(url, getDefaultWeather); 
-  
-  return true;
 }
     
 function getDefaultWeather(data)	
@@ -44,7 +42,6 @@ function getDefaultWeather(data)
 	$("#wind").append( data["wind"]["speed"] + " mph");
 	$("#humi").append( data.main.humidity + " %");
   
-  return true;
 } 
 
 function getLocation()
@@ -105,7 +102,7 @@ function getWeather(data)
 }
 
 function setBackground(pick)
-{
+{   
     switch (pick)
     {
     	case 'Clouds': 
@@ -117,27 +114,27 @@ function setBackground(pick)
     	{
     		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/ThunderstormSkyTrees.jpg')";
     		
-        //Changing weather display properties
-        $("#geoInfo").css('color', 'white');
-       
-        $("#temp").css('background-color', 'white');
-        $("#details").css('background-color', 'white');
-       
-        $("#temp").css('border-color', 'orange');
-        $("#details").css('border-color', 'orange');
-       
-        break;
+            //Changing weather display properties
+            $("#geoInfo").css('color', 'white');
+           
+            $("#temp").css('background-color', 'white');
+            $("#details").css('background-color', 'white');
+           
+            $("#temp").css('border-color', 'orange');
+            $("#details").css('border-color', 'orange');
+           
+            break;
     	}
     	case 'Rain': 
     	{
-    	document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/RainDropsSplashes.jpg')";
-    		
-        //Changing weather display properties FF7F00 = orange
-       $("#geoInfo").css('color', '	#FF7F00');
-       $("#temp").css('color', '	#FF7F00');
-       $("#details").css('color', '	#FF7F00');
+        	document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/RainDropsSplashes.jpg')";
+        		
+            //Changing weather display properties FF7F00 = orange
+           $("#geoInfo").css('color', '	#FF7F00');
+           $("#temp").css('color', '	#FF7F00');
+           $("#details").css('color', '	#FF7F00');
 
-        break;
+            break;
     	}
     	case 'Clear': 
     	{
@@ -148,23 +145,23 @@ function setBackground(pick)
     	{
     		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/SnowSnowflak.jpg')";
     		
-        //Changing weather display properties
-       $("#temp").css('color', 'black');
-       $("#details").css('color', 'black');
-        
-        break;
+            //Changing weather display properties
+            $("#temp").css('color', 'black');
+            $("#details").css('color', 'black');
+         
+            break;
     	}
     	case 'Extreme': 
     	{
     		document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/AaizAhmed/Images/master/Tornadoes.jpg')";
     		
-        //Changing weather display properties
-       $("#geoInfo").css('color', 'blue');
+            //Changing weather display properties
+            $("#geoInfo").css('color', 'blue');
         
-       $("#temp").css('color', 'red');
-       $("#details").css('color', 'red');    
+            $("#temp").css('color', 'red');
+            $("#details").css('color', 'red');    
         
-        break;
+            break;
     	}
     	default: 
     	{
