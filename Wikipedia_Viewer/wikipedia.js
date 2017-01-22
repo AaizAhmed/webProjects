@@ -44,15 +44,18 @@ function addInputBox()
 	//Removing Search icon.
 	$("#searchDiv").empty();
 
-	 //Creating input box
-	 var input = document.createElement("input");
-     input.type = "text";
-     input.name = "search";
-     input.id = "inputBox";
-     input.placeholder="Type Here!"    
+	if ( document.getElementById("inputBox") == null) 
+	{
+		 //Creating input box
+		 var input = document.createElement("input");
+	     input.type = "text";
+	     input.name = "search";
+	     input.id = "inputBox";
+	     input.placeholder="Type Here!"    
 
-	//Adding input box and button.
-	$("#inputWrapper").append(input);	
+		//Adding input box and button.
+		$("#inputWrapper").append(input);	
+	}
 }
 
 function addButton()
@@ -83,6 +86,10 @@ function addSearchIcon()
 
 	var img = '<img src="https://maxcdn.icons8.com/iOS7/PNG/100/Very_Basic/search-100.png" id="searchIcon" width="100px">';
 	$('#searchDiv').append(img);
+
+	$(img).trigger('click');
+
+	$(document).on('click', "#searchDiv", function() {	addInputBox();	});
 }
 
 document.addEventListener('DOMContentLoaded', function()
@@ -104,5 +111,5 @@ document.addEventListener('DOMContentLoaded', function()
 	document.getElementById("searchIcon").addEventListener('click', function() { addInputBox(); } );
 	$(document).on('click', "#closeIcon", function() {	addSearchIcon();	});
 
-	$("#inputBox").focus( function() { $("#closeIconWrapper").removeClass('clearBtn'); } );
+	//$("#inputBox").focus( function() { $("#closeIconWrapper").removeClass('clearBtn'); } );
 });
