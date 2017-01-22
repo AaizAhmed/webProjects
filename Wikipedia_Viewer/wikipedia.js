@@ -75,18 +75,14 @@ function addButton()
 
 function addSearchIcon()
 {
+	//Removing button and text box	
 	$("#closeIconWrapper").empty();
 	$("#inputWrapper").empty();
 	$("#displayWiki").empty();
+	$("#randomArticle").css('margin-top', '15%');
 
-	$('randomArticle').css('margin-top', '15%');
-
-	var img = document.createElement("img");
-	img.src = 'https://maxcdn.icons8.com/iOS7/PNG/100/Very_Basic/search-100.png';
-	img.width = '100px';
-	img.id = 'searchIcon';
-
-	$('searchDiv').append(img);
+	var img = '<img src="https://maxcdn.icons8.com/iOS7/PNG/100/Very_Basic/search-100.png" id="searchIcon" width="100px">';
+	$('#searchDiv').append(img);
 }
 
 document.addEventListener('DOMContentLoaded', function()
@@ -106,9 +102,7 @@ document.addEventListener('DOMContentLoaded', function()
 	 });
 
 	document.getElementById("searchIcon").addEventListener('click', function() { addInputBox(); } );
-	//document.getElementById("button:closeIcon").addEventListener('click', function() {  addSearchIcon(); } );
-
-	//$('#closeIconWrapper').on('click', '#closeIcon', addSearchIcon() );
+	$(document).on('click', "#closeIcon", function() {	addSearchIcon();	});
 
 	$("#inputBox").focus( function() { $("#closeIconWrapper").removeClass('clearBtn'); } );
 });

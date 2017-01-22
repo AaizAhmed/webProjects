@@ -9,13 +9,13 @@ body
 	text-align: center;  
 }
 
-#goDown
+.goDown
 {
     margin-top: 15%;
     text-align: center;
 }
 
-#goUp
+.goUp
 {
     margin-top: 1%;
 }
