@@ -94,60 +94,13 @@ input[name=search]
 
 input[name=search]:focus 
 {
-  width: 70%;
+  width: 100%;
   border-color: green;
 }
 
-/*.tests {
-  position: relative;
-  padding: 10px;
-}*/
-
-#closeIcon
+.clearBtn
 {
-  display: block;
-  width: 20px;
-  height: 20px;
-  //position: absolute;
-  z-index:1;
-  //right: 100px;
-  /*top: 0;
-  bottom: 0;*/
-  margin: auto;
-  padding: 2px;
-  cursor: pointer;
-}
-
-.closeIcon {
-
-  display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  margin: auto;
-  padding: 2px;  
-
-}
-
-.close-icon:after {
-  content: "X";
-  display: block;
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  background-color: #FA9595;
-  z-index:1;
-  right: 35px;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  padding: 2px;
-  border-radius: 50%;
   text-align: center;
-  color: white;
-  font-weight: normal;
-  font-size: 12px;
-  box-shadow: 0 0 2px #E50F0F;
-  cursor: pointer;
+  margin: auto;
+  margin-top: 0.5%;
 }

@@ -5,7 +5,9 @@
 
 function getInput ()
 {
-	var word = document.getElementById('inputBox').value; 
+	var word = document.getElementById('inputBox').value;
+
+	//Remove spaces 
 
 	var wikiUrl = 'http://www.wikipedia.org/w/api.php?action=opensearch&search=';
 	wikiUrl += word + '&limit=12&namespace=0&callback=getArticles';
@@ -37,7 +39,7 @@ function getArticles(data)
 	}
 }
 
-function AddInputBox()
+function addInputBox()
 {
 	//Removing Search icon.
 	$("#searchDiv").empty();
@@ -46,32 +48,67 @@ function AddInputBox()
 	 var input = document.createElement("input");
      input.type = "text";
      input.name = "search";
-     input.class= "centerIt";
      input.id = "inputBox";
-     input.placeholder="Type Here!"
+     input.placeholder="Type Here!"    
 
-     var img = document.createElement("img");
-     img.src = "https://images.onlinelabels.com/images/clip-art/molumen/molumen_red_round_error_warning_icon_thumb.png";
-	 img.id = "closeIcon";
+	//Adding input box and button.
+	$("#inputWrapper").append(input);	
+}
 
-	//Adding input box.
-	$("#inputWrapper").append(input);
-	$("#closeIconWrapper").append(img);
+function addButton()
+{
+	if ( document.getElementById("closeIcon") == null) 
+	{
+		//Creating a button
+		var button = document.createElement("button");
+	    button.innerHTML = "Clear";
+		button.id = "closeIcon";
+		$(button).addClass('btn btn-danger');
+
+		//$('#closeIconWrapper').on('click', button, addSearchIcon() );
+		$(button).trigger('click');
+
+		//Adding the button
+		$("#closeIconWrapper").append(button);
+	}		
+}
+
+function addSearchIcon()
+{
+	$("#closeIconWrapper").empty();
+	$("#inputWrapper").empty();
+	$("#displayWiki").empty();
+
+	$('randomArticle').css('margin-top', '15%');
+
+	var img = document.createElement("img");
+	img.src = 'https://maxcdn.icons8.com/iOS7/PNG/100/Very_Basic/search-100.png';
+	img.width = '100px';
+	img.id = 'searchIcon';
+
+	$('searchDiv').append(img);
 }
 
 document.addEventListener('DOMContentLoaded', function()
 {
+	$(document).keyup(function (event) 
+	{
+		if ($("#inputBox").is(":focus")) 
+		{  
+			addButton();
+		}
+		
+	    if( (event.keyCode === 13) ) 
+	    {
+	       $("#displayWiki").empty();
+	       getInput();
+	    }
+	 });
 
-$(document).keyup(function (event) 
-{
-    if( $(".inputBox:focus") && (event.keyCode === 13)) 
-    {
-       $("#displayWiki").empty();
-       getInput();
-    }
- });
+	document.getElementById("searchIcon").addEventListener('click', function() { addInputBox(); } );
+	//document.getElementById("button:closeIcon").addEventListener('click', function() {  addSearchIcon(); } );
 
+	//$('#closeIconWrapper').on('click', '#closeIcon', addSearchIcon() );
 
-document.getElementById("searchIcon").addEventListener('click',function() { AddInputBox(); });
-
+	$("#inputBox").focus( function() { $("#closeIconWrapper").removeClass('clearBtn'); } );
 });
