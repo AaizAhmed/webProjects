@@ -24,14 +24,34 @@ function getData()
 
 function useChannelUrl(data)
 {	
-	var channelName = data["name"] + "<br>";	
-	$("#nameOff").append(channelName);	
+    
+    if (data["status"] !== 404)
+    {
+    	
+	var newDiv = document.createElement("div"); 
+
+    //var newContent = document.createTextNode("Hi there and greetings!"); 
+    //newDiv.appendChild(newContent); //add the text node to the newly created div. 
+
+	var channelName = data["name"];	
+	
+	newDiv.id = channelName;
+	$(newDiv).addClass('channel');
+
+	//$("#nameOff").append(channelName);	
 
 	var img = '<img src="' + data["logo"] + '" width="50px" height="50px"> <br>';
-	$("#logoOff").append(img);
+	
+	var img = document.createElement("IMG");
+    img.setAttribute("src", data["logo"]);
+    img.setAttribute("width", "55");
+    img.setAttribute("width", "55");
 
-	$("#statusOff").append("Offline <br>");
+	newDiv.append(img);
 
+	$("#offline").append(newDiv);
+	
+	}
 	//console.log(data);
 }
 

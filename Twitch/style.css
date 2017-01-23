@@ -6,11 +6,12 @@
 	font-size: 16px;
 }
 
-#offline
+.channel
 {
 	border-color: black;
 	border-style: solid;
-	width: 500px;
+	min-width: 200px;
+	max-width: 75%;
 	height: 60px;
 	text-align: center;
 	margin: auto;
