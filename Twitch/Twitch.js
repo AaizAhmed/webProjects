@@ -6,7 +6,8 @@
 
 function getData()
 {
-	var channelList = ["freecodecamp","ESL_SC2"];
+	var channelList = ["freecodecamp", "ESL_SC2", "gamingSC2", "cretetion", 
+						"storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
 					  
 
 	for (i in channelList)
@@ -23,14 +24,15 @@ function getData()
 
 function useChannelUrl(data)
 {	
-	var channelName = data["name"];		
-	var div = '<div id=' + channelName + '>' 
-	var img = '<img src="' + data["logo"] + '" width="50px" height="50px">';
+	var channelName = data["name"] + "<br>";	
+	$("#nameOff").append(channelName);	
 
-	div += img + channelName + ' ' + 'Offline' + '</div>';
+	var img = '<img src="' + data["logo"] + '" width="50px" height="50px"> <br>';
+	$("#logoOff").append(img);
 
-	$("#offline").append(div);
-	console.log(data);
+	$("#statusOff").append("Offline <br>");
+
+	//console.log(data);
 }
 
 function getStatus(data)
@@ -50,18 +52,17 @@ function getStatus(data)
 	}
 	else
 	{
-		var channelName = data["stream"]["channel"]["display_name"];		
-		var div = '<div id=' + channelName + '>' 
+		var channelName = data["stream"]["channel"]["display_name"];
+		$("#nameOn").append(channelName);
+
 		var logo = data["stream"]["channel"]["logo"];
+		var img = '<img src="' + logo + '" width="50px" height="50px">';
+		$("#logoOn").append(img);
+
 		var gameDesc = data["stream"]["channel"]["game"] + ': ' + data["stream"]["channel"]["status"];
+		$("#statusOn").append(gameDesc);
 
-		var img = '<img src="' + logo + '" width="50px" height="50px"> \t\t\t';
-		
-		div += img + channelName + '\t\t\t' + gameDesc + '</div>';
-
-		$("#online").append(div);
-
-		console.log(data);
+		//console.log(data);
 	}
 }
 
