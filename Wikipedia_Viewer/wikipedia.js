@@ -94,19 +94,26 @@ function addSearchIcon()
 
 document.addEventListener('DOMContentLoaded', function()
 {
+  if (window.location.protocol != "http:")
+   {
+            var msg = "To search for data you need to use HTTP.<br> Click here: ";
+                msg += "<a target='_blank' href='http://codepen.io/AaizAhmed/full/bgqWKR/'>Wikipedia Viewer</a>";
+     
+     $("#httpError").html(msg);
+   }
+  
 	$(document).keyup(function (event) 
-	{
+	{ 
 		if ($("#inputBox").is(":focus")) 
 		{  
 			addButton();
-		}
-		
-	    if( (event.keyCode === 13) ) 
-	    {
+		}		
+	  if( (event.keyCode == 13) ) 
+	  {
 	       $("#displayWiki").empty();
 	       getInput();
-	    }
-	 });
+	  }
+	});
 
 	document.getElementById("searchIcon").addEventListener('click', function() { addInputBox(); } );
 	$(document).on('click', "#closeIcon", function() {	addSearchIcon();	});

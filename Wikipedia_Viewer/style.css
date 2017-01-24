@@ -1,12 +1,19 @@
 body
 {
-	background-color: gray;
+  background-color: #ffcc99;
+}
+
+#httpError
+{  
+  text-align: center;
+  font-size: 30px;
+  color: black;
 }
 
 #randomArticle
 {
-	margin-top: 15%;
-	text-align: center;  
+  margin-top: 15%;
+  text-align: center;  
 }
 
 .goDown
@@ -47,7 +54,7 @@ a:link
   width: 82%;
   font-size: 18px;
   border-left-style: solid;
-  border-left-color: orange;
+  border-left-color: blue;
   border-left-width: 5px;  
 }
 
