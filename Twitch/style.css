@@ -3,9 +3,19 @@ body
 	background-color: pink;
 }
 
+#wrapper
+{	
+	margin: auto;
+	min-width: 300px;
+	max-width: 75%;
+	margin-top: 8%;
+	border-style: solid;
+	border-color: gray;
+}
+
 table
 {
-	width: 75%;
+	width: 100%;
 	font-size: 18px;
 }
 
@@ -22,49 +32,25 @@ table td
 
 table#menu, th
 {
-	padding-left: 5%;
+	padding-left: 2%;
 }
 
 #menu
 {
-	border: solid;
-	margin-left: 12.5%;	
-	margin-right: 12.5%;
-	margin-top: 8%; 
-	min-width: 225px;
-	max-width: 75%;
 	height: 60px;
 	font-size: 18px;
+	border-bottom: solid;
+	border-bottom-color: gray;
 }
 
 #online 
-{		
-	border-left: solid;
-	border-left-color: gray;
-	border-right: solid;
-	border-right-color: gray;
-	margin-left: 12.5%;	
-	margin-right: 12.5%;
+{	
 	min-width: 225px;
 	max-width: 75%;
 }
 
 #offline
 {
-	border-left: solid;
-	border-left-color: gray;
-	border-right: solid;
-	border-right-color: gray;
-	border-bottom: solid;
-	border-bottom-color: gray; 
-	margin-left: 12.5%;	
-	margin-right: 12.5%;
 	min-width: 225px;
 	max-width: 75%;
 }
-
-
-
-
-
-

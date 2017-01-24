@@ -14,7 +14,6 @@ function getData()
 		var statusUrl = 'https://wind-bow.gomix.me/twitch-api/streams/';
 	    statusUrl += channelList[i] + '?callback=getStatus';
 
-
 	    tag = document.createElement("script");
 		tag.src = statusUrl;
 		document.getElementsByTagName("head")[0].appendChild(tag);	
@@ -34,7 +33,11 @@ function useChannelUrl(data)
 		var cell2 = row.insertCell(1);
 		var cell3 = row.insertCell(2);
 
-		var channelName = data["display_name"];	
+		var channelName = data["display_name"];
+		var aTag = document.createElement("a");
+		aTag.setAttribute('href', data["url"]);
+		aTag.setAttribute('target', '_blank');
+		aTag.innerHTML = channelName;
 		
 		var img = document.createElement("IMG");
 	    img.setAttribute("src", data["logo"]);
@@ -43,11 +46,10 @@ function useChannelUrl(data)
 
 		//Adding data in the columns/cells.
 		cell1.append(img);
-		cell2.append(channelName);
+		cell2.append(aTag);
 		cell3.innerHTML = "Offline";
 	}
 	
-	//console.log(data);
 }
 
 function getStatus(data)
@@ -78,6 +80,11 @@ function getStatus(data)
 
 		var channelName = data["stream"]["channel"]["display_name"];	
 		var gameDesc = data["stream"]["channel"]["game"] + ': ' + data["stream"]["channel"]["status"];
+
+		var aTag = document.createElement("a");
+		aTag.setAttribute('href', data["stream"]["channel"]["url"]);
+		aTag.setAttribute('target', '_blank');
+		aTag.innerHTML = channelName;
 		
 		var img = document.createElement("IMG");
 	    img.setAttribute("src", data["stream"]["channel"]["logo"]);
@@ -86,8 +93,11 @@ function getStatus(data)
 
 	    //Adding data in the columns/cells.
 		cell1.append(img);
-		cell2.append(channelName);
-		cell3.append(gameDesc);		
+		cell2.append(aTag);
+		cell3.append(gameDesc);	
+
+		console.log(data);
+
 	}
 }
 
