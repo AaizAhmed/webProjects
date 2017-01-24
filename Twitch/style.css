@@ -3,6 +3,24 @@ body
 	background-color: pink;
 }
 
+table, th
+{
+	padding-left: 5%;
+	border: solid;
+}
+
+#menu
+{
+	border: solid;
+	margin-left: 12.5%;	
+	margin-right: 12.5%;
+	margin-top: 8%; 
+	min-width: 225px;
+	max-width: 75%;
+	height: 60px;
+	font-size: 18px;
+}
+
 #online 
 {		
 	border-top: solid; 
@@ -13,7 +31,6 @@ body
 	border-right-color: gray;
 	margin-left: 12.5%;	
 	margin-right: 12.5%;
-	margin-top: 10%;
 	min-width: 225px;
 }
 
