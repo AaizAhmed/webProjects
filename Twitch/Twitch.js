@@ -8,7 +8,6 @@ function getData()
 {
 	var channelList = ["freecodecamp", "ESL_SC2", "gamingSC2", "cretetion", 
 						"storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
-					  
 
 	for (i in channelList)
 	{
@@ -26,38 +25,29 @@ function useChannelUrl(data)
 {	
     if (data["status"] !== 404)
     {
-		var divWrapper = document.createElement("div"); 
-		var channelName = data["display_name"];	
-		divWrapper.id = channelName;
-		$(divWrapper).addClass('channel');
-		$(divWrapper).addClass('row');
+    	//Getting the table and adding a row.
+    	var table = document.getElementById("offline");
+		var row = table.insertRow(0);
 
-		var divLogo = document.createElement("div");
-		$(divLogo).addClass('col-xs-2 dimen');
+		//Adding columns in the row.
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+
+		var channelName = data["display_name"];	
+		
 		var img = document.createElement("IMG");
 	    img.setAttribute("src", data["logo"]);
 	    img.setAttribute("width", "55");
 	    img.setAttribute("width", "55");
-		divLogo.append(img);
 
-		var divName = document.createElement("div");
-		$(divName).addClass('col-xs-2 dimen');
-		var nameNode = document.createTextNode(channelName);
-		divName.appendChild(nameNode);
-
-		var divDesc = document.createElement("div");
-		$(divDesc).addClass('col-xs-5 dimen');
-		var descNode = document.createTextNode("Offline");
-		divDesc.appendChild(descNode);
-
-		divWrapper.appendChild(divLogo);
-		divWrapper.appendChild(divName);
-		divWrapper.appendChild(divDesc);
-
-		$("#offline").append(divWrapper);
-	
+		//Adding data in the columns/cells.
+		cell1.append(img);
+		cell2.append(channelName);
+		cell3.innerHTML = "Offline";
 	}
-	console.log(data);
+	
+	//console.log(data);
 }
 
 function getStatus(data)
@@ -77,38 +67,27 @@ function getStatus(data)
 	}
 	else
 	{
-		var divWrapper = document.createElement("div"); 
-		var channelName = data["stream"]["channel"]["display_name"];	
-		divWrapper.id = channelName;
-		$(divWrapper).addClass('channel');
-		$(divWrapper).addClass('row');
+		//Getting table and adding a row.
+		var table = document.getElementById("online");
+		var row = table.insertRow(0);
 
-		var divLogo = document.createElement("div");
-		$(divLogo).addClass('col-xs-2 dimen');
+		//Adding columns inside the row
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+
+		var channelName = data["stream"]["channel"]["display_name"];	
+		var gameDesc = data["stream"]["channel"]["game"] + ': ' + data["stream"]["channel"]["status"];
+		
 		var img = document.createElement("IMG");
 	    img.setAttribute("src", data["stream"]["channel"]["logo"]);
 	    img.setAttribute("width", "55");
 	    img.setAttribute("width", "55");
-		divLogo.append(img);
 
-		var divName = document.createElement("div");
-		$(divName).addClass('col-xs-2 dimen');
-		var nameNode = document.createTextNode(channelName);
-		divName.appendChild(nameNode);
-
-		var divDesc = document.createElement("div");
-		$(divDesc).addClass('col-xs-5 dimen');
-		var gameDesc = data["stream"]["channel"]["game"] + ': ' + data["stream"]["channel"]["status"];
-		var descNode = document.createTextNode(gameDesc);
-		divDesc.appendChild(descNode);
-
-		divWrapper.appendChild(divLogo);
-		divWrapper.appendChild(divName);
-		divWrapper.appendChild(divDesc);
-
-		$("#online").append(divWrapper);
-
-		//console.log(data);
+	    //Adding data in the columns/cells.
+		cell1.append(img);
+		cell2.append(channelName);
+		cell3.append(gameDesc);		
 	}
 }
 
