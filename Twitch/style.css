@@ -1,20 +1,52 @@
-#online 
+body
 {
-	text-align: center;
-	margin: auto;
-	margin-top: 10%
-	font-size: 16px;
+	background-color: pink;
+}
+
+#online 
+{		
+	border-top: solid; 
+	border-top-color: gray;
+	border-left: solid;
+	border-left-color: gray;
+	border-right: solid;
+	border-right-color: gray;
+	margin-left: 12.5%;	
+	margin-right: 12.5%;
+	margin-top: 10%;
+	min-width: 225px;
+}
+
+#offline
+{
+	border-left: solid;
+	border-left-color: gray;
+	border-right: solid;
+	border-right-color: gray;
+	border-bottom: solid;
+	border-bottom-color: gray; 
+	margin-left: 12.5%;	
+	margin-right: 12.5%;
+	min-width: 225px;
+}
+
+.dimen
+{
+	min-width: 225px;
+	max-width: 75%
+	min-height: 25px;
+	max-height: 60px;
 }
 
 .channel
-{
-	border-color: black;
-	border-style: solid;
-	min-width: 200px;
+{	
+	min-width: 225px;
 	max-width: 75%;
-	height: 60px;
-	text-align: center;
-	margin: auto;
-	font-size: 16px;
+	min-height: 60px;
+	text-align: left;
+	margin-left: 2%;
+	margin-top: 2%; 
+	margin-bottom: 1%;
+	font-size: 18px;
 
 }

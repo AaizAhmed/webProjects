@@ -24,35 +24,40 @@ function getData()
 
 function useChannelUrl(data)
 {	
-    
     if (data["status"] !== 404)
     {
-    	
-	var newDiv = document.createElement("div"); 
+		var divWrapper = document.createElement("div"); 
+		var channelName = data["display_name"];	
+		divWrapper.id = channelName;
+		$(divWrapper).addClass('channel');
+		$(divWrapper).addClass('row');
 
-    //var newContent = document.createTextNode("Hi there and greetings!"); 
-    //newDiv.appendChild(newContent); //add the text node to the newly created div. 
+		var divLogo = document.createElement("div");
+		$(divLogo).addClass('col-xs-2 dimen');
+		var img = document.createElement("IMG");
+	    img.setAttribute("src", data["logo"]);
+	    img.setAttribute("width", "55");
+	    img.setAttribute("width", "55");
+		divLogo.append(img);
 
-	var channelName = data["name"];	
-	
-	newDiv.id = channelName;
-	$(newDiv).addClass('channel');
+		var divName = document.createElement("div");
+		$(divName).addClass('col-xs-2 dimen');
+		var nameNode = document.createTextNode(channelName);
+		divName.appendChild(nameNode);
 
-	//$("#nameOff").append(channelName);	
+		var divDesc = document.createElement("div");
+		$(divDesc).addClass('col-xs-5 dimen');
+		var descNode = document.createTextNode("Offline");
+		divDesc.appendChild(descNode);
 
-	var img = '<img src="' + data["logo"] + '" width="50px" height="50px"> <br>';
-	
-	var img = document.createElement("IMG");
-    img.setAttribute("src", data["logo"]);
-    img.setAttribute("width", "55");
-    img.setAttribute("width", "55");
+		divWrapper.appendChild(divLogo);
+		divWrapper.appendChild(divName);
+		divWrapper.appendChild(divDesc);
 
-	newDiv.append(img);
-
-	$("#offline").append(newDiv);
+		$("#offline").append(divWrapper);
 	
 	}
-	//console.log(data);
+	console.log(data);
 }
 
 function getStatus(data)
@@ -72,15 +77,36 @@ function getStatus(data)
 	}
 	else
 	{
-		var channelName = data["stream"]["channel"]["display_name"];
-		$("#nameOn").append(channelName);
+		var divWrapper = document.createElement("div"); 
+		var channelName = data["stream"]["channel"]["display_name"];	
+		divWrapper.id = channelName;
+		$(divWrapper).addClass('channel');
+		$(divWrapper).addClass('row');
 
-		var logo = data["stream"]["channel"]["logo"];
-		var img = '<img src="' + logo + '" width="50px" height="50px">';
-		$("#logoOn").append(img);
+		var divLogo = document.createElement("div");
+		$(divLogo).addClass('col-xs-2 dimen');
+		var img = document.createElement("IMG");
+	    img.setAttribute("src", data["stream"]["channel"]["logo"]);
+	    img.setAttribute("width", "55");
+	    img.setAttribute("width", "55");
+		divLogo.append(img);
 
+		var divName = document.createElement("div");
+		$(divName).addClass('col-xs-2 dimen');
+		var nameNode = document.createTextNode(channelName);
+		divName.appendChild(nameNode);
+
+		var divDesc = document.createElement("div");
+		$(divDesc).addClass('col-xs-5 dimen');
 		var gameDesc = data["stream"]["channel"]["game"] + ': ' + data["stream"]["channel"]["status"];
-		$("#statusOn").append(gameDesc);
+		var descNode = document.createTextNode(gameDesc);
+		divDesc.appendChild(descNode);
+
+		divWrapper.appendChild(divLogo);
+		divWrapper.appendChild(divName);
+		divWrapper.appendChild(divDesc);
+
+		$("#online").append(divWrapper);
 
 		//console.log(data);
 	}
