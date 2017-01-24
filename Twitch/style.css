@@ -33,6 +33,7 @@ table td
 table#menu, th
 {
 	padding-left: 2%;
+	cursor: pointer;	
 }
 
 #menu
@@ -53,4 +54,14 @@ table#menu, th
 {
 	min-width: 225px;
 	max-width: 75%;
+}
+
+.hide
+{
+	display: none;
+}
+
+.unhine
+{
+	display: block;
 }

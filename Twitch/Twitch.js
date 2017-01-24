@@ -95,10 +95,29 @@ function getStatus(data)
 		cell1.append(img);
 		cell2.append(aTag);
 		cell3.append(gameDesc);	
-
-		console.log(data);
-
 	}
 }
 
 getData();
+
+$(document).ready(function () 
+	{
+		document.getElementById("on").addEventListener('click', function()
+		{
+			$("#offline").addClass('hide');
+			$("#online").removeClass('hide');
+		});
+
+		document.getElementById("off").addEventListener('click', function()
+		{
+			$("#online").addClass('hide');
+			$("#offline").removeClass('hide');
+		});
+
+		document.getElementById("all").addEventListener('click', function()
+		{
+			$("#online").removeClass('hide');
+			$("#offline").removeClass('hide');
+		});
+
+	});
