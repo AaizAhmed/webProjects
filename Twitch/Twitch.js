@@ -49,6 +49,24 @@ function useChannelUrl(data)
 		cell2.append(aTag);
 		cell3.innerHTML = "Offline";
 	}
+	else
+	{
+		
+		//Getting the table and adding a row.
+    	var table = document.getElementById("offline");
+		var row = table.insertRow(0);
+
+		//Adding columns in the row.
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+
+		var name = data["message"].split('\'');
+
+		cell1.append("Not Found");
+		cell2.append(name[1]);
+		cell3.append("This channel does not exist.");
+	}
 	
 }
 
