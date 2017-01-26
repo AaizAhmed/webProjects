@@ -5,12 +5,14 @@
 
 function getInput ()
 {
-	var word = document.getElementById('inputBox').value;
+	$("#displayWiki").empty();
 
-	//Remove spaces 
+	//Get input value and remove spaces
+	var str = document.getElementById('inputBox').value;	 
+	var words = str.replace(/\s+/g, '');
 
 	var wikiUrl = 'http://www.wikipedia.org/w/api.php?action=opensearch&search=';
-	wikiUrl += word + '&limit=12&namespace=0&callback=getArticles';
+	wikiUrl += words + '&limit=12&namespace=0&callback=getArticles';
 
 	var tag = document.createElement("script");
 	tag.src = wikiUrl;
