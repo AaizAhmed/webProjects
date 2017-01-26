@@ -41,21 +41,11 @@ function getArticles(data)
 
 function addInputBox()
 {
-	//Removing Search icon.
-	$("#searchDiv").empty();
+	//Hide Search icon.
+	$("#searchIcon").addClass('hide');
 
-	if ( document.getElementById("inputBox") == null) 
-	{
-		 //Creating input box
-		 var input = document.createElement("input");
-	     input.type = "text";
-	     input.name = "search";
-	     input.id = "inputBox";
-	     input.placeholder="Type Here!"    
-
-		//Adding input box and button.
-		$("#inputWrapper").append(input);	
-	}
+	 document.getElementById('inputBox').value = "";
+	$("#inputWrapper").removeClass('hide');
 }
 
 function addButton()
@@ -68,55 +58,50 @@ function addButton()
 		button.id = "closeIcon";
 		$(button).addClass('btn btn-danger');
 
-		//$('#closeIconWrapper').on('click', button, addSearchIcon() );
-		$(button).trigger('click');
+		//Adding trigger.
+		$(button).click(addSearchIcon);
 
 		//Adding the button
 		$("#closeIconWrapper").append(button);
-	}		
+	}	
+	else
+	{
+		$("#closeIconWrapper").removeClass('hide');
+	}	
 }
 
 function addSearchIcon()
 {
-	//Removing button and text box	
-	$("#closeIconWrapper").empty();
-	$("#inputWrapper").empty();
+	//Hiding button and text box	
+	$("#closeIconWrapper").addClass('hide');
+	$("#inputWrapper").addClass('hide');
 	$("#displayWiki").empty();
 	$("#randomArticle").css('margin-top', '15%');
 
-	var img = '<img src="https://maxcdn.icons8.com/iOS7/PNG/100/Very_Basic/search-100.png" id="searchIcon" width="100px">';
-	$('#searchDiv').append(img);
-
-	$(img).trigger('click');
-
-	$(document).on('click', "#searchDiv", function() {	addInputBox();	});
+	$("#searchIcon").removeClass('hide');
 }
 
 document.addEventListener('DOMContentLoaded', function()
 {
   if (window.location.protocol != "http:")
    {
-            var msg = "To search for data you need to use HTTP.<br> Click here: ";
-                msg += "<a target='_blank' href='http://codepen.io/AaizAhmed/full/bgqWKR/'>Wikipedia Viewer</a>";
+        var msg = "To search for data you need to use HTTP.<br> Click here: ";
+            msg += "<a target='_blank' href='http://codepen.io/AaizAhmed/full/bgqWKR/'>Wikipedia Viewer</a>";
      
-     $("#httpError").html(msg);
+     	$("#httpError").html(msg);
    }
   
 	$(document).keyup(function (event) 
 	{ 
-		if ($("#inputBox").is(":focus")) 
+		if ( $("#inputBox").is(":focus") ) 
 		{  
 			addButton();
 		}		
-	  if( (event.keyCode == 13) ) 
-	  {
-	       $("#displayWiki").empty();
-	       getInput();
-	  }
+
+		if( (event.keyCode == 13) ) 
+		{
+		    getInput();
+		}
 	});
 
-	document.getElementById("searchIcon").addEventListener('click', function() { addInputBox(); } );
-	$(document).on('click', "#closeIcon", function() {	addSearchIcon();	});
-
-	//$("#inputBox").focus( function() { $("#closeIconWrapper").removeClass('clearBtn'); } );
 });

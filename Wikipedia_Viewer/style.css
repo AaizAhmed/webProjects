@@ -16,15 +16,9 @@ body
   text-align: center;  
 }
 
-.goDown
+.hide
 {
-    margin-top: 15%;
-    text-align: center;
-}
-
-.goUp
-{
-    margin-top: 1%;
+  display: none;
 }
 
 .btn
