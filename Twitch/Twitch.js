@@ -50,8 +50,7 @@ function useChannelUrl(data)
 		cell3.innerHTML = "Offline";
 	}
 	else
-	{
-		
+	{		
 		//Getting the table and adding a row.
     	var table = document.getElementById("offline");
 		var row = table.insertRow(0);
@@ -120,19 +119,19 @@ getData();
 
 $(document).ready(function () 
 	{
-		document.getElementById("on").addEventListener('click', function()
+		$("#on").click( function() 
 		{
 			$("#offline").addClass('hide');
 			$("#online").removeClass('hide');
 		});
 
-		document.getElementById("off").addEventListener('click', function()
+		$("#off").click( function()
 		{
 			$("#online").addClass('hide');
 			$("#offline").removeClass('hide');
 		});
 
-		document.getElementById("all").addEventListener('click', function()
+		$("#all").click( function()
 		{
 			$("#online").removeClass('hide');
 			$("#offline").removeClass('hide');

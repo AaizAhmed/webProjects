@@ -1,0 +1,60 @@
+Fluid container makes it possible to make a webpage that will 
+fit nicly on all the types of screen like phone, laptop or 
+desktop screen.
+<img class="img-respomsive" >
+
+To put elements side by side use:
+<div class="row"> 
+	<div class=col-xs-?>
+		<element 1>
+	</div>
+	<div class="col-xs-*">
+		<element 2>
+	</div>
+</div>
+
+Bootstrap functions like text-primary, text-info and text-danger can be used 
+instead of CSS to color the buttons. 
+
+Font Awesome format: <i class="property1 property2"> </i>
+They are treated just like fonts and there size can be given in pixels.
+
+JavaScript Syntax:
+$("target_element").functionName("classes");
+
+Useful methods for HTML minipulation:
+1. document.getElementById().innerHTML  ==> Overwrites what's in the element 
+2. ("#ID").text(TEXT)					==> Overwrites what's in the element
+3. ("#ID").html(TEXT/ACTION) 			==> Overwrites what's in the element 
+4. ("#ID").append(TEXT) 				==> Adds to what is already in the element
+5. ("#ID").predend(TEXT)				==> Adds before the element
+ 
+
+Button Click:
+	In jQuery, the following would work:
+
+		$("#id_of_textbox").keyup(function(event){
+		    if(event.keyCode == 13){
+		        $("#id_of_button").click();
+		    }
+		});
+
+	OR
+		$(button).click(function);
+
+	OR Longer Version of:  $(id).click(function);
+		$(button).trigger('click');
+		$("#closeIconWrapper").on('click', "#closeIcon", addSearchIcon );
+		
+
+ Getting location from Google Maps: 
+
+ var urlLocation = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lati + ',' + longi + '&sensor=true';
+
+ $.getJSON ( urlLocation, function(data) 
+	    {
+	     	//Adding Location
+	       $('#location').text(data.results[1].formatted_address); 
+			  //console.log(data.results[1].formatted_address);
+	     }
+	 ); 
