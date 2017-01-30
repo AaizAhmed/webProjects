@@ -1,4 +1,81 @@
+/*
+function pairElement(str) {
+  
+  var pairs = [];
+  var AT = ['A', 'T'];
+  var TA = ['T', 'A'];
+  var CG = ['C', 'G'];
+  var GC = ['G', 'C'];
 
+  for (var i = 0; i < str.length; i++) {
+
+    switch (str.charAt(i) )
+    {
+      case 'A': pairs.push(AT);
+                break;
+      case 'T': pairs.push(TA);
+                break;
+      case 'C': pairs.push(CG);
+                break;
+      case 'G': pairs.push(GC);
+                break;
+    }
+    
+  }
+  
+  return pairs;
+}
+
+console.log( pairElement("GCG") );
+*/
+
+/*
+function translatePigLatin(str) {
+
+  var index = hasVowel(str);
+
+  if ( index === 0)
+  {
+      return str + 'way';
+  }
+  else if (index > 0)
+  {
+    return str.substr(index, str.length) + str.substr(0, index) + 'ay';
+  }
+  else
+  {
+    return str;
+  }
+}
+
+function hasVowel (str)
+{
+  for (var i = 0; i < str.length; i++) 
+  {
+    switch ( str.charAt(i) )
+    {
+      case 'a':
+      case 'e':
+      case 'i':
+      case 'o':
+      case 'u':
+      case 'A':
+      case 'E':
+      case 'I':
+      case 'O':
+      case 'U':
+        return i;
+      default:
+        break;
+    } 
+  }
+
+  return -1;
+}
+
+console.log( translatePigLatin("sky") );
+*/
+/*
 function myReplace(str, before, after) {
   
   var character = before[0];
@@ -18,7 +95,7 @@ function myReplace(str, before, after) {
 }
 
 console.log( myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped") );
-
+*/
 /*
 function whatIsInAName(collection, source) {
 
