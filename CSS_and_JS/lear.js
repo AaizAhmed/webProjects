@@ -1,3 +1,198 @@
+
+/*
+function dropElements(arr, func) 
+{ 
+   for (var i = 0; i < arr.length; i++)
+  {
+      if ( func(arr[i]) === true)  return arr.slice(i);
+  }
+  
+  return [];
+}
+
+console.log( dropElements([1, 2, 3, 4], function(n) {return n >= 3;}) );
+*/
+
+/*
+function findElement(arr, func) 
+{  
+  for (var i = 0; i < arr.length; i++)
+  {
+      if ( func(arr[i]) == true ) return arr[i];
+  }
+  
+  return undefined;
+}
+
+console.log( findElement( [1, 5, 8, 9], function(num) { return num % 2 === 0; }) );
+*/
+/*
+function getLCM(min, max)
+{
+  for(var i = 1; i <= min; i++) 
+  {
+    if( (i*max) % min === 0)  return (i*max);
+  }
+}
+
+function smallestCommons(arr) 
+{
+  var min = Math.min(arr[0], arr[1]);
+  var max = Math.max(arr[0], arr[1]);
+  
+  var lcm = getLCM(min, max);
+
+  for (var i = min+1; i < max; i++) 
+  {
+     if (lcm % i !== 0)   lcm = getLCM(i, lcm);
+  }
+
+  return lcm;
+}
+
+console.log( smallestCommons([1,13]) );
+*/
+/*
+function isPrime(num)
+{
+  if (num < 2) return false;
+
+   for (var i = 2; i <= Math.sqrt(num); i++) 
+   {
+      if (num % i === 0) 
+      {  return false;   }
+   }
+
+   return true;
+}
+
+function sumPrimes(num) {
+  
+  var sum = 0;
+
+  for (var i = 0; i <= num; i++) {
+
+    if ( isPrime(i) ) 
+    {   sum += i;    }
+
+  }
+
+  return sum;
+}
+
+console.log( sumPrimes(977) );
+*/
+/*
+function sumFibs(num) {
+  
+  var sum = 0;
+  var first = 1;
+  var second = 1;
+  var oddSum = 2;
+
+  for (var i = 0; i < num; i++)
+  {
+    sum = first + second;
+    first = second;
+    second = sum;
+
+    if (second % 2 == 1 && second <= num) 
+    {
+      oddSum += second;
+    }   
+  }
+  
+  return oddSum;
+}
+
+console.log( sumFibs(75024) );
+*/
+/*
+function spinalCase(str) {
+ 
+  var regEx = /[ _]/g;
+  str = str.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+
+  return str.replace(regEx, '-');
+}
+
+console.log( spinalCase('thisIsSpinalTap') );
+*/
+/*
+function convertHTML(str) {
+
+  var regEx = /[&<>"']/g;
+
+  var result = str.replace(regEx, function(char) {
+
+    switch(char)
+    {
+      case '&': return '&amp;'; 
+      case '<': return '&lt;'; 
+      case '>': return '&gt;'; 
+      case '"': return '&quot;'; 
+      case "'": return '&apos;'; 
+    }
+
+  });
+
+  return result;
+}
+
+console.log( convertHTML("Dolce & > Gabbana") );
+*/
+/*
+function uniteUnique() {
+
+  var result = [];
+
+  for (var k = 0; k < arguments.length; k++) {
+
+    for (var j = 0; j < arguments[k].length; j++) {      
+    
+        if ( result.includes( arguments[k][j] ) === false)
+        {
+          result.push(arguments[k][j]);
+        }
+    }
+  }
+
+  return result;
+}
+ 
+console.log( uniteUnique( [1, 3, 2], [5, 2, 1, 4], [2, 1])  );
+*/
+/*
+function booWho(bool) {
+
+  if (bool === true || bool === false) return true;
+  else return false;
+}
+
+booWho(null);
+*/
+
+/*
+function fearNotLetter(str) {
+
+  var lower = str.toLowerCase();
+  var start = lower.charCodeAt(0);
+  var end = lower.charCodeAt(lower.length - 1);
+
+  for (var i = 0; i < end-start; i++) {
+    
+      if (lower.charCodeAt(i) != start+i )
+      { 
+        //console.log( lower.charCodeAt(i) + ' ' + (start+i) );
+        return String.fromCharCode( start+i );  
+      }
+  }
+
+  return undefined;
+}
+
+console.log (fearNotLetter("ABCd") ); 
+*/
 /*
 function pairElement(str) {
   
