@@ -58,3 +58,15 @@ Button Click:
 			  //console.log(data.results[1].formatted_address);
 	     }
 	 ); 
+
+Multiple Regular Expressions:	
+	Use the Pipe "|" operater to combine regular expressions.
+	var regEx =/\d{3}-\d{3}-\d{3} | \d{10}/;
+    
+    For phone numbers use: ^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$
+    	Explaination:
+    			^ ==> start of input
+    			d{1, 2} ==> match a digit min 1 times and max 2 times e.g. 92 xxx-xxx-xxxx or 1 xxx-xxx-xxxx
+    			d{3} ==> match 3 digits e.g. 301-xxx-xxxx
+    			? ==> make something optional e.g. \+?  +92 or 92 both are valid
+    			[\s.-] ==> mach for anything inside the square bracket e.g. xx.xxx xxx-xxxx are all valid.

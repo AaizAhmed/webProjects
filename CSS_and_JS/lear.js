@@ -1,5 +1,105 @@
 
 /*
+function telephoneCheck(str) {
+
+  var regEx;
+  
+  if (str.length < 10)
+    {
+      regEx = /^(\+?1\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    }
+  else
+    {
+      regEx = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
+    }
+
+    return regEx.test(str);
+}
+
+console.log( telephoneCheck("555 555-5555") );
+*/
+
+/*
+function addTogether() 
+{  
+  if (typeof arguments[0] !== "number")
+    { return undefined; }
+
+  if(arguments.length === 2 && typeof arguments[1] !== "number")
+    { return undefined; }
+
+  var x = arguments[0];
+
+  if (arguments.length === 1)
+  {
+    return function(y) 
+    {
+      if (typeof arguments[0] !== "number")
+      { return undefined; }
+
+      return x + y;
+    };
+  }
+
+  else return arguments[0] + arguments[1];
+}
+
+console.log( addTogether(2, 3) );
+*/
+
+/*
+function truthCheck(collection, pre) {
+  
+ for (var i = 0; i < collection.length; i++)
+  {
+    if ( collection[i].hasOwnProperty(pre) === false ) 
+    {
+          return false;      
+    }
+
+    var tmp = collection[i][pre];      
+    if ( checkFalsey(tmp) ) 
+    {   return false;     }
+
+  }
+  
+  return true; 
+}
+
+function checkFalsey (item)
+{
+  if (item === false || item === "" || item === 0 || item === null || item === undefined ) 
+  {
+     return true;
+  }
+
+  if( Number.isNaN(item) === true ) { return true; }
+
+  else return false;
+}
+
+console.log( truthCheck([{"single": "yes"}], "single") );
+console.log ( truthCheck([{"single": "double"}, {"single": NaN}], "single") );
+*/
+
+/*
+function binaryAgent(str) {
+  
+  var tmp = str.split(" ");
+  var letters = [];
+  for (var i = 0; i < tmp.length; i++) 
+  {
+    tmp[i] = String.fromCharCode( parseInt(tmp[i], 2) );
+  }
+  
+  return tmp.join("");
+}
+
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 
+             01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 
+             01100110 01110101 01101110 00100001 00111111");
+*/
+/*
 function flattenArrayOfArrays(a, r) 
 {   
   for(var i = 0; i < a.length; i++)
