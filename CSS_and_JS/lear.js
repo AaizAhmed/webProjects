@@ -1,25 +1,31 @@
 
+/*
+function flattenArrayOfArrays(a, r) 
+{   
+  for(var i = 0; i < a.length; i++)
+  {
+    if(a[i] instanceof Array)
+    {
+      flattenArrayOfArrays(a[i], r);
+    }
+    else
+    {
+      r.push( a[i] );
+    }
+  }
+  
+  return r;
+}
+
 function steamrollArray(arr) 
 {
-  
-  var steamed = '';
-  var test = '';
-
-  for (var i = 0; i < arr.length; i++) 
-  {
-    steamed += arr[i].toString();
-    test = arr[1];
-  }
-
-//   steamed.replace(/[[]]/g, " ");  
-   steamed = steamed.split(',').join(', ');
-  
-  console.log(steamed);
-  console.log(test);
-  
-  return steamed;
+  r = [];  
+  flattenArrayOfArrays(arr, r);  
+  return r;
 }
-console.log( steamrollArray([1, {}, [3, [[4]]]]) );
+
+console.log( steamrollArray( [1, {}, [3, [[4]]]] ) );
+*/
 
 /*
 function dropElements(arr, func) 
