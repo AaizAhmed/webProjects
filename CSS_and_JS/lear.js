@@ -1,4 +1,292 @@
 
+
+
+
+/*
+function makeFriendlyDates(arr) 
+{
+  var result = [];
+
+  var startData = arr[0].split("-");
+  var endData = arr[1].split("-");
+
+  var months = { '01': "January", '02': "February", '03': "March", '04': "April",
+                 '05': "May", '06': "June", '07': "July", '08': "August",
+                 '09': "September", '10': "October", '11': "November", '12': "December" };
+
+  var sM =  parseInt(startData[1]);
+  var eM =  parseInt(endData[1]);
+
+  var sD =  parseInt(startData[2]);
+  var eD =  parseInt(endData[2]);
+  
+  var diffYear = parseInt(endData[0]) - parseInt(startData[0]); 
+  var diffMonth;
+  var diffDay;
+
+  // Calculating difference in days
+  if (eD > sD) 
+  {
+    diffDay = eD - sD;    
+  }
+  else if (eD < sD)
+  {
+    diffDay = sD - eD;
+  }
+  else if (eM == sM)
+  {
+    diffDay = 0;
+  }
+
+  // Calculating difference in months
+  if (eM > sM) 
+  {
+    diffMonth = eM - sM;    
+  }
+  else if (eM < sM)
+  {
+    diffMonth = eM + (12-sM);
+  }
+  else if (eM == sM)
+  {
+      diffMonth = 0;
+  }
+
+  if ( diffMonth == 0 && diffYear == 0 )
+  {
+    if ( diffDay == 0 )
+    {
+      var tmp = months[startData[1]] + " " + firstSecond(startData[2]) + ', ' + startData[0];
+      result.push(tmp);
+    }
+    else if (diffDay > 0)
+    {
+      var tmp = months[startData[1]] + " " + firstSecond(startData[2]);
+      result.push(tmp);
+
+      tmp = firstSecond(endData[2]);
+      result.push(tmp);
+    }    
+
+    return result;
+  }
+
+  var format = ''; 
+
+  format = months[startData[1]] + " " + firstSecond(startData[2]);
+  
+  if ( diffMonth > 0 || diffYear >= 1 )
+  { 
+    if (parseInt(startData[0]) === 2016 && diffYear == 1 && diffMonth < 12)
+    {
+      // Do nothing i.e. don't add year if it is 2016 and dates are less then a year apart.
+    }
+    else format += ', ' + startData[0];    
+  }
+
+  result.push(format);
+
+  if (diffYear <= 1 || diffMonth < 12)
+  {
+    format = months[endData[1]] + " " + firstSecond(endData[2]);
+    console.log(diffYear);
+
+    if ( diffYear > 1 || (diffMonth == 0 && diffDay == 0))
+    {
+      format += ', ' + endData[0];
+    }
+  }
+
+  result.push(format);
+ 
+  console.log( result );
+  return result;
+}
+
+function firstSecond(num)
+{
+  num = parseInt(num);
+
+  switch (num)
+  {
+    case 1: return '1st';
+    case 2: return '2nd';
+    case 3: return '3rd';
+
+    default: return num + 'th';
+  }
+}
+
+makeFriendlyDates(["2016-07-01", "2016-07-04"]);
+makeFriendlyDates(["2022-09-05", "2023-09-04"]);
+makeFriendlyDates(["2022-09-05", "2023-09-05"]);
+makeFriendlyDates(["2016-12-01", "2018-02-03"]);
+makeFriendlyDates(["2016-12-01", "2017-02-03"]);
+console.log( makeFriendlyDates(["2018-01-13", "2018-01-13"]) );
+*/
+
+/*
+function permAlone(str) 
+{
+  //var unique = Array.from(str);
+  //unique = unique.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+  
+  var permute = permutations (str);
+  var regEx = /([a-zA-Z])\1+/ig;
+
+  var num = 0;
+  for (var i in permute)
+  {
+    if ( permute[i].match(regEx) === null) 
+    { num++;  }
+  }
+  console.log(num + " " + permute.length);
+  return num;
+}
+
+function permutations(str)
+{
+  var arr = str.split(''),
+    len = arr.length, 
+    perms = [],
+    rest,
+    picked,
+    restPerms,
+    next;
+
+    if (len === 0)
+        return [str];
+
+    for (var i=0; i<len; i++)
+    {
+        rest = Object.create(arr);
+        picked = rest.splice(i, 1);
+
+        restPerms = permutations(rest.join(''));
+
+       for (var j=0, jLen = restPerms.length; j< jLen; j++)
+       {
+           next = picked.concat(restPerms[j]);
+           perms.push(next.join(''));
+       }
+    }
+   return perms;
+}
+
+permAlone('abcdefa');
+
+function factorial(num)
+{
+  // If the number is less than 0, reject it.
+  if (num < 0) {
+    return -1;
+  }
+  // If the number is 0, its factorial is 1.
+  else if (num == 0) {
+    return 1;
+  }
+  var tmp = num;
+  while (num-- > 2) 
+  {
+    tmp *= num;
+  }
+  return tmp;
+}
+*/
+
+/*
+
+
+*/
+
+/*
+function sym(args) 
+{
+
+  var finalResult = [];
+  var num = 1;
+
+  while( num < arguments.length)
+  {
+    for (var j = 0; j < arguments[0].length; j++) 
+    {
+      if ( arguments[num].includes(arguments[0][j]) )  // 2nd array has it.
+      {
+        var index = 0;
+        var char =  arguments[0][j];
+
+        while ( arguments[0].indexOf(char) >= 0)  // Use it to get rid of repeats. 
+        {
+          index = arguments[0].indexOf(char);
+          delete arguments[0][index];
+        }
+
+        while ( arguments[num].indexOf(char) >= 0)
+        {
+          index = arguments[num].indexOf(char);
+          delete arguments[num][index];
+        }         
+      }
+    }
+
+    arguments[0] = arguments[0].concat(arguments[num]);
+    delete arguments[num];
+    num++;
+  }
+
+  for (var i in arguments[0])
+  {
+    if ( !finalResult.includes(arguments[0][i]) )
+    {   finalResult.push(arguments[0][i]);     }
+  }
+
+  return finalResult;
+}
+sym([1, 2, 3], [5, 2, 1, 4]);
+
+
+*/
+
+/*
+// Setup
+var collection = {
+    "2548": {
+      "album": "Slippery When Wet",
+      "artist": "Bon Jovi",
+      "tracks": [ 
+        "Let It Rock", 
+        "You Give Love a Bad Name" 
+      ]
+    },
+    "2468": {
+      "album": "1999",
+      "artist": "Prince",
+      "tracks": [ 
+        "1999", 
+        "Little Red Corvette" 
+      ]
+    },
+    "1245": {
+      "artist": "Robert Palmer",
+      "tracks": [ ]
+    },
+    "5439": {
+      "album": "ABBA Gold"
+    }
+};
+// Keep a copy of the collection for tests
+var collectionCopy = JSON.parse(JSON.stringify(collection));
+
+// Only change code below this line
+function updateRecords(id, prop, value) {
+  
+  
+  return collection;
+}
+
+// Alter values below to test your code
+updateRecords(5439, "artist", "ABBA");
+*/
 /*
 function telephoneCheck(str) {
 
