@@ -1,4 +1,461 @@
 
+function pairwise(arr, arg) 
+{  
+  var first, second, sum = 0;
+
+  for (var i = 0; i < arr.length; i++) 
+  {
+    for (var j = i+1; j < arr.length; j++) 
+    {
+      if (arr[i]+arr[j] === 7)
+      {
+        first = arr[i];
+        second = arr[j];
+      }
+    }
+  }
+
+  console.log(first + ' ' + second);
+  
+  return sum;
+}
+
+console.log(pairwise( [1,4,2,3,0,5], 7) );
+
+/*
+function orbitalPeriod(arr) 
+{
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;  
+
+  var getTime = function(r)
+  {
+    return 2*Math.PI * Math.sqrt( Math.pow(r, 3) / GM );
+  };
+
+  for (var i in arr)
+  {
+    var d = arr[i]["avgAlt"] + earthRadius;
+    delete arr[i]["avgAlt"];
+
+    arr[i]["orbitalPeriod"] = Math.round (getTime(d) );
+  }
+
+  return arr;
+}
+
+console.log( orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]) );
+console.log( orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]) );
+*/
+
+/*
+var Person = function(firstAndLast) 
+{
+
+  var tmp = firstAndLast.split(" ");
+
+  this.getFirstName = function() 
+  {
+    return tmp[0];
+  };
+
+  this.getLastName = function () 
+  {
+    return tmp[1];
+  };
+
+  this.getFullName = function ()
+  {
+    return tmp[0] + ' ' + tmp[1];
+  };
+  
+  this.setFirstName = function (first) 
+  {
+    tmp[0] = first;
+  };
+
+  this.setLastName = function (last)
+  {
+    tmp[1] = last;
+  };
+  
+  this.setFullName = function(firstAndLast)
+  {
+    tmp = firstAndLast.split(" ");
+  };
+
+};
+
+var bob = new Person('Bob Ross');
+bob.getFullName();
+*/
+
+/*
+function makeFriendlyDates(arr) 
+{
+  var result = [];
+
+  var startData = arr[0].split("-");
+  var endData = arr[1].split("-");
+
+  var months = { '01': "January", '02': "February", '03': "March", '04': "April",
+                 '05': "May", '06': "June", '07': "July", '08': "August",
+                 '09': "September", '10': "October", '11': "November", '12': "December" };
+
+  var sM =  parseInt(startData[1]);
+  var eM =  parseInt(endData[1]);
+
+  var sD =  parseInt(startData[2]);
+  var eD =  parseInt(endData[2]);
+  
+  var diffYear = parseInt(endData[0]) - parseInt(startData[0]); 
+  var diffMonth;
+  var diffDay;
+
+  // Calculating difference in days
+  if (eD > sD) 
+  {
+    diffDay = eD - sD;    
+  }
+  else if (eD < sD)
+  {
+    diffDay = sD - eD;
+  }
+  else if (eM == sM)
+  {
+    diffDay = 0;
+  }
+
+  // Calculating difference in months
+  if (eM > sM) 
+  {
+    diffMonth = eM - sM;    
+  }
+  else if (eM < sM)
+  {
+    diffMonth = eM + (12-sM);
+  }
+  else if (eM == sM)
+  {
+      diffMonth = 0;
+  }
+
+  if ( diffMonth == 0 && diffYear == 0 )
+  {
+    if ( diffDay == 0 )
+    {
+      var tmp = months[startData[1]] + " " + firstSecond(startData[2]) + ', ' + startData[0];
+      result.push(tmp);
+    }
+    else if (diffDay > 0)
+    {
+      var tmp = months[startData[1]] + " " + firstSecond(startData[2]);
+      result.push(tmp);
+
+      tmp = firstSecond(endData[2]);
+      result.push(tmp);
+    }    
+
+    return result;
+  }
+
+  var format = ''; 
+
+  format = months[startData[1]] + " " + firstSecond(startData[2]);
+  
+  if ( diffMonth > 0 || diffYear >= 1 )
+  { 
+    if (parseInt(startData[0]) === 2016 && diffYear == 1 && diffMonth < 12)
+    {
+      // Do nothing i.e. don't add year if it is 2016 and dates are less then a year apart.
+    }
+    else format += ', ' + startData[0];    
+  }
+
+  result.push(format);
+
+  if (diffYear <= 1 || diffMonth < 12)
+  {
+    format = months[endData[1]] + " " + firstSecond(endData[2]);
+    console.log(diffYear);
+
+    if ( diffYear > 1 || (diffMonth == 0 && diffDay == 0))
+    {
+      format += ', ' + endData[0];
+    }
+  }
+
+  result.push(format);
+ 
+  console.log( result );
+  return result;
+}
+
+function firstSecond(num)
+{
+  num = parseInt(num);
+
+  switch (num)
+  {
+    case 1: return '1st';
+    case 2: return '2nd';
+    case 3: return '3rd';
+
+    default: return num + 'th';
+  }
+}
+
+makeFriendlyDates(["2016-07-01", "2016-07-04"]);
+makeFriendlyDates(["2022-09-05", "2023-09-04"]);
+makeFriendlyDates(["2022-09-05", "2023-09-05"]);
+makeFriendlyDates(["2016-12-01", "2018-02-03"]);
+makeFriendlyDates(["2016-12-01", "2017-02-03"]);
+console.log( makeFriendlyDates(["2018-01-13", "2018-01-13"]) );
+*/
+
+/*
+function permAlone(str) 
+{
+  //var unique = Array.from(str);
+  //unique = unique.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+  
+  var permute = permutations (str);
+  var regEx = /([a-zA-Z])\1+/ig;
+
+  var num = 0;
+  for (var i in permute)
+  {
+    if ( permute[i].match(regEx) === null) 
+    { num++;  }
+  }
+  console.log(num + " " + permute.length);
+  return num;
+}
+
+function permutations(str)
+{
+  var arr = str.split(''),
+    len = arr.length, 
+    perms = [],
+    rest,
+    picked,
+    restPerms,
+    next;
+
+    if (len === 0)
+        return [str];
+
+    for (var i=0; i<len; i++)
+    {
+        rest = Object.create(arr);
+        picked = rest.splice(i, 1);
+
+        restPerms = permutations(rest.join(''));
+
+       for (var j=0, jLen = restPerms.length; j< jLen; j++)
+       {
+           next = picked.concat(restPerms[j]);
+           perms.push(next.join(''));
+       }
+    }
+   return perms;
+}
+
+permAlone('abcdefa');
+
+function factorial(num)
+{
+  // If the number is less than 0, reject it.
+  if (num < 0) {
+    return -1;
+  }
+  // If the number is 0, its factorial is 1.
+  else if (num == 0) {
+    return 1;
+  }
+  var tmp = num;
+  while (num-- > 2) 
+  {
+    tmp *= num;
+  }
+  return tmp;
+}
+*/
+
+/*
+
+function updateInventory(arr1, arr2) {
+
+  var inventory = { };
+
+  for (var i in arr1)
+  {
+    var name = arr1[i][1];
+    inventory[name] = arr1[i][0];
+  }
+
+  for (var i in arr2)
+  {
+     var name = arr2[i][1];
+    if ( inventory[ name ] === undefined )
+    {
+      inventory[ name ] = arr2[i][0];
+    }
+    else
+    {
+      inventory[ name ] += arr2[i][0];
+    }
+  }
+
+  var updates = Object.keys(inventory).sort();
+  
+  for (var i in updates)
+  {
+    var num = inventory[updates[i]];    
+    var tmp = [ num, updates[i] ];
+
+    updates[i] = tmp;
+  }
+
+  console.log(updates);
+    
+  return updates;
+}
+
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+updateInventory(curInv, newInv);
+
+*/
+
+/*
+
+  EXACT CHANGE GOES HERE
+
+*/
+
+/*
+function sym(args) 
+{
+  var finalResult = [];
+  var num = 1;
+
+  while( num < arguments.length)
+  {
+    for (var j = 0; j < arguments[0].length; j++) 
+    {
+      if ( arguments[num].includes(arguments[0][j]) )  // 2nd array has it.
+      {
+        var index = 0;
+        var char =  arguments[0][j];
+
+        while ( arguments[0].indexOf(char) >= 0)  // Use it to get rid of repeats. 
+        {
+          index = arguments[0].indexOf(char);
+          delete arguments[0][index];
+        }
+
+        while ( arguments[num].indexOf(char) >= 0)
+        {
+          index = arguments[num].indexOf(char);
+          delete arguments[num][index];
+        }         
+      }
+    }
+
+    arguments[0] = arguments[0].concat(arguments[num]);
+    delete arguments[num];
+    num++;
+  }
+
+  for (var i in arguments[0])
+  {
+    if ( !finalResult.includes(arguments[0][i]) )
+    {   finalResult.push(arguments[0][i]);     }
+  }
+
+  return finalResult;
+}
+
+sym([1, 2, 3], [5, 2, 1, 4]);
+*/
+
+/*
+// Setup
+var collection = {
+    "2548": {
+      "album": "Slippery When Wet",
+      "artist": "Bon Jovi",
+      "tracks": [ 
+        "Let It Rock", 
+        "You Give Love a Bad Name" 
+      ]
+    },
+    "2468": {
+      "album": "1999",
+      "artist": "Prince",
+      "tracks": [ 
+        "1999", 
+        "Little Red Corvette" 
+      ]
+    },
+    "1245": {
+      "artist": "Robert Palmer",
+      "tracks": [ ]
+    },
+    "5439": {
+      "album": "ABBA Gold"
+    }
+};
+// Keep a copy of the collection for tests
+var collectionCopy = JSON.parse(JSON.stringify(collection));
+
+// Only change code below this line
+function updateRecords(id, prop, value) {
+  
+  if ( prop !== 'tracks' && value !== "" )
+  {
+      collection[id][prop] = value;
+  } 
+
+  if ( prop === 'tracks' && value !== "")
+  {
+    if ( collection[id][prop] === undefined)
+    {
+      collection[id][prop] = [];
+    }
+    
+    collection[id][prop].push(value);
+  }
+
+  if (value === "" && collection[id][prop] !== undefined)
+  {
+    delete collection[id][prop];
+  }
+
+  //console.log(collection[id]);   
+  
+  return collection;
+}
+
+// Alter values below to test your code
+updateRecords(5439, "artist", "ABBA");
+
+*/
+
 /*
 function updateInventory(arr1, arr2) {
 
