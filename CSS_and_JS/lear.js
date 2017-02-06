@@ -1,6 +1,94 @@
 
+function pairwise(arr, arg) 
+{  
+  var first, second, sum = 0;
 
+  for (var i = 0; i < arr.length; i++) 
+  {
+    for (var j = i+1; j < arr.length; j++) 
+    {
+      if (arr[i]+arr[j] === 7)
+      {
+        first = arr[i];
+        second = arr[j];
+      }
+    }
+  }
 
+  console.log(first + ' ' + second);
+  
+  return sum;
+}
+
+console.log(pairwise( [1,4,2,3,0,5], 7) );
+
+/*
+function orbitalPeriod(arr) 
+{
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;  
+
+  var getTime = function(r)
+  {
+    return 2*Math.PI * Math.sqrt( Math.pow(r, 3) / GM );
+  };
+
+  for (var i in arr)
+  {
+    var d = arr[i]["avgAlt"] + earthRadius;
+    delete arr[i]["avgAlt"];
+
+    arr[i]["orbitalPeriod"] = Math.round (getTime(d) );
+  }
+
+  return arr;
+}
+
+console.log( orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]) );
+console.log( orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]) );
+*/
+
+/*
+var Person = function(firstAndLast) 
+{
+
+  var tmp = firstAndLast.split(" ");
+
+  this.getFirstName = function() 
+  {
+    return tmp[0];
+  };
+
+  this.getLastName = function () 
+  {
+    return tmp[1];
+  };
+
+  this.getFullName = function ()
+  {
+    return tmp[0] + ' ' + tmp[1];
+  };
+  
+  this.setFirstName = function (first) 
+  {
+    tmp[0] = first;
+  };
+
+  this.setLastName = function (last)
+  {
+    tmp[1] = last;
+  };
+  
+  this.setFullName = function(firstAndLast)
+  {
+    tmp = firstAndLast.split(" ");
+  };
+
+};
+
+var bob = new Person('Bob Ross');
+bob.getFullName();
+*/
 
 /*
 function makeFriendlyDates(arr) 
@@ -196,13 +284,72 @@ function factorial(num)
 
 /*
 
+function updateInventory(arr1, arr2) {
+
+  var inventory = { };
+
+  for (var i in arr1)
+  {
+    var name = arr1[i][1];
+    inventory[name] = arr1[i][0];
+  }
+
+  for (var i in arr2)
+  {
+     var name = arr2[i][1];
+    if ( inventory[ name ] === undefined )
+    {
+      inventory[ name ] = arr2[i][0];
+    }
+    else
+    {
+      inventory[ name ] += arr2[i][0];
+    }
+  }
+
+  var updates = Object.keys(inventory).sort();
+  
+  for (var i in updates)
+  {
+    var num = inventory[updates[i]];    
+    var tmp = [ num, updates[i] ];
+
+    updates[i] = tmp;
+  }
+
+  console.log(updates);
+    
+  return updates;
+}
+
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+updateInventory(curInv, newInv);
+
+*/
+
+/*
+
+  EXACT CHANGE GOES HERE
 
 */
 
 /*
 function sym(args) 
 {
-
   var finalResult = [];
   var num = 1;
 
@@ -242,9 +389,8 @@ function sym(args)
 
   return finalResult;
 }
+
 sym([1, 2, 3], [5, 2, 1, 4]);
-
-
 */
 
 /*
@@ -280,13 +426,36 @@ var collectionCopy = JSON.parse(JSON.stringify(collection));
 // Only change code below this line
 function updateRecords(id, prop, value) {
   
+  if ( prop !== 'tracks' && value !== "" )
+  {
+      collection[id][prop] = value;
+  } 
+
+  if ( prop === 'tracks' && value !== "")
+  {
+    if ( collection[id][prop] === undefined)
+    {
+      collection[id][prop] = [];
+    }
+    
+    collection[id][prop].push(value);
+  }
+
+  if (value === "" && collection[id][prop] !== undefined)
+  {
+    delete collection[id][prop];
+  }
+
+  //console.log(collection[id]);   
   
   return collection;
 }
 
 // Alter values below to test your code
 updateRecords(5439, "artist", "ABBA");
+
 */
+
 /*
 function telephoneCheck(str) {
 
