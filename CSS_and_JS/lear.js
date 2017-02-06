@@ -358,13 +358,23 @@ function checkCashRegister(price, cash, cid)
   var change = cash-price;
   change = roundTwo(change);
  
+  var currencyValue = { PENNY: '0.01',
+                        NICKEL: '0.05',
+                        DIME: '0.10',
+                        QUARTER: '0.25',
+                        ONE: '1.00',
+                        FIVE: '5.00',
+                        TEN: '10.00',
+                        TWENTY: '20.00',
+                        'ONE HUNDRED': '100.00' };
+
   var sum = 0;
-  
+
   for (var i = 0; i < cid.length; i++) 
   {
     sum += cid[i][1];
   }
-  
+
   sum = roundTwo(sum);
 
   if ( change > sum  )
@@ -378,23 +388,27 @@ function checkCashRegister(price, cash, cid)
 
   var result = [];
 
-  if (change >= 100)
+  for (var i = cid.length-1; i > -1; i--) 
   {
-    var num = 100.00;
-    var value = change / num + '';         // Change to string by adding '' to use regEx
-    value = value.match(/\d+/);            // Using regEx to get digits before the decimal point.
-    value = Number.parseInt(value) * num;  // Getting the value of quarters.
+    var num = currencyValue[ cid[i][0] ];
 
-   if ( value > cid[8][1] )
-    {
-      value = cid[8][1];
+    if (change >= num)
+    {      
+      var value = change / num + '';         // Change to string by adding '' to use regEx
+      value = value.match(/\d+/);            // Using regEx to get digits before the decimal point.
+      value = Number.parseInt(value) * num;  // Getting the value of quarters.
+
+     if ( value > cid[i][1] )
+      {
+        value = cid[i][1];
+      }
+
+      var tmp = [cid[i][0] , value];
+
+      result.push(tmp);                     // Add to final array. 
+      change = roundTwo(change - value);    // Update the value of change
+
     }
-
-    var tmp = ["ONE HUNDRED", value];
-
-    result.push(tmp);                     // Add to final array. 
-    change = roundTwo(change - value);    // Update the value of change
-
   }
 
   if ( change > 0.0  )
@@ -402,14 +416,19 @@ function checkCashRegister(price, cash, cid)
     return 'Insufficient Funds';
   }
 
-  console.log("Sum: " + sum + "\nChange: " + change );
+  //console.log("Sum: " + sum + "\nChange: " + change );
 
   return result;
 }
 
-checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], 
-                  ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+console.log( checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], 
+                  ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) ); 
 
+console.log( checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], 
+                  ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) );
+
+console.log( checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], 
+                  ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) );
 */
 
 /*
