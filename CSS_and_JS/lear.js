@@ -1,5 +1,444 @@
 
 /*
+function updateInventory(arr1, arr2) {
+
+  var inventory = { };
+
+  for (var i in arr1)
+  {
+    var name = arr1[i][1];
+    inventory[name] = arr1[i][0];
+  }
+
+  for (var i in arr2)
+  {
+     var name = arr2[i][1];
+    if ( inventory[ name ] === undefined )
+    {
+      inventory[ name ] = arr2[i][0];
+    }
+    else
+    {
+      inventory[ name ] += arr2[i][0];
+    }
+  }
+
+  var updates = Object.keys(inventory).sort();
+  
+  for (var i in updates)
+  {
+    var num = inventory[updates[i]];    
+    var tmp = [ num, updates[i] ];
+
+    updates[i] = tmp;
+  }
+
+  console.log(updates);
+    
+  return updates;
+}
+
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+updateInventory(curInv, newInv);
+*/
+/*
+function checkCashRegister(price, cash, cid) 
+{  
+  function roundTwo(x) { return Number(Math.round(x +'e2')+'e-2');  }
+
+  var change = cash-price;
+  change = roundTwo(change);
+ 
+  var sum = 0;
+  
+  for (var i = 0; i < cid.length; i++) 
+  {
+    sum += cid[i][1];
+  }
+  
+  sum = roundTwo(sum);
+
+  if ( change > sum  )
+  {
+    return 'Insufficient Funds';
+  }
+  else if ( change === sum )
+  {
+    return 'Closed';    
+  }
+
+  var result = [];
+
+  if (change >= 100)
+  {
+    var num = 100.00;
+    var value = change / num + '';         // Change to string by adding '' to use regEx
+    value = value.match(/\d+/);            // Using regEx to get digits before the decimal point.
+    value = Number.parseInt(value) * num;  // Getting the value of quarters.
+
+   if ( value > cid[8][1] )
+    {
+      value = cid[8][1];
+    }
+
+    var tmp = ["ONE HUNDRED", value];
+
+    result.push(tmp);                     // Add to final array. 
+    change = roundTwo(change - value);    // Update the value of change
+
+  }
+
+  if ( change > 0.0  )
+  {
+    return 'Insufficient Funds';
+  }
+
+  console.log("Sum: " + sum + "\nChange: " + change );
+
+  return result;
+}
+
+checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], 
+                  ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+
+*/
+
+/*
+function checkCashRegister(price, cash, cid) 
+{  
+  function roundTwo(x) { return Number(Math.round(x +'e2')+'e-2');  }
+
+  var change = cash-price;
+  change = roundTwo(change);
+ 
+  var sum = 0;
+  
+  for (var i = 0; i < cid.length; i++) 
+  {
+    sum += cid[i][1];
+  }
+  
+  sum = roundTwo(sum);
+
+  if ( change > sum  )
+  {
+    return 'Insufficient Funds';
+  }
+  else if ( change === sum )
+  {
+    return 'Closed';    
+  }
+
+  var result = [];
+
+  if (change >= 100)
+  {
+    var num = 100.00;
+    var value = change / num + '';         // Change to string by adding '' to use regEx
+    value = value.match(/\d+/);            // Using regEx to get digits before the decimal point.
+    value = Number.parseInt(value) * num;  // Getting the value of quarters.
+
+   if ( value > cid[8][1] )
+    {
+      value = cid[8][1];
+    }
+
+    var tmp = ["ONE HUNDRED", value];
+
+    result.push(tmp);                     // Add to final array. 
+    change = roundTwo(change - value);    // Update the value of change
+
+  }
+
+  if (change >= 20.0)
+  {
+    var num = 20.00;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[7][1] )
+    {
+      value = cid[7][1];
+    }
+
+    var tmp = ["TWENTY", value];
+
+    result.push(tmp);                   
+    change = roundTwo(change - value);    
+
+  }
+
+  if (change >= 10.0)
+  {
+    var num = 10.00;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[6][1] )
+    {
+      value = cid[6][1];
+    }
+
+    var tmp = ["TEN", value];
+
+    result.push(tmp);                   
+    change = roundTwo(change - value);    
+
+  }
+
+  if (change >= 5.0)
+  {
+    var num = 5.00;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[5][1] )
+    {
+      value = cid[5][1];
+    }
+
+    var tmp = ["FIVE", value];
+
+    result.push(tmp);                   
+    change = roundTwo(change - value);    
+
+  }
+
+  if (change >= 1.0)
+  {
+    var num = 1.00;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[4][1] )
+    {
+      value = cid[4][1];
+    }
+
+    var tmp = ["ONE", value];
+
+    result.push(tmp);                   
+    change = roundTwo(change - value);    
+
+  }
+
+  if (change >= 0.25)
+  {
+    var num = 0.25;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[3][1] )
+    {
+      value = cid[3][1];
+    }
+
+    var tmp = ["QUARTER", value];
+
+    result.push(tmp);         
+    change =  roundTwo(change - value);   
+
+  }
+
+  if (change >= 0.10)
+  {
+    var num = 0.10;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[2][1] )
+    {
+      value = cid[2][1];
+    }
+
+    var tmp = ["DIME", value];
+
+    result.push(tmp);         
+    change =  roundTwo(change - value);
+  }
+
+  if (change >= 0.05)
+  {
+    var num = 0.05;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[1][1] )
+    {
+      value = cid[1][1];
+    }
+
+    var tmp = ["NICKEL", value];
+
+    result.push(tmp);         
+    change =  roundTwo(change - value);
+  }
+
+ if (change >= 0.01)
+  {
+    var num = 0.01;
+    var value = change / num + '';         
+    value = value.match(/\d+/);            
+    value = Number.parseInt(value) * num; 
+
+    if ( value > cid[0][1] )
+    {
+      value = cid[0][1];
+    }
+
+    var tmp = ["PENNY", value];
+
+    result.push(tmp);         
+    change =  roundTwo(change - value);
+  }
+
+  if ( change > 0.0  )
+  {
+    return 'Insufficient Funds';
+  }
+
+  console.log("Sum: " + sum + "\nChange: " + change );
+
+  return result;
+}
+
+checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], 
+                  ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+*/
+
+/*
+function sym(args) 
+{
+  var finalResult = [];
+  var num = 1;
+
+  while( num < arguments.length)
+  {
+    for (var j = 0; j < arguments[0].length; j++) 
+    {
+      if ( arguments[num].includes(arguments[0][j]) )  // 2nd array has it.
+      {
+        var index = 0;
+        var char =  arguments[0][j];
+
+        while ( arguments[0].indexOf(char) >= 0)  // Use it to get rid of repeats. 
+        {
+          index = arguments[0].indexOf(char);
+          delete arguments[0][index];
+        }
+
+        while ( arguments[num].indexOf(char) >= 0)
+        {
+          index = arguments[num].indexOf(char);
+          delete arguments[num][index];
+        }         
+      }
+    }
+
+    arguments[0] = arguments[0].concat(arguments[num]);
+    delete arguments[num];
+    num++;
+  }
+
+  for (var i in arguments[0])
+  {
+    if ( !finalResult.includes(arguments[0][i]) )
+    {   finalResult.push(arguments[0][i]);     }
+  }
+
+  return finalResult;
+}
+
+sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]); //1, 4, 5 
+sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]);
+*/
+
+/*
+// Setup
+var collection = {
+    "2548": {
+      "album": "Slippery When Wet",
+      "artist": "Bon Jovi",
+      "tracks": [ 
+        "Let It Rock", 
+        "You Give Love a Bad Name" 
+      ]
+    },
+    "2468": {
+      "album": "1999",
+      "artist": "Prince",
+      "tracks": [ 
+        "1999", 
+        "Little Red Corvette" 
+      ]
+    },
+    "1245": {
+      "artist": "Robert Palmer",
+      "tracks": [ ]
+    },
+    "5439": {
+      "album": "ABBA Gold"
+    }
+};
+// Keep a copy of the collection for tests
+var collectionCopy = JSON.parse(JSON.stringify(collection));
+
+// Only change code below this line
+function updateRecords(id, prop, value) {
+  
+  if ( prop !== 'tracks' && value !== "" )
+  {
+      collection[id][prop] = value;
+  } 
+
+  if ( prop === 'tracks' && value !== "")
+  {
+    if ( collection[id][prop] === undefined)
+    {
+      collection[id][prop] = [];
+    }
+    
+    collection[id][prop].push(value);
+  }
+
+  if (value === "" && collection[id][prop] !== undefined)
+  {
+    delete collection[id][prop];
+  }
+
+  //console.log(collection[id]);   
+  
+  return collection;
+}
+
+// Alter values below to test your code
+updateRecords(5439, "artist", "ABBA");
+updateRecords(5439, "tracks", "Take a Chance on Me"); 
+updateRecords(2548, "tracks", "");
+*/
+
+/*
 function telephoneCheck(str) {
 
   var regEx;
