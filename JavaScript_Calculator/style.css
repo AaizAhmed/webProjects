@@ -1,0 +1,64 @@
+body
+{  
+  background-color: silver;
+  text-align: center;
+}
+
+#wrapper
+{
+  margin: auto;
+  margin-top: 15%;
+  min-width: 300px;
+  max-width: 25%;
+  border-style: solid;
+}
+
+#displayCurrent
+{
+  margin: auto;
+  min-width: 300px;
+  max-width: 20%;
+  min-height: 50px;
+  max-height: 5%;
+  border-style: solid;
+  font-size: 20px;
+}
+
+//SEE WHAT HAPPENS WITHOUT ANY WIDTH/HEIGHT PROPERTIES IN DIVS
+
+#inputButtons
+{
+  margin: auto;
+  min-width: 300px;
+  max-width: 25%;
+  min-height: 400px;
+  max-height: 35%;
+  border-style: solid;
+  border-color: black;   
+}
+
+#equals
+{
+  height: 80%;
+  font-size: 28px;
+}
+
+.buttonStyle
+{
+  background-color: rgb(66, 134, 244);
+  font-size: 20px;
+  border-style: solid;
+  border-color: gray;
+}
+
+table tr td button
+{
+  font-size: 20px;
+}
+
+table td
+{
+  //margin-left: 5%;
+  text-align: center;
+  
+}
