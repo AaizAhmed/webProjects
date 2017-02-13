@@ -7,30 +7,44 @@ body
 #wrapper
 {
   margin: auto;
-  margin-top: 15%;
+  margin-top: 12%;
   min-width: 300px;
   max-width: 25%;
+}
+
+#displayPrevious
+{
+  margin: auto;
+  min-width: 300px;
+  max-width: 60%;
+  min-height: 25px;
+  max-height: 3%;
   border-style: solid;
+  text-align: right;
+  padding-right: 2%;
+  font-size: 16px;
 }
 
 #displayCurrent
 {
   margin: auto;
   min-width: 300px;
-  max-width: 20%;
+  max-width: 60%;
   min-height: 50px;
   max-height: 5%;
   border-style: solid;
   font-size: 20px;
+  text-align: right;
+  padding-top: 2%;
+  padding-right: 2%;
 }
 
-//SEE WHAT HAPPENS WITHOUT ANY WIDTH/HEIGHT PROPERTIES IN DIVS
 
 #inputButtons
 {
   margin: auto;
   min-width: 300px;
-  max-width: 25%;
+  max-width: 80%;
   min-height: 400px;
   max-height: 35%;
   border-style: solid;
@@ -58,7 +72,7 @@ table tr td button
 
 table td
 {
-  //margin-left: 5%;
-  text-align: center;
-  
+  /*border-style: solid;
+  border-color: gray;*/
+  text-align: center;  
 }
