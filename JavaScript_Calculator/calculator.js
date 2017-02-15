@@ -1,5 +1,6 @@
 
 var stack = new Array();
+var equalsUsed = false;
 
 function allClear()
 {
@@ -10,12 +11,7 @@ function allClear()
 
 function clearEntry()
 {
-	//Removing element from the stack
-	stack.pop();
-
-	var output = stack.toString().replace(/,/g, '');
-	
-	$('#displayPrevious').text( output );
+	// Changing current display only.
 	$('#displayCurrent').text('0');
 }
 
@@ -27,6 +23,12 @@ function addText(str)
 	if ( value.length == 1 && value[0] == '0' ) 
 	{
 		$('#displayCurrent').text('');
+	}
+
+	if ( equalsUsed )
+	{
+		equalsUsed = false;
+		return $('#displayCurrent').text( str );
 	}
 
 	var regEx = /^[+-/x]/;  //To only display numbers after selecting the operator.
@@ -49,6 +51,12 @@ function addOperators(operator)
 	{
 		if (value != operator)
 		{
+			stack.pop();
+			stack.push(operator);
+			
+			var output = stack.toString().replace(/,/g, '');
+			$('#displayPrevious').text( output );
+			
 			return $('#displayCurrent').text( operator );
 		}
 
@@ -68,6 +76,12 @@ function addDecimal(str)
 {	
 	var value =  document.getElementById('displayCurrent').innerHTML;
 	var regEx = /^[+-/x]/;  
+
+	if ( equalsUsed )
+	{
+		equalsUsed = false;
+		$('#displayCurrent').text('0');  		
+	}
 
 	if ( regEx.test(value) ) 
 	{
@@ -126,7 +140,7 @@ function postfixAlgorithm()
  		postfix.push( operatorArray.pop() );
  	}
 
-	console.log( postfix );
+	//console.log( postfix );
 
 	var calculate = new Array();	// Use a stack to do calculations.
 
@@ -137,7 +151,7 @@ function postfixAlgorithm()
 		if ( regEx.test( postfix[i] ) === false )
 		{
 			calculate.push( postfix[i] );
-			console.log( calculate );
+			//console.log( calculate );
 		}
 		else
 		{
@@ -163,7 +177,7 @@ function postfixAlgorithm()
 		}		
 	}
 
-	console.log("Stack is: " + calculate );
+	equalsUsed = true;
 
 	return Number( calculate[0] );
 }
@@ -171,6 +185,11 @@ function postfixAlgorithm()
 function doCalculation()
 {
 	var value =  document.getElementById('displayCurrent').innerHTML;
+
+	if ( stack.length <= 1)
+	{
+		return;
+	}
 
 	var regEx = /^[+-/x]/;  
 
@@ -183,10 +202,6 @@ function doCalculation()
 
 	var output = stack.toString().replace(/,/g, '');
 
-	//var re = /(\d+)\+(\d+)/g;
-	//var newstr = output.replace(re, '$1, $2' );
-	//var test = output.split(re);
-
 	var result = postfixAlgorithm();
 	
 	output += '=' + result;
@@ -195,16 +210,10 @@ function doCalculation()
 
 	$('#displayPrevious').text( output );
 	$('#displayCurrent').text(result);
-
-	//Do some cleaning for addText() and calcaulation() !!
 }
-
-
 
 $(document).ready( function()
 {
 	$('#displayPrevious').text('0');
 	$('#displayCurrent').text('0');
-
-	//if ( equalsUsed )
 });

@@ -19,11 +19,13 @@ body
   max-width: 60%;
   min-height: 25px;
   max-height: 3%;
-  border-style: solid;
+  border-top: solid;
+  border-right: solid;
+  border-left: solid;
   text-align: right;
   padding-right: 2%;
   font-family: "Time New Roman";
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #displayCurrent
@@ -33,9 +35,10 @@ body
   max-width: 60%;
   min-height: 50px;
   max-height: 5%;
-  border-style: solid;
+  border-right: solid;
+  border-left: solid;
   font-family: "Time New Roman";
-  font-size: 22px;
+  font-size: 28px;
   text-align: right;
   padding-top: 2%;
   padding-right: 2%;
