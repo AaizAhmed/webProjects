@@ -32,7 +32,7 @@
 	<tr>
 		<td>
 			<button class="btn btn-info" onclick="increment(0)"> + </button>
-			<h2 id="break">	5	</h2>
+			<h2 id="break">	05	</h2>
 			<button class="btn btn-info" onclick="decrement(0)"> - </button>
 		</td>
 
@@ -45,15 +45,19 @@
 
 </table>
 
-<div id="timeDisplay"> <span id="info"> Session </span>	<br> <span id="timeLeft">  </span> </div>
+<div id="timeDisplay"> 
 
-<div style="margin: auto; margin-top: 2%;"> 
-
-	<button class="btn btn-primary" id="start" onclick="startSession()"> Start </button>
-	<button class="btn btn-primary" id="stop" onclick="stopCounter()"> Stop </button>
-	<button class="btn btn-danger" style="margin-left: 2%;" onclick="reset()"> Reset </button> 
-
+	<span id="info"> Session </span>	<br> 
+	<span id="timeLeft">  </span> 
 </div>
+
+<div style="margin: auto; margin-top: 2%;">
+
+	<button class="btn btn-primary" id="start" onclick="start()"> Start </button>
+	<button class="btn btn-primary" id="stop" onclick="stop()"> Stop </button>
+	<button class="btn btn-danger" style="margin-left: 2%;" onclick="reset()"> Reset </button>
+</div>
+
 
 </div>
 
