@@ -45,11 +45,12 @@
 
 </table>
 
-<div id="timeDisplay"> Session	<br> <span id="timeLeft"> 25 </span> </div>
+<div id="timeDisplay"> <span id="info"> Session </span>	<br> <span id="timeLeft">  </span> </div>
 
 <div style="margin: auto; margin-top: 2%;"> 
 
-	<button class="btn btn-primary" onclick="displayCounter()"> Start </button>
+	<button class="btn btn-primary" id="start" onclick="startSession()"> Start </button>
+	<button class="btn btn-primary" id="stop" onclick="stopCounter()"> Stop </button>
 	<button class="btn btn-danger" style="margin-left: 2%;" onclick="reset()"> Reset </button> 
 
 </div>

@@ -34,6 +34,10 @@ table tr td
 	padding-top: 5%;
 }
 
+.hide
+{
+	display: none;
+}
 
 #timeDisplay
 {
