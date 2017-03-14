@@ -6,13 +6,27 @@ body
 #board
 {
 	margin: auto;
-	margin-top: 10%;
+	margin-top: 2%;
 	width: 400px;
 	height: 402px;
 	background-color: #35cc7b;
 	display: none;
 }
 
+#turn
+{
+	margin: auto;
+	margin-top: 8%;
+	text-align: center;
+	font-size: 30px;
+}
+
+#stats
+{
+	margin: auto;
+	text-align: center;
+	font-size: 24px;
+}
 
 #first
 {
@@ -70,6 +84,8 @@ table tr td
 	height: 134px;
 	border-right-style: solid;	
 	border-color: black;
+	text-align: center;
+	font-size: 40px;
 }
 
 button
