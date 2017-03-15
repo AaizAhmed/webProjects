@@ -31,6 +31,15 @@ function addBoard(sign)
    {
       board[i] = new Array(3);
    }
+
+   // $('td').on('click', function()
+   // { 
+   //    var id = event.target.id;      
+   //    playGame(id);
+    
+   // });
+
+
 }
 
 function playGame(id)
@@ -41,55 +50,56 @@ function playGame(id)
    // Total number of turns is 9 ==> 3*3
    if (turn < 9)
    {
-      if (playerTurn === true)
+     if (playerTurn === true)
       {
          if ( board[row][col] === undefined)
          {
             board[row][col] = playerSign;
             $('#'+id).text(playerSign); 
+            printBoard();              	
 
-            if ( checkWin() === true)
+
+            if (checkWin() === true)
  		   {
- 		      restart();
+     		  // $('td').off('click'); 
+	          $("#turn").text("You Won!!");
  		      turn = 0;
+ 		      restart();
  		   }
  		   else
  		   {
  		      playerTurn = false;
               turn++;                   
-
               $("#turn").text("Computer's Turn");
-              console.log("Turn: " + turn);       
-
-              printBoard();              	
+              // console.log("Turn: " + turn);       
  		   }               
          }	   		
       }
       
       else 
       {
-         if (  board[row][col] === undefined )
+         if (board[row][col] === undefined)
          {
             board[row][col] = computerSign;
             $('#'+id).text(computerSign); 
+            printBoard();              	
 
-            if ( checkWin() === true)
+
+            if (checkWin() === true)
  		   {
+              $("#turn").text("Computer Won!");
  		      restart();
  		      turn = 0;
  		   }
  		   else
  		   {               
               playerTurn = true;
-              turn++;                
-
+              turn++;       
               $("#turn").text("Your Turn!"); 
-              console.log("Turn: " + turn);    
-
-              printBoard();  
+              // console.log("Turn: " + turn);    
             }            
          }
-      }
+       }  
    }   
 }
 
@@ -146,7 +156,7 @@ function restart()
     }
 
 	// NOT WORKING AS DESIRED
-	sleep(3000);
+	sleep(1000);
 
     for (var row = 0; row < 3; row++) 
 	{
@@ -159,14 +169,21 @@ function restart()
 
 	if(playerSign === 'X')
 	{
-	   $("#turn").text("You Won!!");
 	   playerTurn = true;
 	}
 	else if (playerSign === 'O')
 	{
-       $("#turn").text("Computer Won!");
 	   playerTurn = false;	
 	}
+
+	// $('td').on('click', function()
+ //   { 
+ //      var id = event.target.id;      
+ //      playGame(id);
+ //   });
+
+ 	
+    
 }
 
 function printBoard()
@@ -197,14 +214,16 @@ function printBoard()
 $(document).ready( function()
 {
 
-	$('td').click( function()
-   { 
-      var id = event.target.id;      
-      playGame(id);
-   });
+	// $('td').on('click', function()
+ //   { 
+ //      var id = event.target.id;      
+ //      playGame(id);
+    
+ //   });
 
-// -------------------------------------------------------
-   // CHECK WIN COND HERE 
-// -------------------------------------------------------
+	var test = 0;
+	console.log(test);
+	test++;
+
 
 });
