@@ -31,15 +31,6 @@ function addBoard(sign)
    {
       board[i] = new Array(3);
    }
-
-   // $('td').on('click', function()
-   // { 
-   //    var id = event.target.id;      
-   //    playGame(id);
-    
-   // });
-
-
 }
 
 function playGame(id)
@@ -58,21 +49,10 @@ function playGame(id)
             $('#'+id).text(playerSign); 
             printBoard();              	
 
-
-            if (checkWin() === true)
- 		   {
-     		  // $('td').off('click'); 
-	          $("#turn").text("You Won!!");
- 		      turn = 0;
- 		      restart();
- 		   }
- 		   else
- 		   {
- 		      playerTurn = false;
-              turn++;                   
-              $("#turn").text("Computer's Turn");
-              // console.log("Turn: " + turn);       
- 		   }               
+ 		     playerTurn = false;
+             turn++;                   
+             $("#turn").text("Computer's Turn");
+             // console.log("Turn: " + turn);       
          }	   		
       }
       
@@ -83,23 +63,13 @@ function playGame(id)
             board[row][col] = computerSign;
             $('#'+id).text(computerSign); 
             printBoard();              	
-
-
-            if (checkWin() === true)
- 		   {
-              $("#turn").text("Computer Won!");
- 		      restart();
- 		      turn = 0;
- 		   }
- 		   else
- 		   {               
-              playerTurn = true;
-              turn++;       
-              $("#turn").text("Your Turn!"); 
-              // console.log("Turn: " + turn);    
-            }            
+              
+            playerTurn = true;
+            turn++;       
+            $("#turn").text("Your Turn!"); 
+            // console.log("Turn: " + turn);    
          }
-       }  
+      }  
    }   
 }
 
@@ -147,7 +117,7 @@ function sleep(delay)
 
 function restart()
 {
-
+	turn = 0;
 	board = new Array(3);
 	
 	for (var i = 0; i < board.length; i++) 
@@ -176,13 +146,13 @@ function restart()
 	   playerTurn = false;	
 	}
 
-	// $('td').on('click', function()
+ // $('td').on('click', function()
  //   { 
  //      var id = event.target.id;      
  //      playGame(id);
  //   });
 
- 	
+
     
 }
 
@@ -214,16 +184,49 @@ function printBoard()
 $(document).ready( function()
 {
 
-	// $('td').on('click', function()
- //   { 
- //      var id = event.target.id;      
- //      playGame(id);
+ //    $('td').on('click', function()
+ //    { 
+ //    	 var id = event.target.id;      
+ //    	 playGame(id);
     
- //   });
+ //    });
 
 	var test = 0;
-	console.log(test);
-	test++;
+	// console.log(test);
+	// test++;
 
+	// while (true)
+	// {
+
+		$('td').on('click', function()
+		{ 
+		   var id = event.target.id;      
+		   playGame(id);
+
+		   if ( turn >= 1)
+		   {
+			if(checkWin() === true)
+			{
+				if (playerTurn === false)
+				{
+				   $("#turn").text("You Won!!");
+				}
+				else
+				{
+	              $("#turn").text("Computer Won!");
+				}
+	 		    
+	 		    restart();	 		    
+			 }
+	       }
+		   console.log(test);
+		   	    
+		});
+
+		test++;	
+
+		
+
+	// }
 
 });
