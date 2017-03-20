@@ -33,46 +33,6 @@ function addBoard(sign)
    }
 }
 
-function playGame(id)
-{
-   var row = parseInt( id[0] );
-   var col = parseInt( id[1] );    
-
-   // Total number of turns is 9 ==> 3*3
-   if (turn < 9)
-   {
-     if (playerTurn === true)
-      {
-         if ( board[row][col] === undefined)
-         {
-            board[row][col] = playerSign;
-            $('#'+id).text(playerSign); 
-            printBoard();              	
-
- 		     playerTurn = false;
-             turn++;                   
-             $("#turn").text("Computer's Turn");
-             // console.log("Turn: " + turn);       
-         }	   		
-      }
-      
-      else 
-      {
-         if (board[row][col] === undefined)
-         {
-            board[row][col] = computerSign;
-            $('#'+id).text(computerSign); 
-            printBoard();              	
-              
-            playerTurn = true;
-            turn++;       
-            $("#turn").text("Your Turn!"); 
-            // console.log("Turn: " + turn);    
-         }
-      }  
-   }   
-}
-
 function checkWin()
 {
 	for (var i = 0; i < 3; i++) 
@@ -119,17 +79,12 @@ function restart()
 {
 	turn = 0;
 	board = new Array(3);
-	
-	for (var i = 0; i < board.length; i++) 
-    {
-       board[i] = new Array(3);
-    }
 
-	// NOT WORKING AS DESIRED
-	sleep(1000);
-
-    for (var row = 0; row < 3; row++) 
+	for (var row = 0; row < 3; row++) 
 	{
+	   // Resetting board
+       board[row] = new Array(3);
+
 		for (var col = 0; col < 3; col++)
 		{
 			var id = '#' + row + col;
@@ -145,15 +100,6 @@ function restart()
 	{
 	   playerTurn = false;	
 	}
-
- // $('td').on('click', function()
- //   { 
- //      var id = event.target.id;      
- //      playGame(id);
- //   });
-
-
-    
 }
 
 function printBoard()
@@ -180,53 +126,57 @@ function printBoard()
 	console.log(str);
 }
 
-// ------------------ DO THIS ------------------------
-$(document).ready( function()
+
+function playGame(id)
 {
+   var row = parseInt( id[0] );
+   var col = parseInt( id[1] );    
 
- //    $('td').on('click', function()
- //    { 
- //    	 var id = event.target.id;      
- //    	 playGame(id);
-    
- //    });
+   // Total number of turns in a game are 9 ==> 3*3
+   if (turn < 9)
+   {
+	if (playerTurn === true)
+	  {
+	     if ( board[row][col] === undefined)
+	     {
+	        board[row][col] = playerSign;
+	        $('#'+id).text(playerSign); 
+	        // printBoard();              	
 
-	var test = 0;
-	// console.log(test);
-	// test++;
-
-	// while (true)
-	// {
-
-		$('td').on('click', function()
-		{ 
-		   var id = event.target.id;      
-		   playGame(id);
-
-		   if ( turn >= 1)
-		   {
-			if(checkWin() === true)
-			{
-				if (playerTurn === false)
-				{
-				   $("#turn").text("You Won!!");
-				}
-				else
-				{
-	              $("#turn").text("Computer Won!");
-				}
-	 		    
-	 		    restart();	 		    
+			 if ( checkWin() === true)
+			 {
+			 	$("#turn").text("You Won!!");
+			 	restart();			 	
 			 }
-	       }
-		   console.log(test);
-		   	    
-		});
+			 else
+			 {
+			 	playerTurn = false;
+		        turn++;                   
+		        $("#turn").text("Computer's Turn");
+	         }       
+	     }	   		
+	  }
+	  
+	  else 
+	  {
+	     if (board[row][col] === undefined)
+	     {
+	        board[row][col] = computerSign;
+	        $('#'+id).text(computerSign); 
+	        // printBoard();   
 
-		test++;	
-
-		
-
-	// }
-
-});
+	        if ( checkWin() === true)
+	        {
+	        	$("#turn").text("Computer Won!");
+	        	restart();
+	        }           	
+	        else
+	        {
+	        	playerTurn = true;
+	        	turn++;       
+	        	$("#turn").text("Your Turn!"); 
+	        }  
+	     }
+	  }  
+   }   
+}
