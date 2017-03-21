@@ -8,10 +8,76 @@ var playerTurn = false;
 /*
 	http://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/
 	http://neverstopbuilding.com/minimax
+	https://mostafa-samir.github.io/Tic-Tac-Toe-AI/
 */
+
+var Tic_Tac_Toe_Board = function()
+{
+	var board = [ ['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-'] ];
+
+	this.printBoard = function()
+	{	var str = '';
+
+		for (var row = 0; row < 3; row++) 
+		{	for (var col = 0; col < 3; col++)
+			{
+				str += board[row][col];
+			}
+			str += "\n";
+		}
+
+		console.log(str);
+	};
+
+	this.makeMove = function (row_col, sign) 
+	{
+		var row = row_col[0];
+		var col = row_col[1];
+
+		if (board[row][col] === '-')
+		{
+			board[row][col] = sign;
+		} 	
+	};
+
+	this.getBoard = function()
+	{
+		return board;
+	};
+};
+
+var Player = function (sign, turn)
+{
+	this._sign = sign;
+	this._turn = turn;
+
+	
+};
+
+var AI = function(sign, turn)
+{
+	this._sign = sign;
+	this._turn = turn;
+
+	
+
+};
+
+var Game = function () 
+{
+	
+};
 
 function addBoard(sign)
 {
+	var board = new Tic_Tac_Toe_Board();
+
+	board.printBoard();
+
+	var player = new Player('X', 0);
+	console.log(player._sign);
+
+/*
    $("#ask").css('display', 'none');
    $("#board").css('display', 'block');
 
@@ -36,6 +102,8 @@ function addBoard(sign)
    {
       board[i] = new Array(3);
    }
+ */
+
 }
 
 function checkWin()
@@ -107,29 +175,7 @@ function restart()
 	}
 }
 
-function printBoard()
-{
-	var str = '';
 
-	for (var row = 0; row < 3; row++) 
-	{
-		for (var col = 0; col < 3; col++)
-		{
-			if ( board[row][col] === undefined )
-			{
-				str += "- ";	
-			}
-			else
-			{
-				str += board[row][col] + " ";
-			}
-		}
-
-		str += "\n";
-	}
-
-	console.log(str);
-}
 
 
 function playGame(id)
