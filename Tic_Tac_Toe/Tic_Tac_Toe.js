@@ -5,6 +5,11 @@ var computerSign = '';
 var turn = 0;
 var playerTurn = false;
 
+/*
+	http://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/
+	http://neverstopbuilding.com/minimax
+*/
+
 function addBoard(sign)
 {
    $("#ask").css('display', 'none');
