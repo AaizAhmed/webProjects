@@ -63,19 +63,37 @@ var AI = function(sign, turn)
 
 };
 
-var Game = function () 
+var Game = function (board) 
 {
-	
+	this._board = board;
+
+	this.isOver = function () 
+	{
+		for (var row = 0; row < 3; row++) 
+		{	for (var col = 0; col < 3; col++)
+			{
+				if (_board[row][col] === '-')
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	};
 };
 
 function addBoard(sign)
 {
 	var board = new Tic_Tac_Toe_Board();
+	var game = new Game(board);
 
 	board.printBoard();
 
 	var player = new Player('X', 0);
 	console.log(player._sign);
+	
+	console.log( game.isOver() );
 
 /*
    $("#ask").css('display', 'none');
