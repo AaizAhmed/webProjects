@@ -70,74 +70,50 @@ var AI = function(a_sign, p_sign, turn, board)
 	this.getTurn = function() {   return ai_turn;   };
 
 
-    function evaluate() 
+    function evaluate(evaluate_board, depth) 
     {
-    	var board = current_board;
+    	var board = evaluate_board;
 
     	for (var i = 0; i < 3; i++) 
 		{
 			// Checking horizontal win condition
 			if ( board[i][0] === board[i][1] && board[i][1] === board[i][2] )
 			{	
-				// console.log("In horizontal " + board[i][1]);
-
 				if (board[i][0] === ai_sign)
-				{   
-					console.log("In horizontal " + board[i][0]);
-					return +10;   }
+				{   return 10-depth;   }
 				
 				else if (board[i][0] === player_sign) 
-				{   
-					console.log("In horizontal " + board[i][0]]);
-					return -10;   }
+				{   return depth-10;   }
 		    }
 
 			// Checking vertical win condition
 			else if ( board[0][i] === board[1][i] && board[1][i] === board[2][i] )
 			{	
-
 				if (board[i][0] === ai_sign)
-				{   
-				console.log("In vertical " + board[0][i]);
-					return +10;   }
+				{   return 10-depth;   }
 				
 				else if (board[i][0] === player_sign) 
-				{   
-				console.log("In vertical " + board[0][i]);
-
-					return -10;   }
+				{   return depth-10;   }
 			}
 		}
 
 		// Checking diagnol win conditions 
-		if (board[0][0] === board[1][1] && board[1][1] === board[2][2] )
+		if ( board[0][0] === board[1][1] && board[1][1] === board[2][2] )
 		{
-
 			if (board[0][0] === ai_sign)
-			{   
-			console.log("In diagnol 1 " + board[1][1]);
-				return +10;   }
+			{   return 10-depth;   }
 			
 			else if (board[0][0] === player_sign) 
-			{   
-			console.log("In diagnol 1 " + board[1][1]);
-
-				return -10;   }	
+			{   return 10+depth;   }
 		}
 
-		if (board[2][0] === board[1][1] && board[1][1] === board[0][2] )
+		if ( board[2][0] === board[1][1] && board[1][1] === board[0][2] )
 		{	
-			console.log("In diagnol 2 " + board[1][1]);
-
 			if (board[2][0] === ai_sign)
-			{   
-			console.log("In diagnol 1 " + board[1][1]);
-				return +10;   }
+			{   return 10-depth;   }
 			
 			else if (board[2][0] === player_sign) 
-			{   
-			console.log("In diagnol 1 " + board[1][1]);
-				return -10;   }
+			{   return 10+depth;   }
 		}
 
 		// A draw
@@ -150,11 +126,7 @@ var AI = function(a_sign, p_sign, turn, board)
 		{	for (var col = 0; col < 3; col++)
 			{
 				if (test_board[row][col] === '-')
-				{
-					// console.log("Is over " + test_board[row][col]);
-
-					return false;
-				}
+				{   return false;   }
 			}
 		}
 		return true;
@@ -187,15 +159,13 @@ var AI = function(a_sign, p_sign, turn, board)
 				{
 					if (test_board[row][col] === '-')
 					{
-                    	// console.log("Before: " + test_board[row][col])
-
 						// Make the move
                     	test_board[row][col] = ai_sign;
 
                     	// console.log("After: " + test_board[row][col])
 
                     	// Call minimax recursively and choose the maximum value
-                    	best = Math.max( best, min_max(test_board, depth+1, !isMax) );
+                    	best = Math.max( best, min_max(test_board, depth++, !isMax) );
 
                     	// Undo the move
                     	test_board[row][col] = '-';
@@ -221,7 +191,7 @@ var AI = function(a_sign, p_sign, turn, board)
                     	test_board[row][col] = player_sign;
 
                     	// Call minimax recursively and choose the maximum value
-                    	best = Math.min( best, min_max(test_board, depth+1, !isMax) );
+                    	best = Math.min( best, min_max(test_board, depth++, !isMax) );
 
                     	// Undo the move
                     	test_board[row][col] = '-';
@@ -237,7 +207,7 @@ var AI = function(a_sign, p_sign, turn, board)
 	{
 		var best_value = -1000;
 		
-		var best_move = [ ];
+		var best_move = row_col;
 
 		// Traverse all cells, evalutae minimax function for
 	    // all empty cells. And return the cell with optimal value.
@@ -249,16 +219,14 @@ var AI = function(a_sign, p_sign, turn, board)
 					test_board[row][col] = player_sign;
 
 					var move_val = min_max(test_board, 0, false);
-
 						
-					console.log("Move val: " + move_val);
-
+					// Undo the move
 					test_board[row][col] = '-';
 
 					if (move_val > best_value)
 					{
-						best_move.push(row);
-						best_move.push(col);
+						best_move.row = row;
+						best_move.col = col;
 						best_value = move_val;
 					}
 				}
@@ -267,10 +235,7 @@ var AI = function(a_sign, p_sign, turn, board)
 
 		console.log (best_move);
 		return best_move;
-	}
-
-
-
+	};
 
 };   // End of AI Class/Object. 
 
@@ -304,11 +269,10 @@ function main()
 	var ai = new AI('O', 'X', 0, board);
 
 	var my_board = [ ['X', 'O', 'X'], ['O', 'O', 'X'], ['-', '-', '-'] ];
-
 	ai.findBestMove(my_board);
-	
-	// console.log( ai.evaluate() );
 
+	var my_board_2 = [ ['-', '-', 'X'], ['-', 'O', 'X'], ['O', '-', '-'] ];
+	ai.findBestMove(my_board_2);
 }
 
 main();
