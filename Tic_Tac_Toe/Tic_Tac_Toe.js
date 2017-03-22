@@ -261,7 +261,7 @@ var Game = function (board)
 	};
 };
 
-function main()
+function play_game()
 {
 	var board_obj = new Tic_Tac_Toe_Board();
 	var board = board_obj.getBoard();
@@ -276,8 +276,6 @@ function main()
 					 ['O', 'O', 'X'], 
 					 ['-', '-', '-'] ];
 	
-	console.log(my_board[2][2]);
-
 	ai.findBestMove(my_board);
 
 	var ai = new AI('X', 'O', 0, board);
@@ -289,35 +287,39 @@ function main()
 	ai.findBestMove(my_board_3);
 }
 
-main();
+// play_game();
 
 function addBoard(sign)
 {
 
-   // $("#ask").css('display', 'none');
-   // $("#board").css('display', 'block');
+   $("#ask").css('display', 'none');
+   $("#board").css('display', 'block');
 
-   // $("#player").text("Player: |");
-   // $("#computer").text("Computer: ");
+   $("#player").text("Player: |");
+   $("#computer").text("Computer: ");
 
-   // if (sign === 'X')
-   // {
-   //    playerSign = 'X';
-   // 	  computerSign = 'O';
-   // 	  playerTurn = true;
-   // 	  $("#turn").text("Your Turn!");
-   // }
-   // else 
-   // {
-   //    playerSign = 'O';
-   //    computerSign = 'X';
-   //    $("#turn").text("Computer's Turn");
-   // }
+   if (sign === 'X')
+   {
+      playerSign = 'X';
+   	  computerSign = 'O';
+   	  playerTurn = true;
+   	  $("#turn").text("Your Turn!");
+   }
+   else 
+   {
+      playerSign = 'O';
+      computerSign = 'X';
+      $("#turn").text("Computer's Turn");
+   }
 
-   // for (var i = 0; i < board.length; i++) 
+   $('td').on('click', play_game);
    // {
-   //    board[i] = new Array(3);
-   // }
+   // 		id = event.target.id;
+   // });
+
+   // console.log(id);
+
+   play_game();
  
 }
 
@@ -391,7 +393,9 @@ function restart()
 }
 
 
-function playGame(id)
+
+
+function display(id)
 {
    var row = parseInt( id[0] );
    var col = parseInt( id[1] );    
