@@ -141,7 +141,7 @@ var AI = function(a_sign, p_sign, turn, board)
 		{   return score;   }
 
 		// If Minimizer has won the game return evaluated score
-		if (score === 10)
+		if (score === -10)
 		{   return score;   }
 
 		// If there are no more moves and no winner then it is a tie
@@ -172,7 +172,6 @@ var AI = function(a_sign, p_sign, turn, board)
 					}
 				}
 			}
-
 			return best;
 		}
 
@@ -198,7 +197,6 @@ var AI = function(a_sign, p_sign, turn, board)
 					}
 				}
 			}
-
 			return best;
 		}
 	}
@@ -271,14 +269,22 @@ function main()
 	var game = new Game( board );
 	
 	var player = new Player('X', 0);
+
 	var ai = new AI('O', 'X', 0, board);
 
-	var my_board = [ ['X', 'O', 'X'], ['O', 'O', 'X'], ['-', '-', '-'] ];
+	var my_board = [ ['X', 'O', 'X'], 
+					 ['O', 'O', 'X'], 
+					 ['-', '-', '-'] ];
+	
+	console.log(my_board[2][2]);
+
 	ai.findBestMove(my_board);
 
+	var ai = new AI('X', 'O', 0, board);
 	var my_board_2 = [ ['-', '-', 'X'], ['-', 'O', 'X'], ['O', '-', '-'] ];
 	ai.findBestMove(my_board_2);
 
+	var ai = new AI('O', 'X', 0, board);
 	var my_board_3 = [ ['-', 'X', '-'], ['-', '-', 'X'], ['O', 'O', 'X'] ];
 	ai.findBestMove(my_board_3);
 }
@@ -287,32 +293,32 @@ main();
 
 function addBoard(sign)
 {
-/*
-   $("#ask").css('display', 'none');
-   $("#board").css('display', 'block');
 
-   $("#player").text("Player: |");
-   $("#computer").text("Computer: ");
+   // $("#ask").css('display', 'none');
+   // $("#board").css('display', 'block');
 
-   if (sign === 'X')
-   {
-      playerSign = 'X';
-   	  computerSign = 'O';
-   	  playerTurn = true;
-   	  $("#turn").text("Your Turn!");
-   }
-   else 
-   {
-      playerSign = 'O';
-      computerSign = 'X';
-      $("#turn").text("Computer's Turn");
-   }
+   // $("#player").text("Player: |");
+   // $("#computer").text("Computer: ");
 
-   for (var i = 0; i < board.length; i++) 
-   {
-      board[i] = new Array(3);
-   }
- */
+   // if (sign === 'X')
+   // {
+   //    playerSign = 'X';
+   // 	  computerSign = 'O';
+   // 	  playerTurn = true;
+   // 	  $("#turn").text("Your Turn!");
+   // }
+   // else 
+   // {
+   //    playerSign = 'O';
+   //    computerSign = 'X';
+   //    $("#turn").text("Computer's Turn");
+   // }
+
+   // for (var i = 0; i < board.length; i++) 
+   // {
+   //    board[i] = new Array(3);
+   // }
+ 
 }
 
 function checkWin()
