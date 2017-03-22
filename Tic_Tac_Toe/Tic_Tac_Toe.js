@@ -304,6 +304,7 @@ var playerSign = '';
 var computerSign = '';
 var moves = 0;
 var playerTurn = false;
+var game_over = false;
 
 var board_obj = new Tic_Tac_Toe_Board();
 var board = board_obj.getBoard();
@@ -320,7 +321,7 @@ function play_game()
 	var row = parseInt( id[0] );
     var col = parseInt( id[1] );  
 
-	if (moves < 9)
+	if (moves < 9 && !game_over)
 	{
 		console.log(moves);
 
@@ -343,14 +344,12 @@ function play_game()
             	if ( board_obj.checkWin( board_obj.getBoard() ) )
             	{
             		$("#turn").text("You Won!!");
-            		moves = 9;
+            		game_over = true;
             	}
             }
 		}
-		
-		var player_won = board_obj.checkWin( board_obj.getBoard() );
 
-		if ( !playerTurn && !player_won )
+		if ( !playerTurn && !game_over )
 		{
 			var row_col = ai.findBestMove(board);
 			var id = '#' + row_col.row + row_col.col;
@@ -362,7 +361,7 @@ function play_game()
 			if ( board_obj.checkWin( board_obj.getBoard() ) )
         	{
         		$("#turn").text("Computer Won!");
-        		moves = 9;
+        		game_over = true;
         	}
         	else
         	{
@@ -373,7 +372,7 @@ function play_game()
 		}
 	}
 
-	if ( board_obj.isDraw( board_obj.getBoard() ) )
+	if ( !game_over && board_obj.isDraw( board_obj.getBoard() ) )
 	{
 		$("#turn").text("It was a Draw");
 	}
@@ -381,7 +380,6 @@ function play_game()
 
 function addBoard(sign)
 {
-
    $("#ask").css('display', 'none');
    $("#board").css('display', 'block');
 
@@ -397,6 +395,9 @@ function addBoard(sign)
       playerSign = 'O';
       computerSign = 'X';
       $("#turn").text("Computer's Turn");
+      
+      // Computer's sign is X so it goes first
+      play_game();
    }
 
    $("#player").text("Player: " + playerSign + " | ");
@@ -404,12 +405,6 @@ function addBoard(sign)
 
    // Add the event trigger
    $('td').on( 'click', play_game );
-
-   if (playerTurn === false)
-   {
-   		play_game();
-   }
- 
 }
 
 function restart()
