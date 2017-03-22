@@ -80,20 +80,20 @@ var AI = function(a_sign, p_sign, turn, board)
 			if ( board[i][0] === board[i][1] && board[i][1] === board[i][2] )
 			{	
 				if (board[i][0] === ai_sign)
-				{   return 10-depth;   }
+				{   return 10;   }
 				
 				else if (board[i][0] === player_sign) 
-				{   return depth-10;   }
+				{   return -10;   }
 		    }
 
 			// Checking vertical win condition
 			else if ( board[0][i] === board[1][i] && board[1][i] === board[2][i] )
 			{	
 				if (board[i][0] === ai_sign)
-				{   return 10-depth;   }
+				{   return 10;   }
 				
 				else if (board[i][0] === player_sign) 
-				{   return depth-10;   }
+				{   return -10;   }
 			}
 		}
 
@@ -101,19 +101,19 @@ var AI = function(a_sign, p_sign, turn, board)
 		if ( board[0][0] === board[1][1] && board[1][1] === board[2][2] )
 		{
 			if (board[0][0] === ai_sign)
-			{   return 10-depth;   }
+			{   return 10;   }
 			
 			else if (board[0][0] === player_sign) 
-			{   return 10+depth;   }
+			{   return -10;   }
 		}
 
 		if ( board[2][0] === board[1][1] && board[1][1] === board[0][2] )
 		{	
 			if (board[2][0] === ai_sign)
-			{   return 10-depth;   }
+			{   return 10;   }
 			
 			else if (board[2][0] === player_sign) 
-			{   return 10+depth;   }
+			{   return -10;   }
 		}
 
 		// A draw
@@ -208,6 +208,7 @@ var AI = function(a_sign, p_sign, turn, board)
 		var best_value = -1000;
 		
 		var best_move = row_col;
+		// var best_move = [ ];
 
 		// Traverse all cells, evalutae minimax function for
 	    // all empty cells. And return the cell with optimal value.
@@ -227,6 +228,10 @@ var AI = function(a_sign, p_sign, turn, board)
 					{
 						best_move.row = row;
 						best_move.col = col;
+
+						// best_move.push(row);
+						// best_move.push(col);
+
 						best_value = move_val;
 					}
 				}
@@ -273,6 +278,9 @@ function main()
 
 	var my_board_2 = [ ['-', '-', 'X'], ['-', 'O', 'X'], ['O', '-', '-'] ];
 	ai.findBestMove(my_board_2);
+
+	var my_board_3 = [ ['-', 'X', '-'], ['-', '-', 'X'], ['O', 'O', 'X'] ];
+	ai.findBestMove(my_board_3);
 }
 
 main();
