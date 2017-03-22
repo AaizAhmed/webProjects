@@ -98,8 +98,8 @@ var AI = function()
 	var ai_sign;
 	var opponent_sign;
 
-	var row_col = {   row: 0, 
-					  col: 0   
+	var row_col = {   row: -1, 
+					  col: -1   
 				  };
 
 	this.set_ai_Sign = function(sign) {   ai_sign = sign;   };
@@ -115,7 +115,7 @@ var AI = function()
 			if ( board[i][0] === board[i][1] && board[i][1] === board[i][2] )
 			{	
 				if (board[i][0] === ai_sign)
-				{   return 10;   }
+				{   return +10;   }
 				
 				else if (board[i][0] === opponent_sign) 
 				{   return -10;   }
@@ -125,7 +125,7 @@ var AI = function()
 			else if ( board[0][i] === board[1][i] && board[1][i] === board[2][i] )
 			{	
 				if (board[i][0] === ai_sign)
-				{   return 10;   }
+				{   return +10;   }
 				
 				else if (board[i][0] === opponent_sign) 
 				{   return -10;   }
@@ -136,7 +136,7 @@ var AI = function()
 		if ( board[0][0] === board[1][1] && board[1][1] === board[2][2] )
 		{
 			if (board[0][0] === ai_sign)
-			{   return 10;   }
+			{   return +10;   }
 			
 			else if (board[0][0] === opponent_sign) 
 			{   return -10;   }
@@ -145,7 +145,7 @@ var AI = function()
 		if ( board[2][0] === board[1][1] && board[1][1] === board[0][2] )
 		{	
 			if (board[2][0] === ai_sign)
-			{   return 10;   }
+			{   return +10;   }
 			
 			else if (board[2][0] === opponent_sign) 
 			{   return -10;   }
@@ -155,43 +155,61 @@ var AI = function()
 		return 0;
     }
 
-	function isOver(test_board) 
+	// function isOver(test_board) 
+	// {
+	// 	for (var row = 0; row < 3; row++) 
+	// 	{	for (var col = 0; col < 3; col++)
+	// 		{
+	// 			if (test_board[row][col] === '-')
+	// 			{   return false;   }
+	// 		}
+	// 	}
+	// 	return true;
+	// }
+
+	function isMoveLeft(test_board) 
 	{
 		for (var row = 0; row < 3; row++) 
 		{	for (var col = 0; col < 3; col++)
 			{
 				if (test_board[row][col] === '-')
-				{   return false;   }
+				{   return true;   }
 			}
 		}
-		return true;
+		return false;
 	}
 
 	function min_max(test_board, depth, isMax)
 	{
-		var score = evaluate(test_board);
+		var score = evaluate(test_board); 
 
-		// if ( depth === 0 || isOver(test_board) )
-		// {
-		// 	return score;
-		// }
+		// Return the score if the game is over i.e. it's a win or a draw
+		if ( !isMoveLeft(test_board) || board_obj.checkWin(test_board) )
+		{
+			return score;
+		}
 
-		// If Maximizer has won the game return evaluated score
-		if (score === 10)
-		{   return score;   }
-
-		// If Minimizer has won the game return evaluated score
-		if (score === -10)
-		{   return score;   }
-
-		// If there are no more moves and no winner then it is a tie
-		if ( isOver(test_board) === true)
-		{   return 0;   }
+		// // If Maximizer has won the game return his/her
+	 //    // evaluated score
+	 //    if (score === 10)
+	 //    {    return score;   }
+	 
+	 //    // If Minimizer has won the game return his/her
+	 //    // evaluated score
+	 //    if (score === -10)
+	 //    {    return score;   }
+	 
+	 //    // If there are no more moves and no winner then
+	 //    // it is a tie
+	 //    if ( isMoveLeft(test_board) === false )
+	 //    {    return 0;   }
 
 		// If this maximizer's move
 		if (isMax)
 		{
 			var best = -1000;
+
+			// console.log("In Max");
 
 			// Traverse all cells
 			for (var row = 0; row < 3; row++) 
@@ -203,7 +221,7 @@ var AI = function()
                     	test_board[row][col] = ai_sign;
 
                     	// Call minimax recursively and choose the maximum value
-                    	best = Math.max( best, min_max(test_board, depth++, false) );
+                    	best = Math.max( best, min_max(test_board, depth+1, !isMax) );
 
                     	// Undo the move
                     	test_board[row][col] = '-';
@@ -211,7 +229,6 @@ var AI = function()
 				}
 			}
 
-			// console.log(ai_sign + " best is: " + best);
 			return best;
 		}
 
@@ -219,6 +236,8 @@ var AI = function()
 		else
 		{
 			var best = 1000;
+
+			// console.log("In Min");
 
 			// Traverse all cells
 			for (var row = 0; row < 3; row++) 
@@ -230,7 +249,7 @@ var AI = function()
                     	test_board[row][col] = opponent_sign;
 
                     	// Call minimax recursively and choose the maximum value
-                    	best = Math.min( best, min_max(test_board, depth++, true) );
+                    	best = Math.min( best, min_max(test_board, depth+1, !isMax) );
 
                     	// Undo the move
                     	test_board[row][col] = '-';
@@ -243,14 +262,11 @@ var AI = function()
 
 	this.findBestMove = function(test_board)
 	{
-		console.log(test_board[0] + "\n" + test_board[1] + "\n" + test_board[2] + "\n");
-
 		var best_value = -1000;
-
 		var best_move = row_col;
 		// var best_move = [ ];
 
-		// Traverse all cells, evalutae minimax function for
+		// // Traverse all cells, evalutae minimax function for
 	    // all empty cells. And return the cell with optimal value.
 		for (var row = 0; row < 3; row++) 
 		{	for (var col = 0; col < 3; col++)
@@ -260,7 +276,7 @@ var AI = function()
 					test_board[row][col] = ai_sign;
 
 					var move_val = min_max(test_board, 0, false);
-						
+
 					// Undo the move
 					test_board[row][col] = '-';
 
@@ -278,7 +294,7 @@ var AI = function()
 			}
 		}
 
-		// console.log (best_move);
+		console.log ("Best value " + best_value);
 		return best_move;
 	};
 
@@ -296,6 +312,27 @@ var board_obj = new Tic_Tac_Toe_Board();
 var board = board_obj.getBoard();
 
 var ai = new AI();
+
+// For testing
+function main()
+{
+
+	ai.set_ai_Sign('X');
+	ai.set_opponent_Sign('O');
+
+	var my_board = [ ['X', 'O', 'X'], ['X', 'O', 'X'], ['-', '-', '-'] ];
+
+	var row_col = ai.findBestMove(my_board);
+	console.log( row_col.row + ", " + row_col.col);
+
+	my_board = [ ['-', '-', 'X'], ['-', 'O', 'X'], ['O', '-', '-'] ];
+
+	var row_col = ai.findBestMove(my_board);
+	console.log( row_col.row + ", " + row_col.col);
+
+}
+
+main();
 
 function play_game()
 {
