@@ -93,32 +93,17 @@ var Tic_Tac_Toe_Board = function()
 
 };
 
-var Player = function (sign, turn)
-{
-	var player_sign = sign;
-	var player_turn = turn;
-
-	this.getSign = function() {   return player_sign;   };
-	this.getTurn = function() {   return player_turn;   };
-	
-};
-
 var AI = function()
 {
 	var ai_sign;
 	var opponent_sign;
-	var ai_turn;
 
 	var row_col = {   row: 0, 
 					  col: 0   
 				  };
 
-	this.getSign = function() {   return ai_sign;   };
-	this.getTurn = function() {   return ai_turn;   };
-
-	this.setSign = function(ai_sign) {   ai_sign = a_sign;   }
-	this.setTurn = function(turn) {   ai_turn = turn;   }
-
+	this.set_ai_Sign = function(sign) {   ai_sign = sign;   };
+	this.set_opponent_Sign = function(oppo_sign) {   opponent_sign = oppo_sign;   };
 
     function evaluate(evaluate_board, depth) 
     {
@@ -186,6 +171,11 @@ var AI = function()
 	{
 		var score = evaluate(test_board);
 
+		// if ( depth === 0 || isOver(test_board) )
+		// {
+		// 	return score;
+		// }
+
 		// If Maximizer has won the game return evaluated score
 		if (score === 10)
 		{   return score;   }
@@ -212,16 +202,16 @@ var AI = function()
 						// Make the move
                     	test_board[row][col] = ai_sign;
 
-                    	// console.log("After: " + test_board[row][col])
-
                     	// Call minimax recursively and choose the maximum value
-                    	best = Math.max( best, min_max(test_board, depth++, !isMax) );
+                    	best = Math.max( best, min_max(test_board, depth++, false) );
 
                     	// Undo the move
                     	test_board[row][col] = '-';
 					}
 				}
 			}
+
+			// console.log(ai_sign + " best is: " + best);
 			return best;
 		}
 
@@ -240,7 +230,7 @@ var AI = function()
                     	test_board[row][col] = opponent_sign;
 
                     	// Call minimax recursively and choose the maximum value
-                    	best = Math.min( best, min_max(test_board, depth++, !isMax) );
+                    	best = Math.min( best, min_max(test_board, depth++, true) );
 
                     	// Undo the move
                     	test_board[row][col] = '-';
@@ -253,8 +243,10 @@ var AI = function()
 
 	this.findBestMove = function(test_board)
 	{
+		console.log(test_board[0] + "\n" + test_board[1] + "\n" + test_board[2] + "\n");
+
 		var best_value = -1000;
-		
+
 		var best_move = row_col;
 		// var best_move = [ ];
 
@@ -265,7 +257,7 @@ var AI = function()
 			{
 				if (test_board[row][col] === '-')
 				{
-					test_board[row][col] = opponent_sign;
+					test_board[row][col] = ai_sign;
 
 					var move_val = min_max(test_board, 0, false);
 						
@@ -292,12 +284,6 @@ var AI = function()
 
 };   // End of AI Class/Object. 
 
-var Game = function (board) 
-{
-	var game_board = board;
-
-	
-};
 
 var board = new Array(3);
 var playerSign = '';
@@ -309,9 +295,6 @@ var game_over = false;
 var board_obj = new Tic_Tac_Toe_Board();
 var board = board_obj.getBoard();
 
-var game = new Game( board );
-
-var player = new Player();
 var ai = new AI();
 
 function play_game()
@@ -323,8 +306,6 @@ function play_game()
 
 	if (moves < 9 && !game_over)
 	{
-		console.log(moves);
-
 		if (playerTurn)
 		{
             if ( !isNaN(row) && !isNaN(col) )
@@ -334,7 +315,7 @@ function play_game()
 				if (move_made)
 				{
 					$('#'+id).text(playerSign);
-		        	board_obj.printBoard();
+		        	// board_obj.printBoard();
 
 		        	playerTurn = false;
 		            moves++;
@@ -351,12 +332,12 @@ function play_game()
 
 		if ( !playerTurn && !game_over )
 		{
-			var row_col = ai.findBestMove(board);
+			var row_col = ai.findBestMove( board_obj.getBoard() );
 			var id = '#' + row_col.row + row_col.col;
 
 			board_obj.makeMove(row_col.row, row_col.col, computerSign);
 			$(id).text(computerSign);
-			board_obj.printBoard();
+			// board_obj.printBoard();
 
 			if ( board_obj.checkWin( board_obj.getBoard() ) )
         	{
@@ -391,6 +372,11 @@ function addBoard(sign)
       playerSign = 'X';
    	  computerSign = 'O';
    	  playerTurn = true;
+
+   	  // Assign signs inside the AI object.
+   	  ai.set_ai_Sign(computerSign);
+      ai.set_opponent_Sign(playerSign);
+
    	  $("#turn").text("Your Turn!");
    }
    else 
@@ -398,7 +384,10 @@ function addBoard(sign)
       playerSign = 'O';
       computerSign = 'X';
       $("#turn").text("Computer's Turn");
-      
+
+      ai.set_ai_Sign(computerSign);
+      ai.set_opponent_Sign(playerSign);
+
       // Computer's sign is X so it goes first
       play_game();
    }
