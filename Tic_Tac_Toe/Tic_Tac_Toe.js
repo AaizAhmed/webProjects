@@ -1,9 +1,5 @@
 
-var board = new Array(3);
-var playerSign = '';
-var computerSign = '';
-var turn = 0;
-var playerTurn = false;
+
 
 /*
 	http://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/
@@ -28,21 +24,73 @@ var Tic_Tac_Toe_Board = function()
 		console.log(str);
 	};
 
-	this.makeMove = function (row_col, sign) 
+	this.makeMove = function (row, col, sign) 
 	{
-		var row = row_col[0];
-		var col = row_col[1];
-
 		if (board[row][col] === '-')
 		{
 			board[row][col] = sign;
+			return true;
 		} 	
+
+		return false;
 	};
 
 	this.getBoard = function()
 	{
 		return board;
 	};
+
+	this.isDraw = function (test_board) 
+	{
+		for (var row = 0; row < 3; row++) 
+		{	for (var col = 0; col < 3; col++)
+			{
+				if (test_board[row][col] === '-')
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	};
+
+	this.checkWin = function(test_board)
+	{
+		var board = test_board;
+
+		for (var i = 0; i < 3; i++) 
+		{
+			// Checking horizontal win condition
+			if ( board[i][0] === 'X' && board[i][1] === 'X' && board[i][2] === 'X')
+			{	return true;	}
+
+			else if ( board[i][0] === 'O' && board[i][1] === 'O' && board[i][2] === 'O')
+			{	return true;	}
+
+			// Checking vertical win condition
+			else if ( board[0][i] === 'X' && board[1][i] === 'X' && board[2][i] === 'X')
+			{	return true;	}
+
+			else if ( board[0][i] === 'O' && board[1][i] === 'O' && board[2][i] === 'O')
+			{	return true;	}
+		}
+
+		// Checking diagnol win conditions 
+		if (board[0][0] === 'X' && board[1][1] === 'X' && board[2][2] === 'X')
+		{	return true;	}
+
+		if (board[0][0] === 'O' && board[1][1] === 'O' && board[2][2] === 'O')
+		{	return true;	}
+
+		if (board[2][0] === 'X' && board[1][1] === 'X' && board[0][2] === 'X')
+		{	return true;	}
+
+		if (board[2][0] === 'O' && board[1][1] === 'O' && board[0][2] === 'O')
+		{	return true;	}
+
+	    return false;
+	};
+
 };
 
 var Player = function (sign, turn)
@@ -55,12 +103,11 @@ var Player = function (sign, turn)
 	
 };
 
-var AI = function(a_sign, p_sign, turn, board)
+var AI = function()
 {
-	var ai_sign = a_sign;
-	var player_sign = p_sign;
-	var ai_turn = turn;
-	var current_board = board;
+	var ai_sign;
+	var opponent_sign;
+	var ai_turn;
 
 	var row_col = {   row: 0, 
 					  col: 0   
@@ -68,6 +115,9 @@ var AI = function(a_sign, p_sign, turn, board)
 
 	this.getSign = function() {   return ai_sign;   };
 	this.getTurn = function() {   return ai_turn;   };
+
+	this.setSign = function(ai_sign) {   ai_sign = a_sign;   }
+	this.setTurn = function(turn) {   ai_turn = turn;   }
 
 
     function evaluate(evaluate_board, depth) 
@@ -82,7 +132,7 @@ var AI = function(a_sign, p_sign, turn, board)
 				if (board[i][0] === ai_sign)
 				{   return 10;   }
 				
-				else if (board[i][0] === player_sign) 
+				else if (board[i][0] === opponent_sign) 
 				{   return -10;   }
 		    }
 
@@ -92,7 +142,7 @@ var AI = function(a_sign, p_sign, turn, board)
 				if (board[i][0] === ai_sign)
 				{   return 10;   }
 				
-				else if (board[i][0] === player_sign) 
+				else if (board[i][0] === opponent_sign) 
 				{   return -10;   }
 			}
 		}
@@ -103,7 +153,7 @@ var AI = function(a_sign, p_sign, turn, board)
 			if (board[0][0] === ai_sign)
 			{   return 10;   }
 			
-			else if (board[0][0] === player_sign) 
+			else if (board[0][0] === opponent_sign) 
 			{   return -10;   }
 		}
 
@@ -112,7 +162,7 @@ var AI = function(a_sign, p_sign, turn, board)
 			if (board[2][0] === ai_sign)
 			{   return 10;   }
 			
-			else if (board[2][0] === player_sign) 
+			else if (board[2][0] === opponent_sign) 
 			{   return -10;   }
 		}
 
@@ -187,7 +237,7 @@ var AI = function(a_sign, p_sign, turn, board)
 					if (test_board[row][col] === '-')
 					{
 						// Make the move
-                    	test_board[row][col] = player_sign;
+                    	test_board[row][col] = opponent_sign;
 
                     	// Call minimax recursively and choose the maximum value
                     	best = Math.min( best, min_max(test_board, depth++, !isMax) );
@@ -215,7 +265,7 @@ var AI = function(a_sign, p_sign, turn, board)
 			{
 				if (test_board[row][col] === '-')
 				{
-					test_board[row][col] = player_sign;
+					test_board[row][col] = opponent_sign;
 
 					var move_val = min_max(test_board, 0, false);
 						
@@ -236,7 +286,7 @@ var AI = function(a_sign, p_sign, turn, board)
 			}
 		}
 
-		console.log (best_move);
+		// console.log (best_move);
 		return best_move;
 	};
 
@@ -246,49 +296,87 @@ var Game = function (board)
 {
 	var game_board = board;
 
-	this.isOver = function (test_board) 
-	{
-		for (var row = 0; row < 3; row++) 
-		{	for (var col = 0; col < 3; col++)
-			{
-				if (test_board[row][col] === '-')
-				{
-					return false;
-				}
-			}
-		}
-		return true;
-	};
+	
 };
+
+var board = new Array(3);
+var playerSign = '';
+var computerSign = '';
+var moves = 0;
+var playerTurn = false;
+
+var board_obj = new Tic_Tac_Toe_Board();
+var board = board_obj.getBoard();
+
+var game = new Game( board );
+
+var player = new Player();
+var ai = new AI();
 
 function play_game()
 {
 	id = event.target.id;
 
-	display(id);
+	var row = parseInt( id[0] );
+    var col = parseInt( id[1] );  
 
-	var board_obj = new Tic_Tac_Toe_Board();
-	var board = board_obj.getBoard();
+	if (moves < 9)
+	{
+		console.log(moves);
 
-	var game = new Game( board );
-	
-	var player = new Player('X', 0);
+		if (playerTurn)
+		{
+            if ( !isNaN(row) && !isNaN(col) )
+            {
+				var move_made = board_obj.makeMove(row, col, playerSign);	
 
-	var ai = new AI('O', 'X', 0, board);
+				if (move_made)
+				{
+					$('#'+id).text(playerSign);
+		        	board_obj.printBoard();
 
-	var my_board = [ ['X', 'O', 'X'], 
-					 ['O', 'O', 'X'], 
-					 ['-', '-', '-'] ];
-	
-	ai.findBestMove(my_board);
+		        	playerTurn = false;
+		            moves++;
+		            $("#turn").text("Computer's Turn");
+				}
 
-	var ai = new AI('X', 'O', 0, board);
-	var my_board_2 = [ ['-', '-', 'X'], ['-', 'O', 'X'], ['O', '-', '-'] ];
-	ai.findBestMove(my_board_2);
+            	if ( board_obj.checkWin( board_obj.getBoard() ) )
+            	{
+            		$("#turn").text("You Won!!");
+            		moves = 9;
+            	}
+            }
+		}
+		
+		var player_won = board_obj.checkWin( board_obj.getBoard() );
 
-	var ai = new AI('O', 'X', 0, board);
-	var my_board_3 = [ ['-', 'X', '-'], ['-', '-', 'X'], ['O', 'O', 'X'] ];
-	ai.findBestMove(my_board_3);
+		if ( !playerTurn && !player_won )
+		{
+			var row_col = ai.findBestMove(board);
+			var id = '#' + row_col.row + row_col.col;
+
+			board_obj.makeMove(row_col.row, row_col.col, computerSign);
+			$(id).text(computerSign);
+			board_obj.printBoard();
+
+			if ( board_obj.checkWin( board_obj.getBoard() ) )
+        	{
+        		$("#turn").text("Computer Won!");
+        		moves = 9;
+        	}
+        	else
+        	{
+				playerTurn = true;
+				moves++;
+				$("#turn").text("Your Turn!"); 
+			}
+		}
+	}
+
+	if ( board_obj.isDraw( board_obj.getBoard() ) )
+	{
+		$("#turn").text("It was a Draw");
+	}
 }
 
 function addBoard(sign)
@@ -296,9 +384,6 @@ function addBoard(sign)
 
    $("#ask").css('display', 'none');
    $("#board").css('display', 'block');
-
-   $("#player").text("Player: |");
-   $("#computer").text("Computer: ");
 
    if (sign === 'X')
    {
@@ -314,8 +399,16 @@ function addBoard(sign)
       $("#turn").text("Computer's Turn");
    }
 
+   $("#player").text("Player: " + playerSign + " | ");
+   $("#computer").text("Computer: " + computerSign);
+
    // Add the event trigger
    $('td').on( 'click', play_game );
+
+   if (playerTurn === false)
+   {
+   		play_game();
+   }
  
 }
 
