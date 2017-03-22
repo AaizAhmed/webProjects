@@ -376,6 +376,9 @@ function play_game()
 	{
 		$("#turn").text("It was a Draw");
 	}
+
+	// ------------------------------------------------------------
+	// Add buttons for restart
 }
 
 function addBoard(sign)
@@ -410,12 +413,4 @@ function addBoard(sign)
 function restart()
 {
 	
-}
-
-function display(id)
-{
-   var row = parseInt( id[0] );
-   var col = parseInt( id[1] );    
-
-   console.log(row + " " + col);
 }
