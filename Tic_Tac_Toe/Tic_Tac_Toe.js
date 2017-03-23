@@ -1,12 +1,4 @@
 
-
-
-/*
-	http://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/
-	http://neverstopbuilding.com/minimax
-	https://mostafa-samir.github.io/Tic-Tac-Toe-AI/
-*/
-
 var Tic_Tac_Toe_Board = function()
 {
 	var board = [ ['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-'] ];
@@ -95,211 +87,203 @@ var Tic_Tac_Toe_Board = function()
 
 var AI = function()
 {
-	var ai_sign;
-	var opponent_sign;
+    var row_col = {   row: -1, 
+                      col: -1   
+                  };
 
-	var row_col = {   row: -1, 
-					  col: -1   
-				  };
+    var ai_player;
+    var opponent;
 
-	this.set_ai_Sign = function(sign) {   ai_sign = sign;   };
-	this.set_opponent_Sign = function(oppo_sign) {   opponent_sign = oppo_sign;   };
+    this.set_ai_Sign = function(sign) 
+    {   ai_player = sign;   };
+	
+	this.set_opponent_Sign = function(oppo_sign) 
+	{   opponent = oppo_sign;   };
 
-    function evaluate(evaluate_board, depth) 
-    {
-    	var board = evaluate_board;
-
-    	for (var i = 0; i < 3; i++) 
-		{
-			// Checking horizontal win condition
-			if ( board[i][0] === board[i][1] && board[i][1] === board[i][2] )
-			{	
-				if (board[i][0] === ai_sign)
-				{   return +10;   }
-				
-				else if (board[i][0] === opponent_sign) 
-				{   return -10;   }
-		    }
-
-			// Checking vertical win condition
-			else if ( board[0][i] === board[1][i] && board[1][i] === board[2][i] )
-			{	
-				if (board[i][0] === ai_sign)
-				{   return +10;   }
-				
-				else if (board[i][0] === opponent_sign) 
-				{   return -10;   }
-			}
-		}
-
-		// Checking diagnol win conditions 
-		if ( board[0][0] === board[1][1] && board[1][1] === board[2][2] )
-		{
-			if (board[0][0] === ai_sign)
-			{   return +10;   }
-			
-			else if (board[0][0] === opponent_sign) 
-			{   return -10;   }
-		}
-
-		if ( board[2][0] === board[1][1] && board[1][1] === board[0][2] )
-		{	
-			if (board[2][0] === ai_sign)
-			{   return +10;   }
-			
-			else if (board[2][0] === opponent_sign) 
-			{   return -10;   }
-		}
-
-		// A draw
-		return 0;
-    }
-
-	// function isOver(test_board) 
-	// {
-	// 	for (var row = 0; row < 3; row++) 
-	// 	{	for (var col = 0; col < 3; col++)
-	// 		{
-	// 			if (test_board[row][col] === '-')
-	// 			{   return false;   }
-	// 		}
-	// 	}
-	// 	return true;
-	// }
-
-	function isMoveLeft(test_board) 
+    function isDraw(test_board) 
 	{
 		for (var row = 0; row < 3; row++) 
 		{	for (var col = 0; col < 3; col++)
 			{
 				if (test_board[row][col] === '-')
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	};
+
+	function isWin(board, sign)
+	{
+		for (var index = 0; index < 3; index++)
+		{
+			// Horizantol win
+			if ( board[index][0] === board[index][1] &&  
+				 board[index][1] === board[index][2] )
+			{
+				if (board[index][0] === sign)
+				{   return true;   }
+			}
+
+			// Vertical win
+			if ( board[0][index] === board[1][index] &&
+				 board[1][index] === board[2][index] )
+			{
+				if (board[0][index] === sign)
 				{   return true;   }
 			}
 		}
-		return false;
-	}
 
-	function min_max(test_board, depth, isMax)
-	{
-		var score = evaluate(test_board); 
-
-		// Return the score if the game is over i.e. it's a win or a draw
-		if ( !isMoveLeft(test_board) || board_obj.checkWin(test_board) )
-		{
-			return score;
+		// Diagnol win 1
+		if (board[0][0] === board[1][1] && board[1][1] === board[2][2] )
+		{	
+			if ( board[1][1] === sign)
+			{ return true;	}
 		}
 
-		// // If Maximizer has won the game return his/her
-	 //    // evaluated score
-	 //    if (score === 10)
-	 //    {    return score;   }
-	 
-	 //    // If Minimizer has won the game return his/her
-	 //    // evaluated score
-	 //    if (score === -10)
-	 //    {    return score;   }
-	 
-	 //    // If there are no more moves and no winner then
-	 //    // it is a tie
-	 //    if ( isMoveLeft(test_board) === false )
-	 //    {    return 0;   }
-
-		// If this maximizer's move
-		if (isMax)
+		// // Diagnol win 2
+		if (board[2][0] === board[1][1] && board[1][1] === board[0][2] )
 		{
-			var best = -1000;
-
-			// console.log("In Max");
-
-			// Traverse all cells
-			for (var row = 0; row < 3; row++) 
-			{	for (var col = 0; col < 3; col++)
-				{
-					if (test_board[row][col] === '-')
-					{
-						// Make the move
-                    	test_board[row][col] = ai_sign;
-
-                    	// Call minimax recursively and choose the maximum value
-                    	best = Math.max( best, min_max(test_board, depth+1, !isMax) );
-
-                    	// Undo the move
-                    	test_board[row][col] = '-';
-					}
-				}
-			}
-
-			return best;
-		}
-
-		// If this minimizer's move
-		else
-		{
-			var best = 1000;
-
-			// console.log("In Min");
-
-			// Traverse all cells
-			for (var row = 0; row < 3; row++) 
-			{	for (var col = 0; col < 3; col++)
-				{
-					if (test_board[row][col] === '-')
-					{
-						// Make the move
-                    	test_board[row][col] = opponent_sign;
-
-                    	// Call minimax recursively and choose the maximum value
-                    	best = Math.min( best, min_max(test_board, depth+1, !isMax) );
-
-                    	// Undo the move
-                    	test_board[row][col] = '-';
-					}
-				}
-			}
-			return best;
+			if ( board[1][1] === sign)
+			{ return true;	}	
 		}
 	}
 
-	this.findBestMove = function(test_board)
-	{
-		var best_value = -1000;
-		var best_move = row_col;
-		// var best_move = [ ];
+    // This is the evaluation function
+    function evaluate(board, depth)
+    {
+    	if ( isWin(board, ai_player) )
+    	{
+    		return 10 - depth;
+    	}
+    	else if ( isWin(board, opponent) )
+    	{
+    		return depth - 10;
+    	}
+    	else
+    	{
+    		return 0;
+    	}
+    }
 
-		// // Traverse all cells, evalutae minimax function for
-	    // all empty cells. And return the cell with optimal value.
-		for (var row = 0; row < 3; row++) 
-		{	for (var col = 0; col < 3; col++)
-			{
-				if (test_board[row][col] === '-')
-				{
-					test_board[row][col] = ai_sign;
+    // This is the minimax function. It considers all
+    // the possible ways the game can go and returns
+    // the value of the board
+    function minimax(board, depth, isMax)
+    {
+        var score = evaluate(board, depth);
 
-					var move_val = min_max(test_board, 0, false);
+        if ( isWin(board, ai_player) || isWin(board, opponent) ||
+             isDraw(board) )
+        {
+        	return score;
+        }
 
-					// Undo the move
-					test_board[row][col] = '-';
+        // If this maximizer's move
+        if (isMax)
+        {
+            var best = -1000;
 
-					if (move_val > best_value)
-					{
-						best_move.row = row;
-						best_move.col = col;
+            // Traverse all cells
+            for (var row = 0; row < 3; row++)
+            {
+                for (var col = 0; col < 3; col++)
+                {
+                    // Check if cell is empty
+                    if (board[row][col] === '-')
+                    {
+                        // Make the move
+                        board[row][col] = ai_player;
 
-						// best_move.push(row);
-						// best_move.push(col);
+                        // Call minimax recursively and choose
+                        // the maximum value
+                        best = Math.max(best, minimax(board, depth+1, !isMax));
 
-						best_value = move_val;
-					}
-				}
-			}
-		}
+                        // Undo the move
+                        board[row][col] = '-';
+                    }
+                }
+            }
+            return best;
+        }
 
-		console.log ("Best value " + best_value);
-		return best_move;
-	};
+        // If this minimizer's move
+        else
+        {
+            var best = 1000;
 
-};   // End of AI Class/Object. 
+            // Traverse all cells
+            for (var row = 0; row < 3; row++)
+            {
+                for (var col = 0; col < 3; col++)
+                {
+                    // Check if cell is empty
+                    if (board[row][col] === '-')
+                    {
+                        // Make the move
+                        board[row][col] = opponent;
 
+                        // Call minimax recursively and choose
+                        // the minimum value
+                        best = Math.min(best,  minimax(board, depth+1, !isMax));
+
+                        // Undo the move
+                        board[row][col] = '-';
+                    }
+                }
+            }
+            return best;
+        }
+    }
+
+    // This will return the best possible move for the player
+    this.findBestMove = function(board)
+    {
+        var bestVal = -1000;
+        var bestMove = row_col;
+        bestMove.row = -1;
+        bestMove.col = -1;
+
+        // Traverse all cells, evalutae minimax function for
+        // all empty cells. And return the cell with optimal
+        // value.
+        for (var row = 0; row < 3; row++)
+        {
+            for (var col = 0; col < 3; col++)
+            {
+                // Check if cell is empty
+                if (board[row][col] === '-')
+                {
+                    // Make the move
+                    board[row][col] = ai_player;
+
+                    // compute evaluation function for this
+                    // move.
+                    var moveVal = minimax(board, 0, false);
+
+                    // Undo the move
+                    board[row][col] = '-';
+
+                    // If the value of the current move is
+                    // more than the best value, then update
+                    // best
+                    if (moveVal > bestVal)
+                    {
+                        bestMove.row = row;
+                        bestMove.col = col;
+                        bestVal = moveVal;
+                    }
+                }
+            }
+        }
+
+        // console.log("The value of the best Move is : " + bestVal);
+
+        return bestMove;
+    };
+
+};
 
 var board = new Array(3);
 var playerSign = '';
@@ -313,26 +297,55 @@ var board = board_obj.getBoard();
 
 var ai = new AI();
 
-// For testing
+// Driver code
 function main()
 {
+    var ai = new AI();
+    var board =
+    [
+        [ 'X', 'O', 'X' ],
+        [ 'O', 'O', 'X' ],
+        [ '-', '-', '-' ]
+    ];
 
-	ai.set_ai_Sign('X');
-	ai.set_opponent_Sign('O');
+    ai.set_ai_Sign('X');
+    ai.set_opponent_Sign('O');
 
-	var my_board = [ ['X', 'O', 'X'], ['X', 'O', 'X'], ['-', '-', '-'] ];
+    var bestMove = ai.findBestMove(board);
 
-	var row_col = ai.findBestMove(my_board);
-	console.log( row_col.row + ", " + row_col.col);
+     console.log("The Optimal Move is :");
+     console.log("ROW: " + bestMove.row + "\tCOL: " + bestMove.col );
+     
+    board =
+    [
+        [ '-', '-', 'X' ],
+        [ '-', 'O', 'X' ],
+        [ 'O', '-', '-' ]
+    ];
 
-	my_board = [ ['-', '-', 'X'], ['-', 'O', 'X'], ['O', '-', '-'] ];
+    bestMove = ai.findBestMove(board);
 
-	var row_col = ai.findBestMove(my_board);
-	console.log( row_col.row + ", " + row_col.col);
+    console.log("The Optimal Move is :");
+    console.log("ROW: " + bestMove.row + "\tCOL: " + bestMove.col );
 
+    ai.set_ai_Sign('O');
+    ai.set_opponent_Sign('X');
+
+    board =
+    [
+        [ '-', 'X', '-' ],
+        [ '-', '-', 'X' ],
+        [ 'O', 'O', 'X' ]
+    ];
+
+    bestMove = ai.findBestMove(board);
+
+    console.log("The Optimal Move is :");
+    console.log("ROW: " + bestMove.row + "\tCOL: " + bestMove.col );
 }
 
 main();
+
 
 function play_game()
 {
@@ -372,20 +385,23 @@ function play_game()
 			var row_col = ai.findBestMove( board_obj.getBoard() );
 			var id = '#' + row_col.row + row_col.col;
 
-			board_obj.makeMove(row_col.row, row_col.col, computerSign);
-			$(id).text(computerSign);
-			// board_obj.printBoard();
+			if (row_col.row >=0 && row_col.col >=0 )
+			{	
+				board_obj.makeMove(row_col.row, row_col.col, computerSign);
+				$(id).text(computerSign);
+				// board_obj.printBoard();
 
-			if ( board_obj.checkWin( board_obj.getBoard() ) )
-        	{
-        		$("#turn").text("Computer Won!");
-        		game_over = true;
-        	}
-        	else
-        	{
-				playerTurn = true;
-				moves++;
-				$("#turn").text("Your Turn!"); 
+				if ( board_obj.checkWin( board_obj.getBoard() ) )
+	        	{
+	        		$("#turn").text("Computer Won!");
+	        		game_over = true;
+	        	}
+	        	else
+	        	{
+					playerTurn = true;
+					moves++;
+					$("#turn").text("Your Turn!"); 
+				}
 			}
 		}
 	}
