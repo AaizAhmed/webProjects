@@ -13,7 +13,3 @@ audio_one.play();
 var audio_two = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
 var audio_three = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
 var audio_four = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
-
- 
- 
-

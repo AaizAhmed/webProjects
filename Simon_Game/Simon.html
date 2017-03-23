@@ -10,8 +10,8 @@
   		src="https://code.jquery.com/jquery-3.1.1.js"
   		integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
   		crossorigin="anonymous">
-  	</script>
-    <script type="text/javascript" src="CSS_and_JS/jquery-3.1.1.js"></script>
+  </script>
+  <script type="text/javascript" src="CSS_and_JS/jquery-3.1.1.js"></script>
 	
 
 </head>
@@ -20,75 +20,72 @@
 	
 <div class="container-fluid">
 
-<div id="box">
-  
+
+<div class="wrap">
+
+  <div class="wrap-in">
+    
+    <div class="rw">
+      <div class="t-l inline push green unclickable" id='3' ></div>
+      <div class="t-r inline push red but unclickable" id='2'></div>
+    </div>
+    
+    <div class="rw">
+      <div class="b-l inline push yellow unclickable" id='1'></div>
+      <div class="b-r inline push blue but unclickable" id='0'></div>
+    </div>
+
+  </div>
+
+  <div class="center">
+   
+   <h1 class="brand"> Simon <span class="small">®</span></h1>
+   
+   <div class="rw">
+     
+     <div class="display inline">
+       <h1 class="count led-off">--</h1>
+       <h3 class="label">COUNT</h3>
+     </div>
+
+     <div class="btn-box inline">
+       <div class="round-btn full-red but clickable" id="start"></div>
+       <h3 class="label">START</h3>
+     </div>
+     
+     <div class="btn-box inline">
+       <div class="round-btn but clickable" id="mode"></div>
+       <h3 class="label">STRICT</h3>
+       <div class="led" id="mode-led"></div>
+     </div>
+   
+   </div>
+   
+   <div class="rw bot">
+     <h3 class="label inline">OFF</h3>
+     <div class="sw-slot inline">
+       <div class="switch" id="pwr-sw"></div>
+     </div>
+     <h3 class="label inline">ON</h3>
+   </div>
+
+  </div>
 
 </div>
 
-<!-- <div id="canvas_circles"> 
 
-<canvas id="myCanvas" width="800" height="525" style="border: 2px solid black;">
-</canvas>
+
+<!-- <div id="outer">
   
-<script>
-  var canvas = document.getElementById("myCanvas");
-  var context = canvas.getContext("2d");
+  <div id="inner"> 
 
-  var x = canvas.width/2;
-  var y = canvas.height/2;
-  var r = 250;
-  
-  // Outer circle
-  context.beginPath();
-  context.arc(x, y, r, 0, 2*Math.PI);
-  context.lineWidth = 20;
-  context.stroke();
-  context.closePath();
-
-  // Top line
-  context.beginPath();
-  context.moveTo(x, y-250);
-  context.lineTo(x, y-150);
-  context.stroke();
-  context.closePath();
-
-  // Bottom line
-  context.beginPath();
-  context.moveTo(x, y+250);
-  context.lineTo(x, y+150);
-  context.stroke();
-  context.closePath();
-
-  // Left line 
-  context.beginPath();
-  context.moveTo(x+150, y);
-  context.lineTo(x+250, y);
-  context.stroke();
-  context.closePath();
-
-  // Right line
-  context.beginPath();
-  context.moveTo(x-150, y);
-  context.lineTo(x-250, y);
-  context.stroke();
-  context.closePath();
-
-  // Inner circle
-  context.beginPath();
-  context.arc(x, y, 150, 0, 2*Math.PI);
-  context.lineWidth = 15;
-  context.stroke();
-  context.fillStyle = "white";
-  context.fill()
-  context.closePath();
- 
-</script>
+  </div>
 
 </div> -->
 
 
 </div>
-<script type="text/javascript" src="Simon.js"> </script>
+<!-- <script type="text/javascript" src="Simon.js"> </script> -->
 </body>
 
 </html>
