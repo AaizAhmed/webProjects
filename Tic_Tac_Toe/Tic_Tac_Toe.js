@@ -344,7 +344,7 @@ function main()
     console.log("ROW: " + bestMove.row + "\tCOL: " + bestMove.col );
 }
 
-main();
+// main();
 
 
 function play_game()
