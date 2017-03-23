@@ -89,3 +89,32 @@ body
 	top: 25%;
 	left: 25%;	
 }
+.name
+{
+	font-size: 3.5em;
+	margin-top: 5%;
+}
+
+.caption
+{
+	font-size: 1em;
+}
+.btn-box
+{
+	width: 50px;
+	position: relative;
+}
+
+.round-btn
+{
+	width: 25px;
+	height: 25px;
+
+	margin:auto;
+	position: relative;
+	top: -5px;
+
+	background-color: yellow;
+	border-radius: 100%;
+	border : 4px solid #444;
+}
