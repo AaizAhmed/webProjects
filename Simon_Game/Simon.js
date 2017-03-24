@@ -18,6 +18,9 @@ var strict_mode = false;
 var score = 1;
 
 var sounds = [];
+var lights = [];
+
+// audio_one.play();
 
 // Initial actions during setting up the page.
 $('.score').css('color', '#430710');
@@ -47,19 +50,17 @@ $('#start').on('click', function()
 
 $('#strict').on('click', function() 
 {
-	var is_on = $('#mode').hasClass('red');
+	var is_on = $('#mode').hasClass('led-on');
 
 	if (!is_on && game_on)
 	{
 		strict_mode = true;
-		$('#mode').addClass('red');
-		$('#mode').css('background-color', '#FC0102');
+		$('#mode').addClass('led-on');
 	}
 	else
 	{
 		strict_mode = false;
-		$('#mode').removeClass('red');
-		$('#mode').css('background-color', '#32050C');
+		$('#mode').removeClass('led-on');
 	}
 });
 
@@ -84,34 +85,42 @@ function start_game()
 
    $('.box').on( 'click', play_game );
 
-	blink_score(2);
-	play_game();
+	var temp = false;
+	temp = flashMessage('--', 2);
+	if (temp) 
+	{  temp = play_game();   }
+
+}
+
+// Delay in milliseconds
+function sleep(delay) 
+{
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
 }
 
 function play_game()
 {
-	$('#blink_score').text( ('0' + score).slice(-2) );
-
+	$('.score').text( ('0' + score).slice(-2) );
 
 	var random = Math.floor(Math.random() * 4);
-
-	var color = get_color(random);
-
-	$('#'+0).addClass('light');
+	lights.push(random);
 	
 	console.log(sounds.length);
-
-	// Figure out a way to slow the things down else all
-	// sounds will be played at once.
-
 
 	// Get a new sound and add it to the array 
 	var new_sound = get_sound(random);
 	sounds.push(new_sound);
 
+	// Figure out a way to slow the things down else all
+	// sounds will be played at once.
 	for (var index = 0; index < sounds.length; index++) 
 	{
-		sounds[index].play();
+		// sounds[index].play();
+
+		// var light_num = lights[index];
+		// $('#'+light_num).addClass('light');
+
 	}
 
 	var id = event.target.id;
@@ -119,7 +128,36 @@ function play_game()
 	// retreive the sound from the array. if they are 
 	// equal add 1 more on else repeat sounds.
 
+	return true;
+}
 
+function flashMessage(msg,times)
+{
+  $('.score').text(msg);
+  var lf = function()
+  {
+	$('.score').css('color', '#430710');
+    toHndlFl = setTimeout(function()
+    {
+		$('.score').css('color', '#DC0D29');
+    },250);
+  };
+  var cnt = 0;
+  lf();
+  flHndl = setInterval(function()
+  {
+	console.log("Print it");
+
+    lf();
+    cnt++;
+    if(cnt === times)
+    {
+      clearInterval(flHndl);
+      return true;
+    }
+  },500);
+
+  
 }
 
 function get_color(num)
@@ -141,16 +179,6 @@ function get_sound(num)
 		case 1: return audio_two;
 		case 2: return audio_three;
 		case 3: return audio_four;
-	}
-}
-
-// Function to make the text blink X number of times.
-function blink_score(count_num) 
-{
-	for (var index = 0; index < count_num; index++) 
-	{
-		$('#blink_score').fadeOut(250);
-		$('#blink_score').fadeIn(250);
 	}
 }
 
