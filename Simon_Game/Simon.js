@@ -10,27 +10,11 @@
 
     Author: Aaiz N Ahmed
     Date: 03-23-2017
-    */
+*/
 
 ( function() {
 
-var audio_one = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
-var audio_two = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
-var audio_three = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
-var audio_four = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
-var error_sound =  new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Buzz.wav');
-var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Cheering.wav');
-
-// var game_on = false;
-var game_started = false;
-var strict_mode = false;
-
-// var score = 1;
-// var current_index = 0;
-var animation_timeout;
-
-var sounds = [];
 
 // Initial actions during setting up the page.
 $('.score').css('color', '#430710');
@@ -74,6 +58,27 @@ $('#strict').on('click', function()
    }
 });
 
+var Simon = function()
+{
+   var audio_one = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
+   var audio_two = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
+   var audio_three = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+   var audio_four = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+
+   var error_sound =  new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Buzz.wav');
+   var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Cheering.wav');
+
+   var game_on = false;
+   var game_started = false;
+   var strict_mode = false;
+
+   var score = 1;
+   var current_index = 0;
+   var animation_timeout;
+
+   var sounds = [];
+};
+
 // Internal functions to play the game
 function start_game() 
 {
@@ -81,6 +86,7 @@ function start_game()
    clear_all();
    clearTimeout(animation_timeout);
 
+   console.log( sounds );
    console.log("current_index is: " + current_index );
    console.log('Total Sounds are: ' + sounds.length );
 
@@ -112,20 +118,20 @@ function animate(sequence)
 
 function lightUp(tile_num) 
 {
-	var $tile = $('#'+tile_num).addClass('light');
-	
-	window.setTimeout(function() 
-	{
-		$tile.removeClass('light');
-	}, 500);
+   var $tile = $('#'+tile_num).addClass('light');
+
+   window.setTimeout(function() 
+   {
+      $tile.removeClass('light');
+   }, 500);
 }
 
 function add_sound()
 {
-	var random = Math.floor(Math.random() * 4);
+   var random = Math.floor(Math.random() * 4);
 
-	get_sound(random).play();
-	sounds.push(random);
+   get_sound(random).play();
+   sounds.push(random);
 
   lightUp(random);
 }
