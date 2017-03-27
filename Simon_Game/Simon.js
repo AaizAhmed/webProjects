@@ -77,6 +77,26 @@ var Simon = function()
    var animation_timeout;
 
    var sounds = [];
+
+   this.get_sound = function (num)
+   {
+      switch(num)
+      {
+         case 0: return audio_one;
+         case 1: return audio_two;
+         case 2: return audio_three;
+         case 3: return audio_four;
+      }
+   };
+
+   this.set_timeout = function(timer)
+   {
+      animation_timeout = timer;
+   }
+
+   this.get_timer = function()
+   {  return   animation_timeout;   }
+
 };
 
 // Internal functions to play the game
@@ -230,16 +250,7 @@ function play_game()
    }, 5000);
 }
 
-function get_sound(num)
-{
-   switch(num)
-   {
-      case 0: return audio_one;
-      case 1: return audio_two;
-      case 2: return audio_three;
-      case 3: return audio_four;
-   }
-}
+
 
 function clear_all()
 {
