@@ -66,7 +66,7 @@ body
 }
 .red.light
 {
-  background-color: #fc0000;
+  background-color: #ff4d4d;
 }
 .blue
 {
@@ -78,11 +78,11 @@ body
 }
 .yellow
 {
-	background-color: #dbc441;
+	background-color: #ffcc00;
 }
 .yellow.light
 {
-	background-color: #ffff00;
+	background-color: #ffff66;
 }
 .green
 {
@@ -90,7 +90,7 @@ body
 }
 .green.light
 {
-	background-color: #2aef0b;
+	background-color: #99ff66;
 }
 .led
 {

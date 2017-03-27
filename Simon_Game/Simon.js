@@ -17,12 +17,12 @@ var game_started = false;
 var strict_mode = false;
 var score = 1;
 
+// $('.score').text( ('0' + score).slice(-2) );
+
 var sounds = [];
 var lights = [];
 
 var flash_done = false;
-
-// audio_one.play();
 
 // Initial actions during setting up the page.
 $('.score').css('color', '#430710');
@@ -85,67 +85,113 @@ function start_game()
 	$('.yellow').addClass('clickable');
 	$('.blue').addClass('clickable');
 
-   $('.box').on( 'click', play_game );
+    console.log("Before adding a sound");
+    
+    add_sound();
 
-	var temp = false;
-	temp = flashMessage('--', 2);
+    console.log("After adding a sound");
 
-	// sleep(500);
-
-	// while( !temp )
-	// {
-	// 	// continue;
-	// 	console.log("In while");
-	// }
-
-	flashMessage('!!', 5);
-
-	temp = play_game();   
+    $('.box').on( 'click', play_game );
 
 }
 
-// Delay in milliseconds
-function sleep(delay) 
+function animate(sequence) 
 {
-    var start = new Date().getTime();
-    while (new Date().getTime() < start + delay);
+	var index = 0;
+	var interval = setInterval(function() 
+	{
+		var sound = get_sound( sequence[index] );
+		sound.play();
+
+		lightUp( sequence[index] );
+
+		index++;
+		if (index >= sequence.length) 
+		{
+			clearInterval(interval);
+		}
+	}, 800);
 }
+
+function lightUp(tile_num) 
+{
+	var $tile = $('#'+tile_num).addClass('light');
+	
+	window.setTimeout(function() 
+	{
+		$tile.removeClass('light');
+	}, 600);
+}
+
+function add_sound()
+{
+	var random = Math.floor(Math.random() * 4);
+
+	get_sound(random).play();
+	sounds.push(random);
+
+    lightUp(random);
+
+}
+
+var current_index = 0;
 
 function play_game()
 {
-	// $('.score').text( ('0' + score).slice(-2) );
-	// flashMessage(('0' + score).slice(-2), 3);
 
-	var random = Math.floor(Math.random() * 4);
-	lights.push(random);
-	
-	console.log(sounds.length);
-
-	// score++;
-	// flashMessage(score, 3);
-
-
-	// Get a new sound and add it to the array 
-	var new_sound = get_sound(random);
-	sounds.push(new_sound);
-
-	// Figure out a way to slow the things down else all
-	// sounds will be played at once.
-	for (var index = 0; index < sounds.length; index++) 
-	{
-		// sounds[index].play();
-
-		// var light_num = lights[index];
-		// $('#'+light_num).addClass('light');
-
-	}
+	// console.log( sounds );
 
 	var id = event.target.id;
+
 	// Get sound based on ID then use the counter to 
 	// retreive the sound from the array. if they are 
 	// equal add 1 more on else repeat sounds.
 
-	return true;
+    console.log("ID is: " + id);
+	console.log('This sounds is: ' + sounds[current_index] );
+    console.log('Current Index is: ' + current_index );
+
+	// Check if the ID of the box equals the corresponding sound
+	// in the array. 
+    if ( parseInt(id) === sounds[current_index] )
+    {
+    	console.log("Yes");
+    	current_index++;
+
+    	// Player has correctly entered the sequence, so add a 
+    	// new sound.
+    	if (current_index === sounds.length)
+    	{
+    		animate(sounds);
+
+    		// Wait for animation to finish then add a new sound
+    		// Wait for (Total sounds + 1) * Time for a sound i.e. 800 ms
+    		setTimeout(function() 
+			{
+    			add_sound();
+
+    		}, (sounds.length + 1)*800);
+
+    		// Reset the counter to check the sequence again.
+    		current_index = 0;
+    	}
+    }
+    else
+    {
+    	// Play sounds again and reset the counter
+    	flashMessage('!!', 3);
+
+    	setTimeout(function() 
+		{
+	    	animate(sounds);
+
+		}, 1000);
+
+    	current_index = 0;
+    }
+
+	
+
 }
 
 function flashMessage(msg,times)
@@ -164,7 +210,7 @@ function flashMessage(msg,times)
   lf();
   flHndl = setInterval(function()
   {
-	console.log("Print it");
+	// console.log("Print it");
 
     lf();
     cnt++;
@@ -173,7 +219,7 @@ function flashMessage(msg,times)
       clearInterval(flHndl);
       clearInterval(toHndlFl);
       
-      console.log("Done flashing");
+      // console.log("Done flashing");
       return true;
     }
   },500);
@@ -206,8 +252,10 @@ function stop_game()
 {
 	// Set all the variables to their initial state.
 	game_on = false;
-	score = 0;
+	score = 1;
 	strict_mode = false;
+	sounds = [];
+	lights = [];
 
 	// Set all the HTML elements to their initial state.
 	$('#blink_score').text('--');
@@ -227,6 +275,11 @@ function stop_game()
 	$('.blue').addClass('unclickable');
 }
 
-
+// Delay in milliseconds
+function sleep(delay) 
+{
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
 
 
