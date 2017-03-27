@@ -6,6 +6,7 @@
     http://markdalgleish.com/2011/03/self-executing-anonymous-functions/
     https://github.com/kellyk/javascript-simon
     http://codepen.io/BenLBlood/pen/LGLEoJ
+    https://www.w3.org/wiki/JavaScript_best_practices
 
     Author: Aaiz N Ahmed
     Date: 03-23-2017
