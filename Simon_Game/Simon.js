@@ -20,6 +20,8 @@ var score = 1;
 var sounds = [];
 var lights = [];
 
+var flash_done = false;
+
 // audio_one.play();
 
 // Initial actions during setting up the page.
@@ -87,8 +89,18 @@ function start_game()
 
 	var temp = false;
 	temp = flashMessage('--', 2);
-	if (temp) 
-	{  temp = play_game();   }
+
+	// sleep(500);
+
+	// while( !temp )
+	// {
+	// 	// continue;
+	// 	console.log("In while");
+	// }
+
+	flashMessage('!!', 5);
+
+	temp = play_game();   
 
 }
 
@@ -101,12 +113,17 @@ function sleep(delay)
 
 function play_game()
 {
-	$('.score').text( ('0' + score).slice(-2) );
+	// $('.score').text( ('0' + score).slice(-2) );
+	// flashMessage(('0' + score).slice(-2), 3);
 
 	var random = Math.floor(Math.random() * 4);
 	lights.push(random);
 	
 	console.log(sounds.length);
+
+	// score++;
+	// flashMessage(score, 3);
+
 
 	// Get a new sound and add it to the array 
 	var new_sound = get_sound(random);
@@ -142,6 +159,7 @@ function flashMessage(msg,times)
 		$('.score').css('color', '#DC0D29');
     },250);
   };
+
   var cnt = 0;
   lf();
   flHndl = setInterval(function()
@@ -153,11 +171,13 @@ function flashMessage(msg,times)
     if(cnt === times)
     {
       clearInterval(flHndl);
+      clearInterval(toHndlFl);
+      
+      console.log("Done flashing");
       return true;
     }
   },500);
 
-  
 }
 
 function get_color(num)
