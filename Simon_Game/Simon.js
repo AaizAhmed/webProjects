@@ -3,6 +3,10 @@
            the player needs to repeat the sounds in the order
            they are played in.
 
+    http://markdalgleish.com/2011/03/self-executing-anonymous-functions/
+    https://github.com/kellyk/javascript-simon
+    http://codepen.io/BenLBlood/pen/LGLEoJ
+
     Author: Aaiz N Ahmed
     Date: 03-23-2017
 */
@@ -15,12 +19,12 @@ var audio_four = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp
 var error_sound =  new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Buzz.wav');
 var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Cheering.wav');
 
-var game_on = false;
+// var game_on = false;
 var game_started = false;
 var strict_mode = false;
 
-var score = 1;
-var current_index = 0;
+// var score = 1;
+// var current_index = 0;
 var animation_timeout;
 
 var sounds = [];
@@ -72,7 +76,11 @@ function start_game()
 {
     // Clear the score and start from 0 again.
     clear_all();
-	
+	clearTimeout(animation_timeout);
+
+	console.log("current_index is: " + current_index );
+	console.log('Total Sounds are: ' + sounds.length );
+
 	// Remove the unclickable class from the 4 color buttons.
 	$('.box').removeClass('unclickable').addClass('clickable');
 
@@ -123,6 +131,9 @@ function play_game()
 {
 	var id = parseInt( event.target.id );
 
+	console.log("ID is: " + id);
+	console.log('Current Sound number is: ' + sounds[current_index] );
+
 	get_sound(id).play();
 	lightUp(id);
 
@@ -138,7 +149,7 @@ function play_game()
     	{
     		victory_msg();
     	}
-    	else if (current_index === sounds.length)
+    	else if (current_index >= 1 && current_index === sounds.length)
     	{
 			$('.box').removeClass('clickable').addClass('unclickable');
     		
@@ -146,6 +157,7 @@ function play_game()
     		{   
     			animate(sounds);
     			score++;
+    			console.log(score);
 				$('.score').text( ('0' + score).slice(-2) );   
     		}, 1000);
     		
@@ -191,7 +203,6 @@ function play_game()
 	    	}
 
 		}, 2200);
-    	
     }
 }
 
@@ -254,5 +265,3 @@ function sleep(delay)
     var start = new Date().getTime();
     while (new Date().getTime() < start + delay);
 }
-
-
