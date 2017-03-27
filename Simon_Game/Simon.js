@@ -74,21 +74,10 @@ function start_game()
 	score = 1;
 	
 	// Remove the unclickable class from the 4 color buttons.
-	$('.red').removeClass('unclickable');
-	$('.green').removeClass('unclickable');
-	$('.yellow').removeClass('unclickable');
-	$('.blue').removeClass('unclickable');
-	
-	// Add the clickable class tp play the game.
-	$('.red').addClass('clickable');
-	$('.green').addClass('clickable');
-	$('.yellow').addClass('clickable');
-	$('.blue').addClass('clickable');
+	$('.box').removeClass('unclickable').addClass('clickable');
 
     console.log("Before adding a sound");
-    
     add_sound();
-
     console.log("After adding a sound");
 
     $('.box').on( 'click', play_game );
@@ -120,7 +109,7 @@ function lightUp(tile_num)
 	window.setTimeout(function() 
 	{
 		$tile.removeClass('light');
-	}, 600);
+	}, 400);
 }
 
 function add_sound()
@@ -135,17 +124,14 @@ function add_sound()
 }
 
 var current_index = 0;
+var animation_timeout;
 
 function play_game()
 {
+	var id = parseInt( event.target.id );
 
-	// console.log( sounds );
-
-	var id = event.target.id;
-
-	// Get sound based on ID then use the counter to 
-	// retreive the sound from the array. if they are 
-	// equal add 1 more on else repeat sounds.
+	get_sound(id).play();
+	lightUp(id);
 
     console.log("ID is: " + id);
 	console.log('This sounds is: ' + sounds[current_index] );
@@ -153,7 +139,7 @@ function play_game()
 
 	// Check if the ID of the box equals the corresponding sound
 	// in the array. 
-    if ( parseInt(id) === sounds[current_index] )
+    if (id === sounds[current_index])
     {
     	console.log("Yes");
     	current_index++;
@@ -162,15 +148,22 @@ function play_game()
     	// new sound.
     	if (current_index === sounds.length)
     	{
-    		animate(sounds);
+			$('.box').removeClass('clickable').addClass('unclickable');
+    		
+    		setTimeout( function()
+    		{   
+    			animate(sounds);   
+    		}, 1000);
+    		
 
     		// Wait for animation to finish then add a new sound
     		// Wait for (Total sounds + 1) * Time for a sound i.e. 800 ms
-    		setTimeout(function() 
+    		animation_timeout = setTimeout(function() 
 			{
     			add_sound();
+				$('.box').removeClass('unclickable').addClass('clickable');
 
-    		}, (sounds.length + 1)*800);
+    		}, (sounds.length + 2)*800);
 
     		// Reset the counter to check the sequence again.
     		current_index = 0;
@@ -179,19 +172,17 @@ function play_game()
     else
     {
     	// Play sounds again and reset the counter
-    	flashMessage('!!', 3);
+    	// flashMessage('!!', 3);
 
     	setTimeout(function() 
 		{
+			// USE CLEAR TIMEOUT FUNCTION WHEN GAME TURNED OFF
 	    	animate(sounds);
 
-		}, 1000);
+		}, 1500);
 
     	current_index = 0;
     }
-
-	
-
 }
 
 function flashMessage(msg,times)
@@ -256,6 +247,9 @@ function stop_game()
 	strict_mode = false;
 	sounds = [];
 	lights = [];
+	current_index = 0;
+
+	clearTimeout(animation_timeout);
 
 	// Set all the HTML elements to their initial state.
 	$('#blink_score').text('--');
