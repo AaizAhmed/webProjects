@@ -12,17 +12,18 @@ var audio_two = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3
 var audio_three = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
 var audio_four = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
+var error_sound =  new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Buzz.wav');
+var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Cheering.wav');
+
 var game_on = false;
 var game_started = false;
 var strict_mode = false;
-var score = 1;
 
-// $('.score').text( ('0' + score).slice(-2) );
+var score = 1;
+var current_index = 0;
+var animation_timeout;
 
 var sounds = [];
-var lights = [];
-
-var flash_done = false;
 
 // Initial actions during setting up the page.
 $('.score').css('color', '#430710');
@@ -67,21 +68,17 @@ $('#strict').on('click', function()
 });
 
 // Internal functions to play the game
-
 function start_game() 
 {
     // Clear the score and start from 0 again.
-	score = 1;
+    clear_all();
 	
 	// Remove the unclickable class from the 4 color buttons.
 	$('.box').removeClass('unclickable').addClass('clickable');
 
-    console.log("Before adding a sound");
     add_sound();
-    console.log("After adding a sound");
 
     $('.box').on( 'click', play_game );
-
 }
 
 function animate(sequence) 
@@ -109,7 +106,7 @@ function lightUp(tile_num)
 	window.setTimeout(function() 
 	{
 		$tile.removeClass('light');
-	}, 400);
+	}, 500);
 }
 
 function add_sound()
@@ -120,11 +117,7 @@ function add_sound()
 	sounds.push(random);
 
     lightUp(random);
-
 }
-
-var current_index = 0;
-var animation_timeout;
 
 function play_game()
 {
@@ -133,26 +126,27 @@ function play_game()
 	get_sound(id).play();
 	lightUp(id);
 
-    console.log("ID is: " + id);
-	console.log('This sounds is: ' + sounds[current_index] );
-    console.log('Current Index is: ' + current_index );
-
 	// Check if the ID of the box equals the corresponding sound
 	// in the array. 
     if (id === sounds[current_index])
     {
-    	console.log("Yes");
     	current_index++;
 
     	// Player has correctly entered the sequence, so add a 
-    	// new sound.
-    	if (current_index === sounds.length)
+    	// new sound. Player has won if current_index is 20
+    	if (current_index === 20)
+    	{
+    		victory_msg();
+    	}
+    	else if (current_index === sounds.length)
     	{
 			$('.box').removeClass('clickable').addClass('unclickable');
     		
     		setTimeout( function()
     		{   
-    			animate(sounds);   
+    			animate(sounds);
+    			score++;
+				$('.score').text( ('0' + score).slice(-2) );   
     		}, 1000);
     		
 
@@ -171,61 +165,49 @@ function play_game()
     }
     else
     {
-    	// Play sounds again and reset the counter
-    	// flashMessage('!!', 3);
+		$('.score').text('!!');
+		error_sound.play();
 
-    	setTimeout(function() 
+		setTimeout( function()
 		{
-			// USE CLEAR TIMEOUT FUNCTION WHEN GAME TURNED OFF
-	    	animate(sounds);
+			if (strict_mode)
+	    	{
+	    		clear_all();
+	    		add_sound();
+	    	}
+	    	else
+    		{
+				$('.box').removeClass('clickable').addClass('unclickable');
+    			animate(sounds);
 
-		}, 1500);
+    			animation_timeout = setTimeout(function() 
+				{
+					$('.box').removeClass('unclickable').addClass('clickable');
 
-    	current_index = 0;
+    			}, (sounds.length + 2)*800);
+
+				$('.score').text( ('0' + score).slice(-2) );
+	    		current_index = 0;
+	    	}
+
+		}, 2200);
+    	
     }
 }
 
-function flashMessage(msg,times)
+function victory_msg()
 {
-  $('.score').text(msg);
-  var lf = function()
-  {
-	$('.score').css('color', '#430710');
-    toHndlFl = setTimeout(function()
-    {
-		$('.score').css('color', '#DC0D29');
-    },250);
-  };
+	victory_sound.play();
+	$('.score').css('width', '75px');
+	$('.score').text('You Won');
 
-  var cnt = 0;
-  lf();
-  flHndl = setInterval(function()
-  {
-	// console.log("Print it");
-
-    lf();
-    cnt++;
-    if(cnt === times)
-    {
-      clearInterval(flHndl);
-      clearInterval(toHndlFl);
-      
-      // console.log("Done flashing");
-      return true;
-    }
-  },500);
-
-}
-
-function get_color(num)
-{
-	switch(num)
+	setTimeout( function()
 	{
-		case 0: return 'red';
-		case 1: return 'blue';
-		case 2: return 'green';
-		case 3: return 'yellow';
-	}
+		clear_all();
+		$('.score').css('width', '50px');
+		add_sound();
+	
+	}, 5000);
 }
 
 function get_sound(num)
@@ -239,17 +221,22 @@ function get_sound(num)
 	}
 }
 
+function clear_all()
+{
+	score = 1;
+	$('.score').text( ('0' + score).slice(-2) );
+	sounds = [];
+	current_index = 0;
+
+	clearTimeout(animation_timeout);
+}
+
 function stop_game() 
 {
 	// Set all the variables to their initial state.
 	game_on = false;
-	score = 1;
 	strict_mode = false;
-	sounds = [];
-	lights = [];
-	current_index = 0;
-
-	clearTimeout(animation_timeout);
+	clear_all();
 
 	// Set all the HTML elements to their initial state.
 	$('#blink_score').text('--');
@@ -258,15 +245,7 @@ function stop_game()
 	$('#mode').removeClass('red');
 	$('#mode').css('background-color', '#32050C');
 
-	$('.red').removeClass('clickable');
-	$('.green').removeClass('clickable');
-	$('.yellow').removeClass('clickable');
-	$('.blue').removeClass('clickable');
-
-	$('.red').addClass('unclickable');
-	$('.green').addClass('unclickable');
-	$('.yellow').addClass('unclickable');
-	$('.blue').addClass('unclickable');
+	$('.box').removeClass('clickable').addClass('unclickable');
 }
 
 // Delay in milliseconds
