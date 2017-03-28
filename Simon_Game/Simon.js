@@ -14,7 +14,14 @@
 
 ( function() {
 
+var error_sound =  new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Buzz.wav');
+var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Cheering.wav');
 
+var game_on = false;
+var game_started = false;
+var strict_mode = false;
+
+var player_seq = [];
 
 // Initial actions during setting up the page.
 $('.score').css('color', '#430710');
@@ -46,6 +53,8 @@ $('#strict').on('click', function()
 {
    var is_on = $('#mode').hasClass('led-on');
 
+   console.log(game_on);
+
    if (!is_on && game_on)
    {
    	strict_mode = true;
@@ -65,18 +74,11 @@ var Simon = function()
    var audio_three = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
    var audio_four = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
-   var error_sound =  new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Buzz.wav');
-   var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Images/master/Cheering.wav');
-
-   var game_on = false;
-   var game_started = false;
-   var strict_mode = false;
-
    var score = 1;
    var current_index = 0;
    var animation_timeout;
 
-   var sounds = [];
+   var sounds = new Array();
 
    this.get_sound = function (num)
    {
@@ -89,26 +91,80 @@ var Simon = function()
       }
    };
 
+   this.get_current_index = function()
+   {	return   current_index;   };
+
+   this.increment_index = function()
+   {	current_index++;	};
+
+   this.reset_index = function()
+   {
+   	current_index = 0;
+   };
+
+   this.get_score = function()
+   {	return   score;   };
+
+   this.increment_score = function()
+   {  score++;   };
+
+   this.reset_score = function()
+   {
+      score = 1;
+   };
+
    this.set_timeout = function(timer)
    {
       animation_timeout = timer;
-   }
+   };
 
    this.get_timer = function()
-   {  return   animation_timeout;   }
+   {	return   animation_timeout;   };
 
+   this.get_sequence = function()
+   {
+      return sounds;
+   };
+
+   function reset_sequence()
+   {
+      var length = sounds.length;
+      for (var index = 0; index < length; index++) 
+      {
+         sounds.pop();
+      }
+   }
+
+   this.add_sound = function(number)
+   {
+   		this.get_sound(number).play();
+   		sounds.push(number);
+   };
+
+   this.clear_all = function()
+   {
+	   this.reset_score();
+	   $('.score').text( ('0' + score).slice(-2) );
+	   
+	   reset_sequence();
+	   this.reset_index();
+
+	   clearTimeout( this.get_timer() );
+	};
 };
+
+var simon = new Simon();
 
 // Internal functions to play the game
 function start_game() 
 {
    // Clear the score and start from 0 again.
-   clear_all();
-   clearTimeout(animation_timeout);
+   simon.clear_all();
+   clearTimeout( simon.get_timer() );
 
-   console.log( sounds );
-   console.log("current_index is: " + current_index );
-   console.log('Total Sounds are: ' + sounds.length );
+   console.log( simon.get_sequence() );
+   console.log("current_index is: " + simon.get_current_index() );
+   console.log('Total Sounds are: ' + simon.get_sequence().length );
 
    // Remove the unclickable class from the 4 color buttons.
    $('.box').removeClass('unclickable').addClass('clickable');
@@ -123,7 +179,7 @@ function animate(sequence)
    var index = 0;
    var interval = setInterval(function() 
    {
-      var sound = get_sound( sequence[index] );
+      var sound = simon.get_sound( sequence[index] );
       sound.play();
 
       lightUp( sequence[index] );
@@ -138,73 +194,77 @@ function animate(sequence)
 
 function lightUp(tile_num) 
 {
-   var $tile = $('#'+tile_num).addClass('light');
+   var box = $('#'+tile_num).addClass('light');
 
    window.setTimeout(function() 
    {
-      $tile.removeClass('light');
+      box.removeClass('light');
    }, 500);
 }
 
 function add_sound()
 {
    var random = Math.floor(Math.random() * 4);
-
-   get_sound(random).play();
-   sounds.push(random);
-
-  lightUp(random);
+   simon.add_sound(random);
+   lightUp(random);
 }
 
 function play_game()
 {
    var id = parseInt( event.target.id );
-
-   console.log("ID is: " + id);
-   console.log('Current Sound number is: ' + sounds[current_index] );
-
-   get_sound(id).play();
+   simon.get_sound(id).play();
    lightUp(id);
+
+   var time_interval;
+   simon.set_timeout( time_interval );
+
+   player_seq.push(id);
+
+   console.log("ID is: " + id); 
+   console.log('Current Sound number is: ' + simon.get_sequence()[simon.get_current_index()] );
+
+  
 
    // Check if the ID of the box equals the corresponding sound
    // in the array. 
-   if (id === sounds[current_index])
+   if (id === simon.get_sequence()[ simon.get_current_index() ])
    {
-      current_index++;
+      simon.increment_index();
 
       // Player has correctly entered the sequence, so add a 
       // new sound. Player has won if current_index is 20
-      if (current_index === 20)
+      if (simon.get_current_index() === 20)
       {
       	victory_msg();
       }
-      else if (current_index >= 1 && current_index === sounds.length)
+      else if (simon.get_current_index() >= 1 && simon.get_current_index() === simon.get_sequence().length)
       {
          $('.box').removeClass('clickable').addClass('unclickable');
 
          setTimeout( function()
          {   
-            animate(sounds);
-            score++;
-            console.log(score);
-            $('.score').text( ('0' + score).slice(-2) );   
-         }, 1000);
+            simon.increment_score();
+            animate( simon.get_sequence() );
 
+            console.log( simon.get_score() );
+
+            $('.score').text( ('0' + simon.get_score()).slice(-2) );   
+         }, 1000);
 
          // Wait for animation to finish then add a new sound
          // Wait for (Total sounds + 1) * Time for a sound i.e. 800 ms
-         animation_timeout = setTimeout(function() 
+         time_interval = setTimeout(function() 
          {
             add_sound();
             $('.box').removeClass('unclickable').addClass('clickable');
 
-         }, (sounds.length + 2)*800);
+         }, (simon.get_sequence().length + 2)*800);
 
          // Reset the counter to check the sequence again.
-         current_index = 0;
+         simon.reset_index();
       }
    }
-   else
+   else 
    {
       $('.score').text('!!');
       error_sound.play();
@@ -213,22 +273,22 @@ function play_game()
       {
          if (strict_mode)
          {
-            clear_all();
+            simon.clear_all();
             add_sound();
          }
          else
          {
             $('.box').removeClass('clickable').addClass('unclickable');
-            animate(sounds);
+            animate( simon.get_sequence() );
 
-            animation_timeout = setTimeout(function() 
+            time_intervals = setTimeout(function() 
             {
                $('.box').removeClass('unclickable').addClass('clickable');
 
-            }, (sounds.length + 2)*800);
+            }, (simon.get_sequence().length + 2)*800);
 
-            $('.score').text( ('0' + score).slice(-2) );
-            current_index = 0;
+            $('.score').text( ('0' + simon.get_score()).slice(-2) );
+            simon.reset_index();
          }
 
       }, 2200);
@@ -243,23 +303,11 @@ function play_game()
 
    setTimeout( function()
    {
-      clear_all();
+      simon.clear_all();
       $('.score').css('width', '50px');
       add_sound();
 
    }, 5000);
-}
-
-
-
-function clear_all()
-{
-   score = 1;
-   $('.score').text( ('0' + score).slice(-2) );
-   sounds = [];
-   current_index = 0;
-
-   clearTimeout(animation_timeout);
 }
 
 function stop_game() 
@@ -267,7 +315,7 @@ function stop_game()
    // Set all the variables to their initial state.
    game_on = false;
    strict_mode = false;
-   clear_all();
+   simon.clear_all();
 
    // Set all the HTML elements to their initial state.
    $('#blink_score').text('--');
