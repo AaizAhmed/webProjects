@@ -2,12 +2,10 @@
     Simon: This file implements an Simon sound game in which 
            the player needs to repeat the sounds in the order
            they are played in.
-
     http://markdalgleish.com/2011/03/self-executing-anonymous-functions/
     https://github.com/kellyk/javascript-simon
     http://codepen.io/BenLBlood/pen/LGLEoJ
     https://www.w3.org/wiki/JavaScript_best_practices
-
     Author: Aaiz N Ahmed
     Date: 03-23-2017
 */
@@ -209,39 +207,8 @@ function add_sound()
    lightUp(random);
 }
 
-var interval_ID;
-
-function confirm_seq()
-{
-   var total = 0; 
-   for (var i = 0; i < simon.get_sequence().length; i++) 
-   {
-      if ( player_seq[i] === simon.get_sequence()[i] )
-      {
-         total++;
-      }
-      else
-      {
-         return false;
-      }
-   }
-
-   if ( total === simon.get_sequence.length - 1)
-   {
-      console.log("Total is: " + total);
-      return true;
-   }
-
-   if ( total === 19)
-   {
-      victory_msg();
-   }
-}
-
 function play_game()
 {
-   clearTimeout(interval_ID);
-
    var id = parseInt( event.target.id );
    simon.get_sound(id).play();
    lightUp(id);
@@ -254,11 +221,19 @@ function play_game()
    console.log("ID is: " + id); 
    console.log('Current Sound number is: ' + simon.get_sequence()[simon.get_current_index()] );
 
-   interval_ID = setTimeout( function () 
+   // Check if the ID of the box equals the corresponding sound
+   // in the array. 
+   if (id === simon.get_sequence()[ simon.get_current_index() ])
    {
-      var result = confirm_seq();
+      simon.increment_index();
 
-      if ( result === true )
+      // Player has correctly entered the sequence, so add a 
+      // new sound. Player has won if current_index is 20
+      if (simon.get_current_index() === 20)
+      {
+         victory_msg();
+      }
+      else if (simon.get_current_index() >= 1 && simon.get_current_index() === simon.get_sequence().length)
       {
          $('.box').removeClass('clickable').addClass('unclickable');
 
@@ -280,38 +255,40 @@ function play_game()
             $('.box').removeClass('unclickable').addClass('clickable');
 
          }, (simon.get_sequence().length + 2)*800);
+
+         // Reset the counter to check the sequence again.
+         simon.reset_index();
       }
-      else 
+   }
+   else 
+   {
+      $('.score').text('!!');
+      error_sound.play();
+
+      setTimeout( function()
       {
-         $('.score').text('!!');
-         error_sound.play();
-
-         setTimeout( function()
+         if (strict_mode)
          {
-            if (strict_mode)
+            simon.clear_all();
+            add_sound();
+         }
+         else
+         {
+            $('.box').removeClass('clickable').addClass('unclickable');
+            animate( simon.get_sequence() );
+
+            time_intervals = setTimeout(function() 
             {
-               simon.clear_all();
-               add_sound();
-            }
-            else
-            {
-               $('.box').removeClass('clickable').addClass('unclickable');
-               animate( simon.get_sequence() );
+               $('.box').removeClass('unclickable').addClass('clickable');
 
-               time_intervals = setTimeout(function() 
-               {
-                  $('.box').removeClass('unclickable').addClass('clickable');
+            }, (simon.get_sequence().length + 2)*800);
 
-               }, (simon.get_sequence().length + 2)*800);
+            $('.score').text( ('0' + simon.get_score()).slice(-2) );
+            simon.reset_index();
+         }
 
-               $('.score').text( ('0' + simon.get_score()).slice(-2) );
-            }
-
-         }, 2200);
-      }
-
-   }, 3000);
-   
+      }, 2200);
+   }
  }
 
  function victory_msg()
