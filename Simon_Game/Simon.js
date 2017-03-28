@@ -45,7 +45,7 @@ $('#start').on('click', function()
 {
    if (game_on)
    {
-      start_game();	
+      start_game();  
    }
 });
 
@@ -57,13 +57,13 @@ $('#strict').on('click', function()
 
    if (!is_on && game_on)
    {
-   	strict_mode = true;
-   	$('#mode').addClass('led-on');
+      strict_mode = true;
+      $('#mode').addClass('led-on');
    }
    else
    {
-   	strict_mode = false;
-   	$('#mode').removeClass('led-on');
+      strict_mode = false;
+      $('#mode').removeClass('led-on');
    }
 });
 
@@ -92,18 +92,18 @@ var Simon = function()
    };
 
    this.get_current_index = function()
-   {	return   current_index;   };
+   {  return   current_index;   };
 
    this.increment_index = function()
-   {	current_index++;	};
+   {  current_index++;  };
 
    this.reset_index = function()
    {
-   	current_index = 0;
+      current_index = 0;
    };
 
    this.get_score = function()
-   {	return   score;   };
+   {  return   score;   };
 
    this.increment_score = function()
    {  score++;   };
@@ -119,7 +119,7 @@ var Simon = function()
    };
 
    this.get_timer = function()
-   {	return   animation_timeout;   };
+   {  return   animation_timeout;   };
 
    this.get_sequence = function()
    {
@@ -137,20 +137,20 @@ var Simon = function()
 
    this.add_sound = function(number)
    {
-   		this.get_sound(number).play();
-   		sounds.push(number);
+         this.get_sound(number).play();
+         sounds.push(number);
    };
 
    this.clear_all = function()
    {
-	   this.reset_score();
-	   $('.score').text( ('0' + score).slice(-2) );
-	   
-	   reset_sequence();
-	   this.reset_index();
+      this.reset_score();
+      $('.score').text( ('0' + score).slice(-2) );
+      
+      reset_sequence();
+      this.reset_index();
 
-	   clearTimeout( this.get_timer() );
-	};
+      clearTimeout( this.get_timer() );
+   };
 };
 
 var simon = new Simon();
@@ -209,8 +209,39 @@ function add_sound()
    lightUp(random);
 }
 
+var interval_ID;
+
+function confirm_seq()
+{
+   var total = 0; 
+   for (var i = 0; i < simon.get_sequence().length; i++) 
+   {
+      if ( player_seq[i] === simon.get_sequence()[i] )
+      {
+         total++;
+      }
+      else
+      {
+         return false;
+      }
+   }
+
+   if ( total === simon.get_sequence.length - 1)
+   {
+      console.log("Total is: " + total);
+      return true;
+   }
+
+   if ( total === 19)
+   {
+      victory_msg();
+   }
+}
+
 function play_game()
 {
+   clearTimeout(interval_ID);
+
    var id = parseInt( event.target.id );
    simon.get_sound(id).play();
    lightUp(id);
@@ -223,21 +254,11 @@ function play_game()
    console.log("ID is: " + id); 
    console.log('Current Sound number is: ' + simon.get_sequence()[simon.get_current_index()] );
 
-  
-
-   // Check if the ID of the box equals the corresponding sound
-   // in the array. 
-   if (id === simon.get_sequence()[ simon.get_current_index() ])
+   interval_ID = setTimeout( function () 
    {
-      simon.increment_index();
+      var result = confirm_seq();
 
-      // Player has correctly entered the sequence, so add a 
-      // new sound. Player has won if current_index is 20
-      if (simon.get_current_index() === 20)
-      {
-      	victory_msg();
-      }
-      else if (simon.get_current_index() >= 1 && simon.get_current_index() === simon.get_sequence().length)
+      if ( result === true )
       {
          $('.box').removeClass('clickable').addClass('unclickable');
 
@@ -259,40 +280,38 @@ function play_game()
             $('.box').removeClass('unclickable').addClass('clickable');
 
          }, (simon.get_sequence().length + 2)*800);
-
-         // Reset the counter to check the sequence again.
-         simon.reset_index();
       }
-   }
-   else 
-   {
-      $('.score').text('!!');
-      error_sound.play();
-
-      setTimeout( function()
+      else 
       {
-         if (strict_mode)
-         {
-            simon.clear_all();
-            add_sound();
-         }
-         else
-         {
-            $('.box').removeClass('clickable').addClass('unclickable');
-            animate( simon.get_sequence() );
+         $('.score').text('!!');
+         error_sound.play();
 
-            time_intervals = setTimeout(function() 
+         setTimeout( function()
+         {
+            if (strict_mode)
             {
-               $('.box').removeClass('unclickable').addClass('clickable');
+               simon.clear_all();
+               add_sound();
+            }
+            else
+            {
+               $('.box').removeClass('clickable').addClass('unclickable');
+               animate( simon.get_sequence() );
 
-            }, (simon.get_sequence().length + 2)*800);
+               time_intervals = setTimeout(function() 
+               {
+                  $('.box').removeClass('unclickable').addClass('clickable');
 
-            $('.score').text( ('0' + simon.get_score()).slice(-2) );
-            simon.reset_index();
-         }
+               }, (simon.get_sequence().length + 2)*800);
 
-      }, 2200);
-   }
+               $('.score').text( ('0' + simon.get_score()).slice(-2) );
+            }
+
+         }, 2200);
+      }
+
+   }, 3000);
+   
  }
 
  function victory_msg()
