@@ -2,10 +2,12 @@
     Simon: This file implements an Simon sound game in which 
            the player needs to repeat the sounds in the order
            they are played in.
+
     http://markdalgleish.com/2011/03/self-executing-anonymous-functions/
     https://github.com/kellyk/javascript-simon
     http://codepen.io/BenLBlood/pen/LGLEoJ
     https://www.w3.org/wiki/JavaScript_best_practices
+    
     Author: Aaiz N Ahmed
     Date: 03-23-2017
 */
@@ -18,8 +20,6 @@ var victory_sound = new Audio('https://raw.githubusercontent.com/AaizAhmed/Image
 var game_on = false;
 var game_started = false;
 var strict_mode = false;
-
-var player_seq = [];
 
 // Initial actions during setting up the page.
 $('.score').css('color', '#430710');
@@ -248,7 +248,7 @@ function play_game()
          }, 1000);
 
          // Wait for animation to finish then add a new sound
-         // Wait for (Total sounds + 1) * Time for a sound i.e. 800 ms
+         // Wait for (Total sounds + 2) * Time for a sound i.e. 800 ms
          time_interval = setTimeout(function() 
          {
             add_sound();
@@ -284,6 +284,7 @@ function play_game()
             }, (simon.get_sequence().length + 2)*800);
 
             $('.score').text( ('0' + simon.get_score()).slice(-2) );
+            
             simon.reset_index();
          }
 
@@ -321,13 +322,6 @@ function stop_game()
    $('#mode').css('background-color', '#32050C');
 
    $('.box').removeClass('clickable').addClass('unclickable');
-}
-
-// Delay in milliseconds
-function sleep(delay) 
-{
-   var start = new Date().getTime();
-   while (new Date().getTime() < start + delay);
 }
 
 })();
