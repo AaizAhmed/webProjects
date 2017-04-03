@@ -67,6 +67,14 @@ body
 	text-align: center;
 }
 
+#restart
+{
+	text-align: center;
+  	margin: auto;
+  	margin-top: 3%;
+  	display: none;
+}
+
 .hide
 {
 	display: none;

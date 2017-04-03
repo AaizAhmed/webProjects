@@ -1,3 +1,10 @@
+/*
+	File Name: Tic_Tac_Toa: This file implements an AI to play a game tic tac toe
+	           It uses min max algorithm to accomplist the task.
+
+	Author: Aaiz N Ahmed
+	Date: 03-23-2017
+*/
 
 var Tic_Tac_Toe_Board = function()
 {
@@ -290,14 +297,16 @@ var playerSign = '';
 var computerSign = '';
 var moves = 0;
 var playerTurn = false;
-var game_over = false;
+var playerScore = 0;
+var computeScore = 0;
+
 
 var board_obj = new Tic_Tac_Toe_Board();
 var board = board_obj.getBoard();
 
 var ai = new AI();
 
-// Driver code
+// Driver code for testing
 function main()
 {
     var ai = new AI();
@@ -346,79 +355,15 @@ function main()
 
 // main();
 
-
-function play_game()
-{
-	id = event.target.id;
-
-	var row = parseInt( id[0] );
-    var col = parseInt( id[1] );  
-
-	if (moves < 9 && !game_over)
-	{
-		if (playerTurn)
-		{
-            if ( !isNaN(row) && !isNaN(col) )
-            {
-				var move_made = board_obj.makeMove(row, col, playerSign);	
-
-				if (move_made)
-				{
-					$('#'+id).text(playerSign);
-		        	// board_obj.printBoard();
-
-		        	playerTurn = false;
-		            moves++;
-		            $("#turn").text("Computer's Turn");
-				}
-
-            	if ( board_obj.checkWin( board_obj.getBoard() ) )
-            	{
-            		$("#turn").text("You Won!!");
-            		game_over = true;
-            	}
-            }
-		}
-
-		if ( !playerTurn && !game_over )
-		{
-			var row_col = ai.findBestMove( board_obj.getBoard() );
-			var id = '#' + row_col.row + row_col.col;
-
-			if (row_col.row >=0 && row_col.col >=0 )
-			{	
-				board_obj.makeMove(row_col.row, row_col.col, computerSign);
-				$(id).text(computerSign);
-				// board_obj.printBoard();
-
-				if ( board_obj.checkWin( board_obj.getBoard() ) )
-	        	{
-	        		$("#turn").text("Computer Won!");
-	        		game_over = true;
-	        	}
-	        	else
-	        	{
-					playerTurn = true;
-					moves++;
-					$("#turn").text("Your Turn!"); 
-				}
-			}
-		}
-	}
-
-	if ( !game_over && board_obj.isDraw( board_obj.getBoard() ) )
-	{
-		$("#turn").text("It was a Draw");
-	}
-
-	// ------------------------------------------------------------
-	// Add buttons for restart
-}
-
 function addBoard(sign)
 {
    $("#ask").css('display', 'none');
    $("#board").css('display', 'block');
+   $("#restart").css('display', 'block');
+
+    moves = 0;
+	game_won = false;
+	game_draw = false;
 
    if (sign === 'X')
    {
@@ -445,14 +390,125 @@ function addBoard(sign)
       play_game();
    }
 
-   $("#player").text("Player: " + playerSign + " | ");
-   $("#computer").text("Computer: " + computerSign);
+   $("#player").text("Player: " + playerSign + " = " + playerScore + " | ");
+   $("#computer").text("Computer: " + computerSign + " = " + computeScore);
 
    // Add the event trigger
    $('td').on( 'click', play_game );
 }
 
+function play_game()
+{
+	id = event.target.id;
+
+	var row = parseInt( id[0] );
+    var col = parseInt( id[1] );  
+
+	if (moves < 9 && !game_won)
+	{
+		if (playerTurn)
+		{
+            if ( !isNaN(row) && !isNaN(col) )
+            {
+				var move_made = board_obj.makeMove(row, col, playerSign);	
+
+				if (move_made)
+				{
+					$('#'+id).text(playerSign);
+		        	// board_obj.printBoard();
+
+		        	playerTurn = false;
+		            moves++;
+		            $("#turn").text("Computer's Turn");
+				}
+
+            	if ( board_obj.checkWin( board_obj.getBoard() ) )
+            	{
+            		$("#turn").text("You Won!!");
+            		game_won = true;
+
+            		playerScore++;
+            		$("#player").text("Player: " + playerSign + " = " + playerScore + " | ");
+            	}
+            }
+		}
+
+		if ( !playerTurn && !game_won )
+		{
+			var row_col = ai.findBestMove( board_obj.getBoard() );
+			var id = '#' + row_col.row + row_col.col;
+
+			if (row_col.row >=0 && row_col.col >=0 )
+			{	
+				board_obj.makeMove(row_col.row, row_col.col, computerSign);
+				$(id).text(computerSign);
+				// board_obj.printBoard();
+
+				if ( board_obj.checkWin( board_obj.getBoard() ) )
+	        	{
+	        		$("#turn").text("Computer Won!");
+	        		game_won = true;
+
+	        		computeScore++;
+   					$("#computer").text("Computer: " + computerSign + " = " + computeScore);
+	        	}
+	        	else
+	        	{
+					playerTurn = true;
+					moves++;
+					$("#turn").text("Your Turn!"); 
+				}
+			}
+		}
+	}
+
+	if ( !game_won && board_obj.isDraw( board_obj.getBoard() ) )
+	{
+		game_draw = true;
+		$("#turn").text("It was a Draw");
+	}
+}
+
+
 function restart()
 {
+	board_obj = new Tic_Tac_Toe_Board();
+    board = board_obj.getBoard();
 	
+    for (var row = 0; row < 3; row++) 
+	{
+		for (var col = 0; col < 3; col++)
+		{
+			var id = '#' + row + col;
+			$(id).text('');
+		}
+	}
+
+	addBoard(playerSign);
+}
+
+function restartAll()
+{
+   $("#restart").css('display', 'none');
+   $("#turn").text("");
+   $("#player").text("");
+   $("#computer").text("");
+
+   playerScore = 0;
+   computeScore = 0;
+
+   $("#ask").css('display', 'block');
+   $("#board").css('display', 'none');
+
+    board_obj = new Tic_Tac_Toe_Board();
+    board = board_obj.getBoard();
+	
+    for (var row = 0; row < 3; row++) 
+	{
+		for (var col = 0; col < 3; col++)
+		{
+			var id = '#' + row + col;
+			$(id).text('');
+		}
+	}
 }
