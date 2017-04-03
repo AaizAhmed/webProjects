@@ -890,7 +890,21 @@ function smallestCommons(arr)
 
 console.log( smallestCommons([1,13]) );
 */
+
 /*
+function nextPrime(num)
+{
+   for (var index = num; true; index++)
+   {
+      if ( isPrime(index) )
+      {
+         return index;
+      }
+   }
+}
+
+console.log( nextPrime(194) );
+
 function isPrime(num)
 {
   if (num < 2) return false;
@@ -919,7 +933,9 @@ function sumPrimes(num) {
 }
 
 console.log( sumPrimes(977) );
+
 */
+
 /*
 function sumFibs(num) {
   
@@ -1177,6 +1193,7 @@ whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: 
                { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }) ;
 */
 
+/*
 function convertToRoman(num) {
 
  if ( num <= 0) { return 'Wrong Input'; }
@@ -1219,6 +1236,8 @@ function convertToDecimal(str) {
 
   return result.length;
 }
+
+*/
 
 console.log ( convertToRoman(3999) );
 console.log ( convertToDecimal('MMMCMXCIX') );
