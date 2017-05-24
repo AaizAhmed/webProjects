@@ -115,6 +115,9 @@ function startSession()
 		
 		$('#timeLeft').text( str );
 
+		console.log( str );
+
+
 		if (time[0] <= 0)
 		{
 			clearInterval(timeLeft);
@@ -156,6 +159,8 @@ function startBreak()
 	    var str = ('0' + time[3]).slice(-2) + ':' + ('0' + time[4]).slice(-2); 
 		$('#timeLeft').text( str );
 
+		console.log( str );
+
 		if (time[0] <= 0)
 		{
 			clearInterval(timeLeft);
@@ -178,12 +183,12 @@ function start()
 
 	if ( onBreak === false)
 	{
-		//console.log( "Working!" );
+		console.log( "Working!" );
 		startSession();
 	}
 	else
 	{
-		//console.log( "Chilling!" );
+		console.log( "Chilling!" );
 		startBreak();
 	}	
 }
@@ -198,7 +203,7 @@ function stop()
 
 $(document).ready( function()
 {
-	$('#timeLeft').text('25:00');
+	$('#timeLeft').text('01:00');
 	$('#stop').addClass('hide');
 
 });

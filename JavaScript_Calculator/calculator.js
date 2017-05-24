@@ -1,4 +1,3 @@
-
 var stack = new Array();
 var equalsUsed = false;
 
@@ -214,6 +213,6 @@ function doCalculation()
 
 $(document).ready( function()
 {
-	$('#displayPrevious').text('0');
-	$('#displayCurrent').text('0');
+	// $('#displayPrevious').text('0');
+	// $('#displayCurrent').text('0');
 });

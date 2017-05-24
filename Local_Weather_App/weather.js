@@ -103,6 +103,7 @@ function getWeather(data)
 
 function setBackground(pick)
 {   
+	// pick = 'Extreme';
     switch (pick)
     {
     	case 'Clouds': 
