@@ -51,6 +51,13 @@
 
 */
 
+function force() 
+{
+   var mass = Number( $('input[name=mass_force]').val() );
+   var acc = Number( $('input[name=acc_force]').val() );
+
+   $('#force_result').text(mass * acc);
+}
 
 // How to parse scientific enteries 4 * 10^3
 // Make an interface where users can add numbers in scientific notation

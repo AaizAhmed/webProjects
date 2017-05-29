@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title> Calculate Physics Formuli </title>
+	<link rel="stylesheet" type="text/css" href="CSS_and_JS/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script
+  		src="https://code.jquery.com/jquery-3.1.1.js"
+  		integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  		crossorigin="anonymous">
+  	</script>
+    <script type="text/javascript" src="CSS_and_JS/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="Physics.js"> </script>
+
+</head>
+
+<body>
+	
+<div class="container-fluid">
+
+	<div id="name">
+		Physics Formuli
+	</div>
+
+	<div id="formuli">
+
+		<div id="force">
+			
+			<div id="title"> Calculate Force: </div> 
+			
+			<div id="values">
+
+				Enter Mass: <input type="text" name="mass_force"> <br>
+				Enter Acceleration: <input type="text" name="acc_force">
+			
+			</div>
+
+
+			<button type="submit" onclick="force()" style="font-size: 20px;"> Calculate </button>
+
+			<span id="force_result" style="font-family: 'Time New Roman'; font-size: 20px; margin-left: 2%;"> </span>
+
+		</div>
+		
+	</div>
+
+</div>
+
+</body>
+</html>
