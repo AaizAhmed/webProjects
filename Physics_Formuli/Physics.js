@@ -1,18 +1,5 @@
 /*
-   public static double kineticEnergy (double mass, double velocity) {
-      
-      double kinetic = mass * velocity * velocity;
-      kinetic = kinetic/2;
-      
-      return kinetic;      
-   }
-   
-   public static double potentialEnergy (double mass, double height) {
-      
-      double potential = mass * g * height;
-            
-      return potential;    
-   }
+   Name: Aaiz N Ahmed
 */
 
 var currentFormula;
@@ -37,6 +24,12 @@ function format_num(num, pow)
   num = parseFloat( Math.round(num +'e'+pow) + 'e'+'-'+pow );
 
   return num + ' E ' + format[1];    
+}
+
+function roundTwo(x)    
+{     
+  // Number() can also be used in place of parseFloat()
+  return parseFloat(Math.round(x +'e2')+'e-2');     
 }
 
 function force() 
@@ -67,7 +60,7 @@ function temp_celsius()
    var temp_cel = 5 * (temp_fah - 32);
    temp_cel = temp_cel/9;
       
-   $('#temp_cel_result').text( temp_cel );
+   $('#temp_cel_result').text( roundTwo(temp_cel) );
 }
 
 function temp_fahrenheit() 
@@ -77,9 +70,29 @@ function temp_fahrenheit()
    var temp_fah = (9 * temp_cel) / 5;
    temp_fah = temp_fah + 32;
       
-   $('#temp_fah_result').text( temp_fah );
+   $('#temp_fah_result').text( roundTwo(temp_fah) );
 }
 
+function kinetic_energy() 
+{
+   var mass = Number( $('input[name=ke_mass]').val() );
+   var velocity = Number( $('input[name=ke_velocity]').val() );
+   
+   var kinetic_e = mass * velocity * velocity;
+   kinetic_e = kinetic_e/2;
+
+   $('#ke_result').text(kinetic_e);
+}
+
+function potential_energy()
+{
+   var mass = Number( $('input[name=pe_mass]').val() );
+   var height = Number( $('input[name=pe_height]').val() );
+   
+   var potential_e = mass * g * height;
+
+   $('#pe_result').text(potential_e);
+}
 
 // How to parse scientific enteries 4 * 10^3
 // Make an interface where users can add numbers in scientific notation
