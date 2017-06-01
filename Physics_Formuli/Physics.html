@@ -24,27 +24,89 @@
 		Physics Formuli
 	</div>
 
-	<div id="formuli">
+	<div id="list">
 
-		<div id="force">
-			
-			<div id="title"> Calculate Force: </div> 
-			
-			<div id="values">
+		<form>
 
-				Enter Mass: <input type="text" name="mass_force"> <br>
-				Enter Acceleration: <input type="text" name="acc_force">
-			
-			</div>
+		  <input type="radio" name="formula" value="force" onclick="display()"> Force <br>
+		  <input type="radio" name="formula" value="force_attraction" onclick="display()"> Force Attraction <br>
+			  
+		  <input type="radio" name="formula" value="temp_celsius" onclick="display()"> Temperature to Celsius <br>  
+		  <input type="radio" name="formula" value="temp_fahrenheit" onclick="display()"> Temperature to Fahrenheit <br>  
 
+		  <input type="radio" name="formula" value="kinetic_energy" onclick="display()"> Kinetic Energy <br>  
+		  <input type="radio" name="formula" value="potential_energy" onclick="display()"> Potential Energy <br>  	
 
-			<button type="submit" onclick="force()" style="font-size: 20px;"> Calculate </button>
+		</form>
 
-			<span id="force_result" style="font-family: 'Time New Roman'; font-size: 20px; margin-left: 2%;"> </span>
-
-		</div>
-		
 	</div>
+
+
+<!-- ADD DETAILS ABOUT THE FORMULAS HERE -->
+
+	<div class="hide center" id="force">
+			
+		<p class="title"> Calculate Force: </p>
+
+		<table>
+
+			<tr>
+				<th width="50%"> </th>
+				<th width="50%"> </th>
+			</tr>
+			
+			<tr>
+				<td> Enter Mass: </td>
+				<td> <input type="text" name="mass_force"> </td>
+			</tr>
+
+			<tr>
+				<td> Enter Acceleration: </td>
+				<td> <input type="text" name="acc_force"> </td>
+			</tr>
+
+		</table>
+
+		<button type="submit" onclick="force()" style="font-size: 20px;"> Calculate </button>
+
+		<span class="result" id="force_result"> </span>
+
+	</div>
+
+	<div class="hide center" id="force_attraction">
+			
+		<p class="title"> Calculate Force of Attraction: </p>
+
+		<table>
+
+			<tr>
+				<th width="50%"> </th>
+				<th width="50%"> </th>
+			</tr>
+			
+			<tr>
+				<td> Enter Mass One: </td>
+				<td> <input type="text" name="mass_one"> </td>
+			</tr>
+
+			<tr>
+				<td> Enter Mass Two: </td>
+				<td> <input type="text" name="mass_two"> </td>
+			</tr>
+
+			<tr>
+				<td> Enter Radius: </td>
+				<td> <input type="text" name="radius"> </td>
+			</tr>
+
+		</table>
+
+		<button type="submit" onclick="force_attraction()" style="font-size: 20px;"> Calculate </button>
+
+		<span class="result" id="force_attr_result"> </span>
+
+	</div>
+		
 
 </div>
 
