@@ -152,6 +152,7 @@ var Simon = function()
 };
 
 var simon = new Simon();
+var player_seq = [];
 
 // Internal functions to play the game
 function start_game() 

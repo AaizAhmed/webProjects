@@ -14,22 +14,21 @@ function display()
    $('#'+currentFormula).removeClass('hide');
 }
 
+function round_num(num, pow)    
+{     
+  // Number() can also be used in place of parseFloat()
+  return parseFloat(Math.round(num +'e'+pow) + 'e'+'-'+pow);     
+}
+
 function format_num(num, pow)    
 {   
    var format = '' + num.toExponential();
    format = format.split('e');  
+   
    num = format[0]
-
-  // Number() can also be used in place of parseFloat()
-  num = parseFloat( Math.round(num +'e'+pow) + 'e'+'-'+pow );
+   num = round_num(num, pow);
 
   return num + ' E ' + format[1];    
-}
-
-function roundTwo(x)    
-{     
-  // Number() can also be used in place of parseFloat()
-  return parseFloat(Math.round(x +'e2')+'e-2');     
 }
 
 function force() 
@@ -60,7 +59,7 @@ function temp_celsius()
    var temp_cel = 5 * (temp_fah - 32);
    temp_cel = temp_cel/9;
       
-   $('#temp_cel_result').text( roundTwo(temp_cel) );
+   $('#temp_cel_result').text( round_num(temp_cel, 1) );
 }
 
 function temp_fahrenheit() 
@@ -70,7 +69,7 @@ function temp_fahrenheit()
    var temp_fah = (9 * temp_cel) / 5;
    temp_fah = temp_fah + 32;
       
-   $('#temp_fah_result').text( roundTwo(temp_fah) );
+   $('#temp_fah_result').text( round_num(temp_fah, 1) );
 }
 
 function kinetic_energy() 

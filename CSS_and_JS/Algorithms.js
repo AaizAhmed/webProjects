@@ -33,10 +33,8 @@ function primeFactors (num)
    var factors = [];
 
    for (var index = 2; index < num; index++)
-   {
-      if ( isPrime(index) )
-      {
-         if (num % index === 0)
+   {  if ( isPrime(index) )
+      {  if (num % index === 0)
          {
             factors.push(index);
          }
@@ -53,13 +51,10 @@ function nthFib(num)
    var next = 0;
 
    if (num === 1)
-   {
-      return first;
+   {  return first;
    }
-
    if (num === 2)
-   {
-      return second;
+   {  return second;
    }
 
    for (var count = 3; count <= num; count++)

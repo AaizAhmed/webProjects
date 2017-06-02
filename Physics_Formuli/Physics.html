@@ -3,15 +3,11 @@
 <head>
 
 	<title> Calculate Physics Formuli </title>
+
 	<link rel="stylesheet" type="text/css" href="CSS_and_JS/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<script
-  		src="https://code.jquery.com/jquery-3.1.1.js"
-  		integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-  		crossorigin="anonymous">
-  	</script>
-    <script type="text/javascript" src="CSS_and_JS/jquery-3.1.1.js"></script>
+   <script type="text/javascript" src="CSS_and_JS/jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="Physics.js"> </script>
 
 </head>
@@ -20,22 +16,23 @@
 	
 <div class="container-fluid">
 
-	<div id="name">
-		Physics Formuli
-	</div>
+	<div id="name">	Physics Formuli	</div>
 
 	<div id="list">
 
 		<form>
 
-		  <input type="radio" name="formula" value="force" onclick="display()"> Force <br>
-		  <input type="radio" name="formula" value="force_attraction" onclick="display()"> Force Attraction <br>
-			  
-		  <input type="radio" name="formula" value="temp_celsius" onclick="display()"> Temperature to Celsius <br>  
-		  <input type="radio" name="formula" value="temp_fahrenheit" onclick="display()"> Temperature to Fahrenheit <br>  
-
-		  <input type="radio" name="formula" value="kinetic_energy" onclick="display()"> Kinetic Energy <br>  
-		  <input type="radio" name="formula" value="potential_energy" onclick="display()"> Potential Energy <br>  	
+		  <span class="inline"> <input type="radio" name="formula" value="force" onclick="display()"> Force </span>
+		  
+		  <span class="inline"> <input type="radio" name="formula" value="force_attraction" onclick="display()"> Gravitational Force Attraction </span>
+		  
+		  <span class="inline"> <input type="radio" name="formula" value="temp_celsius" onclick="display()"> Temperature to Celsius </span>
+		  
+		  <span class="inline"> <input type="radio" name="formula" value="temp_fahrenheit" onclick="display()"> Temperature to Fahrenheit </span>
+		 
+		  <span class="inline"> <input type="radio" name="formula" value="kinetic_energy" onclick="display()"> Kinetic Energy </span>
+		  
+		  <span class="inline"> <input type="radio" name="formula" value="potential_energy" onclick="display()"> Potential Energy </span> 	
 
 		</form>
 
@@ -75,7 +72,7 @@
 
 	<div class="hide center" id="force_attraction">
 			
-		<p class="title"> Calculate Force of Attraction: </p>
+		<p class="title"> Calculate Gravitational Force of Attraction: </p>
 
 		<table>
 
