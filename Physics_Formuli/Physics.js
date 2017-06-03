@@ -37,6 +37,7 @@ function force()
    var acc = Number( $('input[name=acc_force]').val() );
    
    $('#force_result').text(mass * acc);
+   $('#sn_force_result').text( format_num(mass*acc, 4) );
 }
 
 function force_attraction() 

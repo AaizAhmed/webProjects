@@ -65,8 +65,14 @@ input[type="radio"]
 
 .result
 {
+	margin: auto;
+	margin-top: 2%;
 	font-family: 'Time New Roman'; 
 	font-size: 20px; 
+}
+
+.space
+{ 
 	margin-left: 2%;
 }
 
