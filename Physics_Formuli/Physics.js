@@ -50,7 +50,7 @@ function force_attraction()
    force_attr = force_attr / (radius * radius);
 
    force_attr = format_num(force_attr, 4);
-   $('#force_attr_result').text( force_attr );
+   $('#sn_force_attr_result').text( force_attr );
 }
 
 function temp_celsius() 
@@ -82,6 +82,9 @@ function kinetic_energy()
    kinetic_e = kinetic_e/2;
 
    $('#ke_result').text(kinetic_e);
+
+   kinetic_e = format_num(kinetic_e, 4);
+   $('#sn_ke_result').text(kinetic_e);
 }
 
 function potential_energy()
@@ -92,6 +95,9 @@ function potential_energy()
    var potential_e = mass * g * height;
 
    $('#pe_result').text(potential_e);
+
+   potential_e = format_num(potential_e, 4);
+   $('#sn_pe_result').text(potential_e);
 }
 
 // How to parse scientific enteries 4 * 10^3
